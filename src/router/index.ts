@@ -6,22 +6,22 @@ const routes = [
     path: '/',
     redirect: '/home',
     name: 'commonLayout',
-    component: import('../components/Layout/common/index.vue'),
+    component: () => import('@/components/Layout/common/index.vue'),
     children: [
       {
         name: 'home',
         path: '/home',
         meta: {
-          title: 'home',
+          title: 'Boardlist',
         },
-        component: import('../views/Boardlist/index.vue'),
+        component: () => import('@/views/Boardlist/index.vue'),
       },
     ],
   },
   {
     path: '/login',
     component: Login,
-    meta: { title: '用户登录' },
+    meta: { title: 'Login' },
   },
 ]
 

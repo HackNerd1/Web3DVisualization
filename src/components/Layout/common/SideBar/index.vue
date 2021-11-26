@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-  import CollapseButton from 'src/components/common/collapseButton/index.vue';
   interface IProps {
-    avater: string;
+    avater: string
   }
 </script>
 
 <template>
   <div class="data-visiualize-side-bar">
     sidebar
-    <CollapseButton icon="icon-indent"></CollapseButton>
+    <collapse-button icon="icon-indent" />
   </div>
 </template>
 

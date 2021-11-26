@@ -1,7 +1,5 @@
 <script lang="ts" setup>
   import { useRouter } from 'vue-router'
-  import Input from '../../components/common/my-input/index.vue'
-  import Button from '../../components/common/my-button/index.vue'
 
   interface IForm {
     username: string
@@ -18,9 +16,9 @@
   const handleInputPassword = (value: string) => (form.password = value)
 
   const handleLogin = () => {
-    router.push('/')
-
-    // console.log(form)
+    setTimeout(() => {
+      router.push('/')
+    }, 1000)
   }
 </script>
 
@@ -29,25 +27,26 @@
     <div>
       <form>
         <h1>Login</h1>
-        <Input
-          :required="true"
+        <my-input
           width="100px"
           label="Username"
+          :required="true"
           :value="form.username"
           icon="iconfont icon-user"
           @input="handleInputUsername"
           palceholder="Please Input Your Username"
         />
 
-        <Input
+        <my-input
           type="password"
           label="Password"
+          :required="true"
           :value="form.password"
           @input="handleInputPassword"
           icon="iconfont icon-password-fill"
           palceholder="Please Input Your Password"
         />
-        <Button type="default" @click="handleLogin" color="#9f68e0">Login</Button>
+        <my-button type="default" @click="handleLogin" color="#9f68e0">Login</my-button>
       </form>
     </div>
   </div>

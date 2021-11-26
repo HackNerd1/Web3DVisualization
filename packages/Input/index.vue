@@ -14,7 +14,7 @@
   }
 
   let input: string
-  let isValid: boolean = false
+  let isValid = false
   const emit = defineEmits(['input'])
   const handleInput = (e: any) => {
     emit('input', e.target.value)
@@ -24,6 +24,7 @@
   }
 
   defineProps<IProps>()
+  defineExpose({ handleValid })
 </script>
 
 <template>
