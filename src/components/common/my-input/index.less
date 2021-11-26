@@ -1,0 +1,67 @@
+.data-visualize-input {
+  text-align: left;
+  font-weight: 600;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  label {
+    display: block;
+    font-size: 1rem;
+    color: #4b5c6b;
+    letter-spacing: 0.1rem;
+
+    &.required {
+      &::before {
+        content: '*';
+        color: #f56c9b;
+        position: absolute;
+        transform: translateX(-1rem);
+      }
+    }
+  }
+
+  > div {
+    margin-top: 0.1rem;
+    position: relative;
+  }
+
+  .input-icon {
+    height: 100%;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    transform: translate(10px, 0px);
+
+    i {
+      color: #788896;
+      font-size: 1.3rem;
+    }
+  }
+
+  .data-visualize-error-msg {
+    color: #f56c9b;
+    font-size: 0.8rem;
+  }
+
+  input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    transition: border ease-in 0.3s;
+    border: 0.15rem solid #cad2d9;
+
+    &.input-prefix {
+      padding: 0.8rem 1rem 0.8rem 2.2rem;
+    }
+
+    &:focus-visible {
+      outline: none;
+      border: 0.15rem solid #6558f5;
+    }
+
+    &.error {
+      border: 0.15rem solid #f56c9b;
+    }
+  }
+}

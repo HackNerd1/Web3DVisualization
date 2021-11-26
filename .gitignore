@@ -1,0 +1,15 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+
+# vscode dir
+
+coverage
+.vscode
+
+yarn.lock
+
+# log
+
