@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import { useRouter } from 'vue-router'
+  import { IColumns } from 'packages/Form/index.d'
 
   interface IForm {
     username: string
@@ -20,6 +21,14 @@
       router.push('/')
     }, 1000)
   }
+
+  const columns: IColumns[] = [
+    {
+      type: 'input',
+      label: 'password',
+      prop: 'password',
+    },
+  ]
 </script>
 
 <template>
@@ -27,6 +36,7 @@
     <div>
       <form>
         <h1>Login</h1>
+        <my-form :columns="columns" />
         <my-input
           width="100px"
           label="Username"
