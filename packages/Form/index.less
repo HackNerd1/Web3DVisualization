@@ -1,2 +1,39 @@
-.data-visualize-form {
+.dvis-form {
+  text-align: left;
+  font-weight: 600;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.dvis-form-item {
+  text-align: left;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  label {
+    display: block;
+    font-size: 1rem;
+    color: #4b5c6b;
+    letter-spacing: 0.1rem;
+    margin-bottom: 0.5rem;
+
+    &.required {
+      &::before {
+        content: '*';
+        color: #f56c9b;
+        position: absolute;
+        transform: translateX(-1rem);
+      }
+    }
+  }
+
+  &.error .dvis-input input {
+    border: 0.15rem solid #f56c9b;
+  }
+}
+
+.dvis-error-msg {
+  margin-top: 0.2rem;
+  color: #f56c9b;
+  font-size: 0.8rem;
 }

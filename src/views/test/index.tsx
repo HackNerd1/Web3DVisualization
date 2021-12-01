@@ -8,8 +8,6 @@ interface IProp {
 //   name
 // }
 
-console.log()
-
 const TestTsx = defineComponent({
   name: 'TestTsx',
   setup(props) {

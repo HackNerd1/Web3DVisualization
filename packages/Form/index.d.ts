@@ -10,13 +10,18 @@ export interface IRules {
   required?: boolean
 }
 
+// TODO 按组件区分interface
+
 export interface IColumns {
   label?: string
-  prop: string
-  type: string
+  prop?: string
+  type?: string
   span?: number
-  append?: string // 前缀
-  prepend?: string // 后缀
+  append?: string // 后缀
+  prepend?: string // 前缀
+  icon?: string // TODO 暂定为input组件的图标
+  placeholder?: string
+  showPassword?: boolean
 }
 
 export interface IOption {

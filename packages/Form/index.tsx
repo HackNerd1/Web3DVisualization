@@ -1,11 +1,11 @@
 import { IValue, IRules, IColumns, IOption } from './index.d'
-import { defineComponent, App, PropType, VNode } from 'vue'
+import { defineComponent, App, PropType, VNode, SetupContext, ref } from 'vue'
 import { Input } from '/packages/index.ts'
-import Wrapper from './wrapper'
+import Wrapper from './wrapper.vue'
 import './index.less'
 
 const IProps = {
-  value: {
+  modelValue: {
     type: Object as PropType<IValue>,
     required: true,
     description: '表单数据对象',
@@ -45,27 +45,11 @@ const wrapTags = (node: VNode, rest: IColumns & { required: boolean }) => {
   )
 }
 
-const renderColumns = (columns: IColumns) => {
-  const { type, label, span, prop, ...rest } = columns
-
-  switch (type) {
-    case 'input':
-      return (
-        <Wrapper required={true}>
-          <Input></Input>
-        </Wrapper>
-      )
-
-    default:
-      break
-  }
-}
-
 const Form = defineComponent({
   name: 'MyForm',
   props: IProps,
-  setup(props, ctx) {
-    const { value, columns } = props
+  setup(props, ctx: SetupContext) {
+    const { modelValue, columns } = props
     const { slots, emit } = ctx
 
     const onReset = () => {
@@ -74,6 +58,33 @@ const Form = defineComponent({
 
     const onSubmit = () => {
       emit('submit')
+    }
+
+    const form = ref(modelValue)
+
+    const renderColumns = (columns: IColumns) => {
+      const { type, label, span, prop, ...others } = columns
+
+      const handleChange = (content: string) => {
+        // TODO ctx未更新
+        console.log(form)
+
+        Object.assign(form, { [prop || '']: content })
+        emit('update:modelValue', form)
+      }
+
+      switch (type) {
+        case 'input':
+          const { showPassword, ...rest } = others
+          // onInput={handleChange}
+          return (
+            <Wrapper required={true} label={label}>
+              <Input type={showPassword ? 'password' : 'text'} onUpdate:modelValue={handleChange} {...rest} />
+            </Wrapper>
+          )
+        default:
+          break
+      }
     }
 
     return () => (

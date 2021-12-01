@@ -1,46 +1,39 @@
 <script lang="ts" setup>
-  interface IRule {}
+  import { ref } from 'vue'
 
   interface IProps {
-    rules?: IRule
-    value: string
+    modelValue?: string
     icon?: string
     label?: string
     required?: boolean
-    palceholder?: string
+    placeholder?: string
     width?: string | number
     height?: string | number
     type?: 'text' | 'textarea' | 'password'
+    isValid?: boolean
   }
 
-  let input: string
-  let isValid = false
-  const emit = defineEmits(['input'])
+  const emit = defineEmits(['update:modelValue'])
+  const props = withDefaults(defineProps<IProps>(), { isValid: true })
+  const input = ref(props.modelValue)
+
   const handleInput = (e: any) => {
-    emit('input', e.target.value)
+    const content = e.target.value
+    input.value = content
+    emit('update:modelValue', content)
   }
-  const handleValid = (rule: any, value: any) => {
-    isValid = false
-  }
-
-  defineProps<IProps>()
-  defineExpose({ handleValid })
 </script>
 
 <template>
-  <div class="data-visualize-input">
-    <label v-if="label" :class="{ required: required }">{{ label }}</label>
-    <div>
-      <div v-if="icon" class="input-icon"><i :class="icon"></i></div>
-      <input
-        :value="input"
-        @input="handleInput"
-        :type="type || 'text'"
-        :placeholder="palceholder"
-        :class="{ 'input-prefix': icon, error: !isValid }"
-      />
-    </div>
-    <div class="data-visualize-error-msg" v-show="!isValid">用户名输入错误</div>
+  <div class="dvis-input">
+    <div v-if="icon" class="input-icon"><i :class="icon"></i></div>
+    <input
+      :value="input"
+      @input="handleInput"
+      :type="type || 'text'"
+      :placeholder="placeholder"
+      :class="{ 'input-prefix': icon, error: !isValid }"
+    />
   </div>
 </template>
 

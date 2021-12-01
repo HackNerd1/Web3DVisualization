@@ -1,29 +1,5 @@
-.data-visualize-input {
-  text-align: left;
-  font-weight: 600;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
-  label {
-    display: block;
-    font-size: 1rem;
-    color: #4b5c6b;
-    letter-spacing: 0.1rem;
-    margin-bottom: 0.5rem;
-
-    &.required {
-      &::before {
-        content: '*';
-        color: #f56c9b;
-        position: absolute;
-        transform: translateX(-1rem);
-      }
-    }
-  }
-
-  > div {
-    margin-top: 0.1rem;
-    position: relative;
-  }
+.dvis-input {
+  position: relative;
 
   .input-icon {
     height: 100%;
@@ -36,11 +12,6 @@
       color: #788896;
       font-size: 1.3rem;
     }
-  }
-
-  .data-visualize-error-msg {
-    color: #f56c9b;
-    font-size: 0.8rem;
   }
 
   input {
@@ -61,8 +32,8 @@
       border: 0.15rem solid #6558f5;
     }
 
-    &.error {
-      border: 0.15rem solid #f56c9b;
-    }
+    // &.error {
+    //   border: 0.15rem solid #f56c9b;
+    // }
   }
 }

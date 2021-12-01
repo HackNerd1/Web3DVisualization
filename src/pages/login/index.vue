@@ -13,8 +13,8 @@
     password: '',
   }
 
-  const handleInputUsername = (value: string) => (form.username = value)
-  const handleInputPassword = (value: string) => (form.password = value)
+  // const handleInputUsername = (value: string) => (form.username = value)
+  // const handleInputPassword = (value: string) => (form.password = value)
 
   const handleLogin = () => {
     setTimeout(() => {
@@ -25,8 +25,18 @@
   const columns: IColumns[] = [
     {
       type: 'input',
-      label: 'password',
+      label: 'Username',
+      prop: 'username',
+      icon: 'iconfont icon-user',
+      placeholder: 'Please Input Your Username',
+    },
+    {
+      type: 'input',
+      label: 'Password',
       prop: 'password',
+      icon: 'iconfont icon-password-fill',
+      placeholder: 'Please Input Your Password',
+      showPassword: false,
     },
   ]
 </script>
@@ -36,26 +46,7 @@
     <div>
       <form>
         <h1>Login</h1>
-        <my-form :columns="columns" />
-        <my-input
-          width="100px"
-          label="Username"
-          :required="true"
-          :value="form.username"
-          icon="iconfont icon-user"
-          @input="handleInputUsername"
-          palceholder="Please Input Your Username"
-        />
-
-        <my-input
-          type="password"
-          label="Password"
-          :required="true"
-          :value="form.password"
-          @input="handleInputPassword"
-          icon="iconfont icon-password-fill"
-          palceholder="Please Input Your Password"
-        />
+        <my-form :columns="columns" v-model="form" />
         <my-button type="default" @click="handleLogin" color="#9f68e0">Login</my-button>
       </form>
     </div>

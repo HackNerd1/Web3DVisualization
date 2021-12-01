@@ -1,25 +1,26 @@
-import { IColumns } from './index.d'
-import { defineComponent } from 'vue'
+// import { IColumns } from './index.d'
+import { defineComponent, defineProps, withDefaults } from 'vue'
 
-type IProps = IColumns & { required: boolean }
+interface IColumns {
+  label?: string
+  prop: string
+  type: string
+  span?: number
+  append?: string // 前缀
+  prepend?: string // 后缀
+}
 
 const Wrapper = defineComponent({
-  name: 'dvsi-form-wrapper',
-  setup(props: Readonly<IProps>, { slots }) {
-    // defineProps<IProps>()
-    console.log(props)
+  setup(_, ctx) {
+    const props = withDefaults(defineProps<IColumns>(), {})
 
     return () => (
       <div class={['dvis-form-item']}>
-        {slots.default && slots.default()}
-        {/* {label ? (
-      <label for={prop} class={{ required: required }}>
-        {label}
-      </label>
-    ) : (
-      <></>
-    )}
-    {node} */}
+        {props}
+        {}
+        {}
+        {/* <label v-if="label" :for="prop" :class="{ required: required }"> {{ label }} </label>  */}
+        <slot></slot>
       </div>
     )
   },
