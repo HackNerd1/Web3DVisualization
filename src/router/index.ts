@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '@/pages/login/index.vue'
 
 const routes = [
   {
@@ -20,8 +19,26 @@ const routes = [
   },
   {
     path: '/login',
-    component: Login,
+    component: () => import('@/pages/login/index.vue'),
     meta: { title: 'Login' },
+  },
+  {
+    path: '/404',
+    component: () => import('@/pages/error/404.vue'),
+    meta: {
+      title: 'Page Not Found',
+    },
+  },
+  {
+    path: '/403',
+    component: () => import('@/pages/error/403.vue'),
+    meta: {
+      title: 'Page Not Found',
+    },
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/404',
   },
 ]
 

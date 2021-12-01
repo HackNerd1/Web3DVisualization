@@ -66,17 +66,13 @@ const Form = defineComponent({
       const { type, label, span, prop, ...others } = columns
 
       const handleChange = (content: string) => {
-        // TODO ctx未更新
-        console.log(form)
-
-        Object.assign(form, { [prop || '']: content })
+        Object.assign(form.value, { [prop || '']: content })
         emit('update:modelValue', form)
       }
 
       switch (type) {
         case 'input':
           const { showPassword, ...rest } = others
-          // onInput={handleChange}
           return (
             <Wrapper required={true} label={label}>
               <Input type={showPassword ? 'password' : 'text'} onUpdate:modelValue={handleChange} {...rest} />
@@ -88,7 +84,7 @@ const Form = defineComponent({
     }
 
     return () => (
-      <div onClick={onReset}>
+      <div class='dvis-form'>
         {slots.default && slots.default()}
         {columns?.map((ele) => renderColumns(ele))}
       </div>

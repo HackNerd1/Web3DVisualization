@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  import { ref } from 'vue'
   import { useRouter } from 'vue-router'
   import { IColumns } from 'packages/Form/index.d'
 
@@ -8,10 +9,10 @@
   }
 
   const router = useRouter()
-  const form: IForm = {
+  const form = ref<IForm>({
     username: '',
     password: '',
-  }
+  })
 
   // const handleInputUsername = (value: string) => (form.username = value)
   // const handleInputPassword = (value: string) => (form.password = value)
@@ -29,6 +30,12 @@
       prop: 'username',
       icon: 'iconfont icon-user',
       placeholder: 'Please Input Your Username',
+      rules: [
+        {
+          required: true,
+          triggle: '',
+        },
+      ],
     },
     {
       type: 'input',

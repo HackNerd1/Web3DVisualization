@@ -22,6 +22,7 @@ export interface IColumns {
   icon?: string // TODO 暂定为input组件的图标
   placeholder?: string
   showPassword?: boolean
+  rules?: array // TODO 属性待定
 }
 
 export interface IOption {
