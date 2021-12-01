@@ -33,7 +33,14 @@ const routes = [
     path: '/403',
     component: () => import('@/pages/error/403.vue'),
     meta: {
-      title: 'Page Not Found',
+      title: 'Forbidden',
+    },
+  },
+  {
+    path: '/500',
+    component: () => import('@/pages/error/500.vue'),
+    meta: {
+      title: 'Server Error',
     },
   },
   {
