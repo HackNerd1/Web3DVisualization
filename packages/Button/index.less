@@ -7,11 +7,28 @@
   position: relative;
   border: transparent;
   border-radius: 1rem;
+  display: inline-flex;
   padding: 0.8rem 1rem;
   letter-spacing: 0.2rem;
+  justify-content: center;
   // background-color: #6558f5;
   transition: opacity ease-in 0.15s;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  svg {
+    margin-right: 10px;
+  }
+
+  &[disabled] {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+
+  // loading
+
+  &.loading {
+    cursor: wait;
+  }
 
   // 预设颜色
 
@@ -19,7 +36,7 @@
     background: linear-gradient(90deg, rgba(117, 91, 234, 1), rgba(255, 114, 192, 1));
   }
 
-  &:hover {
+  &:hover:not([disabled]) {
     opacity: 0.9;
   }
 

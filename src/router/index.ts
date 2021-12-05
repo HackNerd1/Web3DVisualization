@@ -1,4 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { titleSeparator, baseTitle } from '@/config'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+NProgress.configure({
+  easing: 'ease',
+  speed: 500,
+  trickleSpeed: 300,
+  showSpinner: true,
+})
 
 const routes = [
   {
@@ -56,8 +66,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const { title } = to.meta
-  if (title) document.title = title
+  NProgress.start()
+  if (title) document.title = `${title}${titleSeparator}${baseTitle}`
   next()
+  NProgress.done()
 })
 
 export default router

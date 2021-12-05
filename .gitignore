@@ -10,6 +10,11 @@ coverage
 .vscode
 
 yarn.lock
+package-lock.json
 
 # log
+
+# error
+
+yarn-error.log
 

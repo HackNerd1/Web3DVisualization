@@ -13,11 +13,13 @@
     username: '',
     password: '',
   })
+  const loading = ref(false)
 
   // const handleInputUsername = (value: string) => (form.username = value)
   // const handleInputPassword = (value: string) => (form.password = value)
 
   const handleLogin = () => {
+    loading.value = !loading.value
     setTimeout(() => {
       router.push('/')
     }, 1000)
@@ -54,7 +56,7 @@
       <form>
         <h1>Login</h1>
         <my-form :columns="columns" v-model="form" />
-        <my-button type="default" @click="handleLogin" color="#9f68e0">Login</my-button>
+        <my-button type="default" @click="handleLogin" color="#9f68e0" :loading="loading">Login</my-button>
       </form>
     </div>
   </div>

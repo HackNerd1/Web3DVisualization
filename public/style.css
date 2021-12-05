@@ -7,90 +7,72 @@ html,
 body,
 #app {
   height: 100%;
+  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
 }
 
-.loading {
+.dvis-empty-page.loading {
   height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
+  letter-spacing: 0.1rem;
+  flex-direction: column;
   justify-content: center;
-  /* background: rgba(44, 62, 80, 0.8); */
   background-image: linear-gradient(135deg, #f97794 10%, #623aa2 100%);
 }
 
-.sk-cube-grid {
-  width: 40px;
-  height: 40px;
+.cls-signal {
+  border: 0.2rem solid #fff;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  opacity: 0;
+  animation: signal 2s ease-in-out infinite;
 }
 
-.sk-cube-grid .sk-cube {
-  width: 33%;
-  height: 33%;
-  background-color: #fff;
-  float: left;
-  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-  animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-}
-.sk-cube-grid .sk-cube1 {
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-}
-.sk-cube-grid .sk-cube2 {
-  -webkit-animation-delay: 0.3s;
-  animation-delay: 0.3s;
-}
-.sk-cube-grid .sk-cube3 {
-  -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-.sk-cube-grid .sk-cube4 {
-  -webkit-animation-delay: 0.1s;
-  animation-delay: 0.1s;
-}
-.sk-cube-grid .sk-cube5 {
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-}
-.sk-cube-grid .sk-cube6 {
-  -webkit-animation-delay: 0.3s;
-  animation-delay: 0.3s;
-}
-.sk-cube-grid .sk-cube7 {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-.sk-cube-grid .sk-cube8 {
-  -webkit-animation-delay: 0.1s;
-  animation-delay: 0.1s;
-}
-.sk-cube-grid .sk-cube9 {
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
+.content {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1rem;
+  position: relative;
 }
 
-@-webkit-keyframes sk-cubeGridScaleDelay {
-  0%,
-  70%,
+.content::after {
+  top: 0%;
+  bottom: 0;
+  content: '';
+  line-height: 1rem;
+  position: absolute;
+  animation: dot 4s infinite steps(3, start);
+}
+
+@keyframes signal {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
   100% {
-    -webkit-transform: scale3D(1, 1, 1);
-    transform: scale3D(1, 1, 1);
-  }
-  35% {
-    -webkit-transform: scale3D(0, 0, 1);
-    transform: scale3D(0, 0, 1);
+    opacity: 0;
+    transform: scale(0.8);
   }
 }
 
-@keyframes sk-cubeGridScaleDelay {
-  0%,
-  70%,
-  100% {
-    -webkit-transform: scale3D(1, 1, 1);
-    transform: scale3D(1, 1, 1);
+@keyframes dot {
+  25% {
+    content: '.';
   }
-  35% {
-    -webkit-transform: scale3D(0, 0, 1);
-    transform: scale3D(0, 0, 1);
+  50% {
+    content: '..';
+  }
+  75% {
+    content: '...';
+  }
+  100% {
+    content: '....';
   }
 }

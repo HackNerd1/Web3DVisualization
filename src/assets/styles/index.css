@@ -2,10 +2,11 @@ body {
   /** 
   * 全局变量
   */
-  --data-visiualize-header-height: 3rem;
-  --data-visiualize-side-bar-width: 20rem;
-  --data-visiualize-side-bar-width-minus: -20rem;
-  --data-visiualize-offset-shadow: 0 0 transparent;
+  --dvis-header-height: 3rem;
+  --dvis-side-bar-width: 20rem;
+  --dvis-side-bar-width-minus: -20rem;
+  --dvis-offset-shadow: 0 0 transparent;
+  --dvis-default-background: linear-gradient(180deg, #755bea, #ff72c0);
 }
 
 .dvis-error-page {
@@ -14,4 +15,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+/** 
+  * nprogress 背景样式
+  */
+#nprogress .bar {
+  height: 3px;
+  background: linear-gradient(90deg, #755bea, #ff72c0);
 }
