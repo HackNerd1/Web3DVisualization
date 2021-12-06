@@ -3,10 +3,11 @@ body {
   * 全局变量
   */
   --dvis-header-height: 3rem;
-  --dvis-side-bar-width: 20rem;
+  --dvis-side-bar-width: 274px;
   --dvis-side-bar-width-minus: -20rem;
   --dvis-offset-shadow: 0 0 transparent;
   --dvis-default-background: linear-gradient(180deg, #755bea, #ff72c0);
+  --dvis-default-color: linear-gradient(90deg, rgba(117, 91, 234, 1), rgba(255, 114, 192, 1));
 }
 
 .dvis-error-page {
@@ -16,6 +17,23 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.dvis-common-containter {
+  height: 100%;
+  padding: 38px;
+  border-radius: 16px;
+  box-sizing: border-box;
+  background-color: #f6f9ff;
+}
+
+.flex {
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
 /** 
   * nprogress 背景样式
   */
