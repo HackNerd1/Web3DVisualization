@@ -7,13 +7,13 @@ NProgress.configure({
   easing: 'ease',
   speed: 500,
   trickleSpeed: 300,
-  showSpinner: true,
+  showSpinner: false,
 })
 
 const routes = [
   {
     path: '/',
-    redirect: '/home',
+    redirect: '/Dashboard',
     name: 'commonLayout',
     component: () => import('@/components/Layout/common/index.vue'),
     children: [
@@ -24,6 +24,14 @@ const routes = [
           title: 'Boardlist',
         },
         component: () => import('@/views/Boardlist/index.vue'),
+      },
+      {
+        name: 'Dashboard',
+        path: '/dashboard',
+        meta: {
+          title: 'Dashboard',
+        },
+        component: () => import('@/views/Dashboard/index.vue'),
       },
     ],
   },

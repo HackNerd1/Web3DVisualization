@@ -14,7 +14,7 @@
 </script>
 
 <template>
-  <div class="data-visiualize-header">
+  <div class="dvis-header">
     <collapse-button icon="icon-indent" :collpased="isCollpased" @click="handleCollpase" />
   </div>
 </template>

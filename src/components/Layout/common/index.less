@@ -1,13 +1,24 @@
-main {
-  background-color: #f0f4f7;
-  height: calc(100% - var(--dvis-header-height));
+.dvis-common-layout {
+  display: flex;
+  // background-color: #fff;
+  height: 100%;
+  // height: calc(100% - var(--dvis-header-height));
 }
 
 aside {
-  top: 0;
-  left: 0;
-  height: 100vh;
-  position: absolute;
+  height: 100%;
   transition: transform ease 0.3s;
-  transform: translateX(var(--dvis-side-bar-width-minus));
+
+  &:nth-of-type(1) {
+    width: var(--dvis-side-bar-width);
+  }
+  &:nth-of-type(2) {
+    width: calc(var(--dvis-side-bar-width) * 3);
+  }
+}
+
+main {
+  width: 100%;
+  padding: 24px 0;
+  // background-color: #f6f9ff;
 }

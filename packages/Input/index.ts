@@ -1,9 +1,9 @@
-import MyInput from './index.vue'
+import DvisInput from './index.vue'
 import { App } from 'vue'
 
 const Input = {
-  ...MyInput,
-  name: 'MyInput',
+  ...DvisInput,
+  name: 'DvisInput',
   install(app: App) {
     app.component(this.name, this)
   },

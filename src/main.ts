@@ -1,4 +1,4 @@
-import { create, NButton, NResult } from 'naive-ui'
+import { create, NButton, NResult, NDivider } from 'naive-ui'
 import MyComponents from '/packages/index.ts'
 import EventBus from './utils/eventBus'
 import Router from './router/index'
@@ -8,7 +8,7 @@ import 'vfonts/FiraCode.css' // 等宽字体
 import 'vfonts/Lato.css' // 通用字体
 
 const nvcomponents = create({
-  components: [NButton, NResult],
+  components: [NButton, NResult, NDivider],
 })
 
 const app = createApp(App)
