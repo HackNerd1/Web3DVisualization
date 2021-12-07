@@ -4,10 +4,11 @@ import Input from './Input'
 import Badge from './Badge'
 import Button from './Button'
 import Avatar from './Avatar'
+import Card from './Card'
 import CollapseButton from './CollapseButton'
 import Form from './Form'
 
-const components = { Input, Button, CollapseButton, Form, Icon, Badge, Avatar }
+const components = { Input, Button, CollapseButton, Form, Icon, Badge, Avatar, Card }
 
 const install = (app: App) => {
   Object.values(components).forEach((component) => app.use(component))
@@ -21,4 +22,4 @@ const MyComponents = {
 }
 
 export default MyComponents
-export { Input, Button, CollapseButton, Form, Icon, Badge, Avatar }
+export { Input, Button, CollapseButton, Form, Icon, Badge, Avatar, Card }

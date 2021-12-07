@@ -1,6 +1,6 @@
 /**
  * @description
- * icon 取自于 IconFont
+ * icon 应用于 IconFont
  */
 
 export const menuConfig = {
@@ -16,8 +16,8 @@ export const menuConfig = {
         },
         {
           name: 'My Assets',
-          icon: '',
-          link: '/home',
+          icon: 'icon-keshihua4',
+          link: '/Myassets',
         },
         {
           name: 'Analytic',

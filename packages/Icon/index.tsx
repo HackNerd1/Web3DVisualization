@@ -12,13 +12,29 @@ const IProps = {
     required: false,
     type: String,
   },
+  size: {
+    description: '图标大小',
+    default: () => '14px',
+    required: false,
+    type: [String, Number],
+  },
+  color: {
+    description: '图标颜色',
+    default: () => null,
+    required: false,
+    type: [String],
+  },
 }
 
 const Icon = defineComponent({
   name: 'DvisIcon',
   props: IProps,
   setup(props, { slots }) {
-    return () => <i class={['dvis-icon', 'iconfont', props.icon]}>{slots.default && slots.default()}</i>
+    return () => (
+      <i style={{ fontSize: props.size, color: props.color }} class={['dvis-icon', 'iconfont', props.icon]}>
+        {slots.default && slots.default()}
+      </i>
+    )
   },
   install: function (App: App) {
     App.component(Icon.name, Icon)

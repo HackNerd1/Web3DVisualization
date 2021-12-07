@@ -3,7 +3,7 @@ import { App } from 'vue'
 
 const Button = {
   ...MyButton,
-  name: 'MyButton',
+  name: 'DvisButton',
   install(app: App) {
     app.component(this.name, this)
   },

@@ -22,6 +22,7 @@
     loading.value = !loading.value
     setTimeout(() => {
       router.push('/')
+      loading.value = !loading.value
     }, 1000)
   }
 
@@ -51,12 +52,12 @@
 </script>
 
 <template>
-  <div class="data-visualze-login">
+  <div class="dvis-login">
     <div>
       <form>
         <h1>Login</h1>
         <my-form :columns="columns" v-model="form" />
-        <my-button type="default" @click="handleLogin" color="#9f68e0" :loading="loading">Login</my-button>
+        <dvis-button type="default" @click="handleLogin" color="#fff" :loading="loading">Login</dvis-button>
       </form>
     </div>
   </div>

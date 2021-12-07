@@ -1,0 +1,70 @@
+.dvis-common-containter {
+  h1 {
+    height: 20px;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    letter-spacing: 0.8px;
+    color: rgba(50, 65, 104, 1);
+  }
+
+  section:first-of-type {
+    margin-bottom: 42px;
+  }
+
+  section:not(section:first-of-type) {
+    margin-bottom: 36px;
+  }
+
+  .group {
+    // overflow: hidden;
+    // position: relative;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+
+    .carousel {
+      border-radius: 12px;
+      width: 100%;
+      height: 64px;
+      overflow: hidden;
+      position: relative;
+      .dvis-card {
+        top: 0;
+        left: 0;
+        margin-right: 12px;
+        position: absolute;
+        transition: all 0.3s linear;
+      }
+
+      .dvis-card(@i) when (@i<10) {
+        // TODO 多容器left 问题
+        .dvis-card:nth-of-type(@{i}) {
+          left: calc(154px * (@i - 1));
+        }
+
+        .dvis-card((@i + 1));
+      }
+
+      .dvis-card(1);
+    }
+
+    .pagination {
+      opacity: 0.5;
+      cursor: pointer;
+      transition: all 0.5s ease-in-out;
+
+      &:nth-of-type(1) {
+        margin-right: 8px;
+      }
+      &:nth-of-type(2) {
+        margin-left: 8px;
+      }
+    }
+
+    &:hover .pagination {
+      opacity: 1;
+    }
+  }
+}

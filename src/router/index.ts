@@ -33,6 +33,14 @@ const routes = [
         },
         component: () => import('@/views/Dashboard/index.vue'),
       },
+      {
+        name: 'Myassets',
+        path: '/Myassets',
+        meta: {
+          title: 'My Assets',
+        },
+        component: () => import('@/views/MyAssets/index.vue'),
+      },
     ],
   },
   {

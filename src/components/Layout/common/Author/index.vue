@@ -7,8 +7,6 @@
       <dvis-badge clickable>
         <dvis-icon icon="icon-notice" background round />
       </dvis-badge>
-
-      <!-- <i :class="['iconfont', 'icon-notice', 'icon']"></i> -->
       <div class="avatar">
         <dvis-avatar :image="avatar" background round />
         Hansel Design

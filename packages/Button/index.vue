@@ -8,6 +8,8 @@
     type?: 'primary' | 'default' | 'planet'
     loading?: boolean
     disabled?: boolean
+    // backgroundColor?: string
+    color?: string
   }
 
   const emit = defineEmits(['click'])
@@ -38,14 +40,14 @@
     emit('click')
   }
 
-  withDefaults(defineProps<IProps>(), { loading: true })
+  withDefaults(defineProps<IProps>(), { loading: false, color: '#fff' })
 </script>
 <template>
   <button
     ref="button"
-    :width="width || '100%'"
+    :style="{ width, height, color }"
     @click.prevent="handleClick"
-    :class="['data-visualze-button', className, type ? type : 'default', loading ? 'loading' : null]"
+    :class="['dvis-button', className, type ? type : 'default', loading ? 'loading' : null]"
     :disabled="loading || disabled"
   >
     <svg

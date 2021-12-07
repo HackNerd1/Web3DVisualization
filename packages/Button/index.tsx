@@ -16,7 +16,7 @@
 //     const { width } = props
 //     defineProps<IProps>()
 //     return () => (
-//       <button ref='button' style={widt} class={['data-visualze-button', className, type]}>
+//       <button ref='button' style={widt} class={['dvis-button', className, type]}>
 //         <slot></slot>
 //       </button>
 //     )
