@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   // import LayoutHead from './Header/index.vue'
   import LayoutSideBar from './SideBar/index.vue'
-  import LayoutAuthor from './Author/index.vue'
+  // import LayoutAuthor from './Author/index.vue'
   import { menuConfig } from '@/config/menu'
   // interface IProps {}
 </script>
@@ -13,7 +13,7 @@
     <main>
       <router-view />
     </main>
-    <aside><LayoutAuthor /></aside>
+    <!-- <aside><LayoutAuthor /></aside> -->
   </section>
 </template>
 

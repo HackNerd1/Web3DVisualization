@@ -1,0 +1,24 @@
+.dvis-dashboard-container {
+  display: flex;
+  h1 {
+    height: 20px;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    letter-spacing: 0.8px;
+    color: rgba(50, 65, 104, 1);
+  }
+
+  section:first-of-type {
+    margin-bottom: 42px;
+  }
+
+  section:not(section:first-of-type) {
+    margin-bottom: 36px;
+  }
+
+  aside {
+    width: calc(var(--dvis-side-bar-width) * 2);
+  }
+}
