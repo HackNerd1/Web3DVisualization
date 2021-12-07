@@ -64,7 +64,7 @@
         <dvis-icon
           size="18px"
           icon="icon-xiangzuo"
-          @click="handleTransform(-1)"
+          @click="handleTransform(1)"
           color="rgba(44, 62, 80, 0.6)"
           class="pagination"
         />
@@ -87,7 +87,7 @@
         <dvis-icon
           size="18px"
           icon="icon-xiangyou"
-          @click="handleTransform(1)"
+          @click="handleTransform(-1)"
           color="rgba(44, 62, 80, 0.6)"
           class="pagination"
         />

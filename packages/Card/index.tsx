@@ -26,11 +26,12 @@ const Card = defineComponent({
   props: IProps,
   setup(props, { slots, emit, attrs }) {
     const { iconBGColor, title, ...rest } = props
+    const { style, ...other } = attrs
 
     return () => (
       <span class={'dvis-card'} onClick={(e) => emit('onClick', e)}>
         {slots.icon && slots.icon()}
-        <Icon {...rest} {...attrs} style={{ backgroundColor: iconBGColor }}></Icon>
+        <Icon {...rest} {...other} style={{ backgroundColor: iconBGColor }}></Icon>
         {title}
         {slots.title && slots.title()}
       </span>
