@@ -5,7 +5,9 @@ import './index.less'
 type IType = 'default' | 'success' | 'error' | 'warning' | 'info'
 
 const IProps = {
-  ...Icon.props,
+  /**
+   * 标签传入 clickable 代表可点击
+   */
   // TODO
   color: {
     description: '标记点的颜色',
@@ -36,12 +38,14 @@ const IProps = {
 const Badge = defineComponent({
   name: 'DvisBadge',
   props: IProps,
-  setup(props) {
-    const slots = {
-      default: () => <div class='dots'></div>,
-    }
-
-    return () => <Icon {...props} class={['dvis-badge']} v-slots={slots}></Icon>
+  setup(props, { slots, emit }) {
+    return () => (
+      <span class={'dvis-badge'} onClick={(e) => emit('onClick', e)}>
+        {slots.default && slots.default()}
+        <div class='dots'></div>
+      </span>
+    )
+    // return () => <Icon {...props} class={['dvis-badge']} v-slots={slots}></Icon>
   },
   install: function (App: App) {
     App.component(Badge.name, Badge)

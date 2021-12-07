@@ -1,6 +1,10 @@
 .dvis-badge {
   position: relative;
 
+  &[clickable] {
+    cursor: pointer;
+  }
+
   .dots {
     top: 0;
     right: 0;
@@ -9,6 +13,6 @@
     position: absolute;
     border-radius: 50%;
     background-color: #e84393;
-    transform: translate(-50%, 50%);
+    transform: translate(-100%, 100%);
   }
 }
