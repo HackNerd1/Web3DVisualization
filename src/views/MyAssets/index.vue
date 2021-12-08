@@ -51,6 +51,10 @@
   const handleTransform = (toggle: number) => {
     transform.value += 154 * toggle
   }
+
+  const handleSearch = () => {
+    console.log('search')
+  }
 </script>
 
 <template>
@@ -92,9 +96,20 @@
           class="pagination"
         />
       </div>
-    </section>
-    <section class="search-bar">
-      <n-skeleton height="40px" round />
+      <div class="search-bar">
+        <dvis-input placeholder="Search for something..." @keyup.enter="handleSearch">
+          <template #prefix>
+            <dvis-icon icon="icon-searchfill" size="16px" color="rgba(164, 182, 225, 1)" />
+          </template>
+          <template #suffix>
+            <span class="search-filters" @click="handleSearch">
+              <dvis-icon icon="icon-DividerTall" size="24px" color="rgba(120, 136, 150, 0.3)" />
+              <dvis-icon icon="icon-filter1" size="18px" />
+              Filtters
+            </span>
+          </template>
+        </dvis-input></div
+      >
     </section>
 
     <section>
@@ -112,6 +127,6 @@
   </div>
 </template>
 
-<style lang="less" scoped>
+<style lang="less">
   @import './index.less';
 </style>

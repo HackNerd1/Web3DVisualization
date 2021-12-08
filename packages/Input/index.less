@@ -1,12 +1,13 @@
 .dvis-input {
   position: relative;
 
-  .input-icon {
+  .input-prefix,
+  .input-suffix {
+    top: 0;
     height: 100%;
     display: flex;
     position: absolute;
     align-items: center;
-    transform: translate(10px, 0px);
 
     i {
       color: #788896;
@@ -14,17 +15,42 @@
     }
   }
 
+  .input-prefix {
+    transform: translate(10px, 0px);
+  }
+
+  .input-suffix {
+    right: 0;
+    transform: translate(-20px, 0px);
+  }
+
   input {
     width: 100%;
-    font-size: 1rem;
+    font-size: 14px;
     padding: 0.8rem 1rem;
-    border-radius: 0.3rem;
+    letter-spacing: 0.8px;
     box-sizing: border-box;
     transition: border ease-in 0.3s;
     border: 0.15rem solid #cad2d9;
 
-    &.input-prefix {
-      padding: 0.8rem 1rem 0.8rem 2.2rem;
+    &::-webkit-input-placeholder {
+      color: rgba(164, 182, 225, 1);
+    }
+    &::-moz-placeholder {
+      /* Mozilla Firefox 19+ */
+      color: rgba(164, 182, 225, 1);
+    }
+    &:-moz-placeholder {
+      /* Mozilla Firefox 4 to 18 */
+      color: rgba(164, 182, 225, 1);
+    }
+    &:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: rgba(164, 182, 225, 1);
+    }
+
+    &[round] {
+      border-radius: 0.3rem;
     }
 
     &:focus-visible {
@@ -35,5 +61,13 @@
     // &.error {
     //   border: 0.15rem solid #f56c9b;
     // }
+  }
+
+  .input-prefix ~ input {
+    padding-left: 2.2rem;
+  }
+
+  .input-suffix ~ input {
+    padding-right: 2.2rem;
   }
 }

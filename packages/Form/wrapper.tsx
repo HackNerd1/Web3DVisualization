@@ -11,12 +11,12 @@ interface IColumns {
 }
 
 const Wrapper = defineComponent({
-  setup(_, ctx) {
+  setup(_, { slots }) {
     const props = withDefaults(defineProps<IColumns>(), {})
 
     return () => (
       <div class={['dvis-form-item']}>
-        {props}
+        {slots.default && slots.default()}
         {}
         {}
         {/* <label v-if="label" :for="prop" :class="{ required: required }"> {{ label }} </label>  */}

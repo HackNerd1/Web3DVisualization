@@ -31,7 +31,7 @@
       type: 'input',
       label: 'Username',
       prop: 'username',
-      icon: 'iconfont icon-user',
+      prefix: 'icon-user',
       placeholder: 'Please Input Your Username',
       rules: [
         {
@@ -44,7 +44,7 @@
       type: 'input',
       label: 'Password',
       prop: 'password',
-      icon: 'iconfont icon-password-fill',
+      prefix: 'icon-password-fill',
       placeholder: 'Please Input Your Password',
       showPassword: false,
     },

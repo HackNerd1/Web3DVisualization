@@ -1,6 +1,6 @@
 import { IValue, IRules, IColumns, IOption } from './index.d'
 import { defineComponent, App, PropType, VNode, SetupContext, ref } from 'vue'
-import { Input } from '/packages/index.ts'
+import { Input, Icon } from '/packages/index.ts'
 import Wrapper from './wrapper.vue'
 import './index.less'
 
@@ -72,10 +72,19 @@ const Form = defineComponent({
 
       switch (type) {
         case 'input':
-          const { showPassword, ...rest } = others
+          const { showPassword, prefix, ...rest } = others
+          const slots = {
+            prefix: () => <Icon icon={prefix} size='18px' color='rgba(164, 182, 225, 1)'></Icon>,
+          }
           return (
             <Wrapper required={true} label={label}>
-              <Input type={showPassword ? 'password' : 'text'} onUpdate:modelValue={handleChange} {...rest} />
+              <Input
+                round
+                {...rest}
+                v-slots={slots}
+                type={showPassword ? 'password' : 'text'}
+                onUpdate:modelValue={handleChange}
+              />
             </Wrapper>
           )
         default:

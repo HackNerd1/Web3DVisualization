@@ -19,7 +19,7 @@ export interface IColumns {
   span?: number
   append?: string // 后缀
   prepend?: string // 前缀
-  icon?: string // TODO 暂定为input组件的图标
+  prefix?: string
   placeholder?: string
   showPassword?: boolean
   rules?: array // TODO 属性待定

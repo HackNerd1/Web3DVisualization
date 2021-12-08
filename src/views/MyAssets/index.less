@@ -17,19 +17,53 @@
     margin-bottom: 36px;
   }
 
+  /**
+  * 重写输入框样式
+  */
+
+  .search-bar {
+    // padding: 0 28px;
+    .dvis-input {
+      letter-spacing: 1.4px;
+
+      input {
+        border: none;
+        height: 54px;
+        border-radius: 50px;
+        padding-right: 140px;
+      }
+
+      .search-filters {
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+        transition: all 0.25s ease-in;
+
+        .dvis-icon {
+          margin-right: 12px;
+        }
+
+        &:hover {
+          opacity: 0.8;
+          color: rgba(147, 160, 171, 1);
+        }
+      }
+    }
+  }
+
   .group {
-    // overflow: hidden;
-    // position: relative;
     display: flex;
-    justify-items: center;
     align-items: center;
+    margin-bottom: 24px;
+    justify-items: center;
 
     .carousel {
-      border-radius: 12px;
       width: 100%;
       height: 64px;
       overflow: hidden;
       position: relative;
+      border-radius: 12px;
+
       .dvis-card {
         top: 0;
         left: 0;
