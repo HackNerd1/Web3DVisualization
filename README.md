@@ -9,6 +9,47 @@
 
 > 一个 3D 可视化大屏项目, 正在建设中...
 
+## 目录结构
+
+```shell
+├─packages                       # 组件库
+│  ├─Avatar
+│  ├─Badge
+│  ├─Button
+│  ├─Card
+│  ├─CollapseButton
+│  ├─Form
+│  ├─Icon
+│  └─Input
+├─public
+└─src
+    ├─api
+    ├─assets
+    │  ├─avatar
+    │  └─styles
+    ├─components                  # 业务组件
+    │  ├─common
+    │  └─Layout
+    │      ├─board
+    │      │  ├─Header
+    │      │  └─SideBar
+    │      └─common
+    │          ├─Author
+    │          ├─Header
+    │          └─SideBar
+    ├─config                      # 配置项，包括页面title、baseUrl
+    ├─pages                       # 基础页面
+    │  ├─error
+    │  └─login
+    ├─router
+    ├─utils                       # 工具类
+    └─views                       # 业务界面
+        ├─Boardlist
+        ├─Dashboard
+        ├─MyAssets
+        └─test
+```
+
 ## Quick Start
 
 ```shell
