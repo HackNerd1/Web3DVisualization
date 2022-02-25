@@ -32,12 +32,11 @@
     button.value && button.value.appendChild(span)
     Object.assign(span.style, { left, right })
 
+    emit('click')
     setTimeout(() => {
       // 特效过期 移除节点
       span.remove()
     }, 1000)
-
-    emit('click')
   }
 
   withDefaults(defineProps<IProps>(), { loading: false, color: '#fff' })

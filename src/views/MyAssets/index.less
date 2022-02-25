@@ -1,4 +1,4 @@
-.dvis-common-containter {
+.dvis-common-container {
   h1 {
     height: 20px;
     font-size: 20px;
@@ -100,5 +100,22 @@
     &:hover .pagination {
       opacity: 1;
     }
+  }
+
+  .my-assets {
+    display: grid;
+    justify-items: center;
+    grid-gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+
+    & > div {
+      margin-top: 16px;
+    }
+
+    //   .d-visiual {
+    //     height: 80%;
+    //     background-repeat: no-repeat;
+    //     background-clip: border-box;
+    //   }
   }
 }

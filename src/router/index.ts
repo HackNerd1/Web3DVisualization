@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { titleSeparator, baseTitle } from '@/config'
+import { titleSeparator, titlePrefix, routeWhiteList } from '@/config'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -13,7 +13,7 @@ NProgress.configure({
 const routes = [
   {
     path: '/',
-    redirect: '/Dashboard',
+    redirect: '/dashboard',
     name: 'commonLayout',
     component: () => import('@/components/Layout/common/index.vue'),
     children: [
@@ -35,13 +35,18 @@ const routes = [
       },
       {
         name: 'Myassets',
-        path: '/Myassets',
+        path: '/myassets',
         meta: {
           title: 'My Assets',
         },
         component: () => import('@/views/MyAssets/index.vue'),
       },
     ],
+  },
+  {
+    path: '/project',
+    component: () => import('@/views/Editor/index.vue'),
+    meta: { title: 'My Project' },
   },
   {
     path: '/login',
@@ -82,9 +87,20 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const { title } = to.meta
+
   NProgress.start()
-  if (title) document.title = `${title}${titleSeparator}${baseTitle}`
-  next()
+  if (title) document.title = `${title}${titleSeparator}${titlePrefix}`
+
+  if (!routeWhiteList.includes(to.path)) {
+    // TODO 做JWT校验
+    const isAuth = sessionStorage.getItem('auth')
+
+    if (!isAuth || isAuth !== 'true') {
+      next('login')
+
+      // window.$message.info('Please login!')
+    } else next()
+  } else next()
   NProgress.done()
 })
 

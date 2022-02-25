@@ -1,15 +1,30 @@
 .dvis-card {
-  width: 142px;
-  height: 64px;
-  display: flex;
+  @lineHeight: 32px;
+
+  width: 205px;
+  height: 205px;
   padding: 16px;
   cursor: pointer;
-  line-height: 32px;
   font-weight: bold;
   border-radius: 12px;
   letter-spacing: 0.8px;
   box-sizing: border-box;
   background-color: #fff;
+
+  &[rectangle] {
+    width: 142px;
+    height: 64px;
+  }
+
+  &[large] {
+    width: 658px;
+    height: 330px;
+  }
+
+  & > span {
+    display: flex;
+    line-height: @lineHeight;
+  }
 
   i {
     color: #fff;

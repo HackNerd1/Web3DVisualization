@@ -8,6 +8,7 @@ body {
   --dvis-offset-shadow: 0 0 transparent;
   --dvis-default-background: linear-gradient(180deg, #755bea, #ff72c0);
   --dvis-default-color: linear-gradient(90deg, rgba(117, 91, 234, 1), rgba(255, 114, 192, 1));
+  --dvis-editor-header-height: 3rem;
 }
 
 .dvis-error-page {
@@ -18,7 +19,7 @@ body {
   justify-content: center;
 }
 
-.dvis-common-containter {
+.dvis-common-container {
   width: 100%;
   height: 100%;
   padding: 38px;
@@ -37,6 +38,10 @@ body {
 
 .space-evenly {
   justify-content: space-evenly;
+}
+
+.space-around {
+  justify-content: space-around;
 }
 
 /** 

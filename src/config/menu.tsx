@@ -12,12 +12,12 @@ export const menuConfig = {
         {
           name: 'Dashboard',
           icon: 'icon-moshi',
-          link: '/Dashboard',
+          link: '/dashboard',
         },
         {
           name: 'My Assets',
           icon: 'icon-keshihua4',
-          link: '/Myassets',
+          link: '/myassets',
         },
         {
           name: 'Analytic',

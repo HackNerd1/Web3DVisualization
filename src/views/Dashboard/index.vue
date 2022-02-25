@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="dvis-common-containter">
+  <div class="dvis-common-container">
     <section class="search-bar">
       <n-skeleton height="40px" round />
     </section>

@@ -1,0 +1,53 @@
+.dvis-editor-header {
+  display: flex;
+  height: var(--dvis-editor-header-height);
+  box-shadow: 10px 0px 8px rgb(0 0 0 / 10%);
+  justify-content: space-between;
+
+  title {
+    display: unset;
+    font-size: 24px;
+    color: #e84393;
+    font-weight: bold;
+    margin-bottom: 32px;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    line-height: var(--dvis-editor-header-height);
+  }
+
+  aside,
+  main {
+    display: flex;
+  }
+
+  main {
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: italic;
+    letter-spacing: 0.1rem;
+
+    label {
+      margin-right: 0.5rem;
+    }
+
+    cite {
+      padding: 0.1rem 1rem;
+      border-radius: 10px;
+      transition: all 0.3s;
+      border: 2px solid rgb(0 0 0 / 0%);
+
+      // background: #eee;
+      // line-height: var(--dvis-editor-header-height);
+
+      &:hover {
+        border: 2px solid #333;
+      }
+
+      &:focus-visible {
+        outline: none;
+        border: 2px solid #333;
+      }
+    }
+  }
+}

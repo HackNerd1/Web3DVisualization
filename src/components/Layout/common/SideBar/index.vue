@@ -11,7 +11,7 @@
     group?: string
     children?: IItems[]
   }
-  export interface IProps {
+  interface IProps {
     // avater?: string | Node
     menu: IMenus[]
     logo?: string | Node

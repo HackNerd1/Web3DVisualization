@@ -17,6 +17,7 @@
     "less": "^4.1.1",
     "less-loader": "^10.0.1",
     "nprogress": "^0.2.0",
+    "qs": "^6.10.3",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.3.0",
     "typescript": "^4.4.3",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.11.11",
+    "@types/qs": "^6.9.7",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "@vitejs/plugin-vue": "^1.9.0",

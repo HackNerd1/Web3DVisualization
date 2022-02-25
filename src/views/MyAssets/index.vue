@@ -1,17 +1,20 @@
 <script lang="ts" setup>
   // import Card from '@/components/common/card'
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { test, fetchGroup } from '@/api/assets'
+  import { useMessage } from 'naive-ui'
 
   /**
    * 色板
    */
   const color = ['#FFB931', '#FF036D', 'rgba(164, 48, 255, 1)', 'rgba(0, 206, 144, 1)']
-
+  const message = useMessage()
   /**
    * 资源分组
    */
   // TODO 待对接口
-  const assetsGroup = [
+  const projects = [
     {
       title: 'Buy',
       icon: 'icon-Buy',
@@ -46,8 +49,16 @@
     },
   ]
 
+  const assetsGroup = ref([])
+  const router = useRouter()
   const transform = ref(0)
 
+  onMounted(() => {
+    fetchGroup({ page: 1, size: 20 }).then(({ data }) => {
+      // assetsGroup.value = data
+      assetsGroup.value = data.data.groups || []
+    })
+  })
   const handleTransform = (toggle: number) => {
     transform.value += 154 * toggle
   }
@@ -55,10 +66,21 @@
   const handleSearch = () => {
     // console.log('search')
   }
+
+  const handleClick = () => {
+    // TODO 待传递界面ID
+    router.push({ path: '/project', query: { id: '' } })
+  }
+
+  const handleTest = () => {
+    test().then((data) => {})
+  }
 </script>
 
 <template>
-  <div class="dvis-common-containter">
+  <div class="dvis-common-container">
+    <n-button @click="handleTest">Test</n-button>
+    <n-button @click="handleTest">新增分组</n-button>
     <section>
       <h1>Group</h1>
       <div class="flex group">
@@ -71,6 +93,7 @@
           @click="handleTransform(1)"
           color="rgba(44, 62, 80, 0.6)"
           class="pagination"
+          :disabled="transform === 0"
         />
         <!-- 
           分组
@@ -78,10 +101,12 @@
         <div class="carousel">
           <dvis-card
             :style="{ transform: `translateX(${transform}px)` }"
-            v-for="(props, index) in assetsGroup"
-            v-bind="props"
+            v-for="({ name, icon }, index) in assetsGroup"
+            :title="name"
+            :icon="icon"
             :iconBGColor="color[index]"
             background
+            rectangle
             :key="index"
           />
         </div>
@@ -94,6 +119,7 @@
           @click="handleTransform(-1)"
           color="rgba(44, 62, 80, 0.6)"
           class="pagination"
+          :disabled="transform === assetsGroup.length * 154"
         />
       </div>
       <div class="search-bar">
@@ -114,7 +140,22 @@
 
     <section>
       <h1>My Portfolio Value</h1>
-      <n-skeleton height="330px" width="100%" :sharp="false" />
+      <div class="my-assets">
+        <dvis-card
+          @on-click="handleClick"
+          v-for="(props, index) in projects"
+          v-bind="props"
+          :iconBGColor="color[index]"
+          background
+          :key="index"
+        >
+          <template #content>
+            <n-skeleton :style="{ marginTop: '10px' }" height="130px" width="100%" :sharp="false" />
+            <!-- <div class="d-visiual" :style="{ backgroundImage: 'url(src/assets/DVisualize/bg1.jpg)' }"></div> -->
+          </template>
+        </dvis-card>
+      </div>
+      <!-- <n-skeleton height="330px" width="100%" :sharp="false" /> -->
     </section>
     <section>
       <h1>Following</h1>

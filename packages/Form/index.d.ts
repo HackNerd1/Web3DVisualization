@@ -1,9 +1,7 @@
 import { VNode } from 'vue'
 
 export interface IValue {
-  value: {
-    b: 1
-  }
+  [propName: string | number]: any
 }
 
 export interface IRules {
@@ -21,7 +19,7 @@ export interface IColumns {
   prepend?: string // 前缀
   prefix?: string
   placeholder?: string
-  showPassword?: boolean
+  isPassword?: boolean
   rules?: array // TODO 属性待定
 }
 

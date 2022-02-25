@@ -61,6 +61,7 @@ const Form = defineComponent({
     }
 
     const form = ref(modelValue)
+    // const valid = ref(true)
 
     const renderColumns = (columns: IColumns) => {
       const { type, label, span, prop, ...others } = columns
@@ -70,19 +71,27 @@ const Form = defineComponent({
         emit('update:modelValue', form)
       }
 
+      // const handleValid = () => {
+      //   console.log(modelValue[prop || ''])
+
+      //   if (modelValue && modelValue[prop || '']) valid.value = true
+      //   else valid.value = false
+      // }
+
       switch (type) {
         case 'input':
-          const { showPassword, prefix, ...rest } = others
+          const { isPassword, prefix, ...rest } = others
           const slots = {
             prefix: () => <Icon icon={prefix} size='18px' color='rgba(164, 182, 225, 1)'></Icon>,
           }
           return (
+            // <Wrapper required={true} label={label} onValid={handleValid} isValid={valid.value}>
             <Wrapper required={true} label={label}>
               <Input
                 round
                 {...rest}
                 v-slots={slots}
-                type={showPassword ? 'password' : 'text'}
+                type={isPassword ? 'password' : 'text'}
                 onUpdate:modelValue={handleChange}
               />
             </Wrapper>

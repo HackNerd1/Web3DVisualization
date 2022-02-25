@@ -57,13 +57,7 @@ const Input = defineComponent({
       <div class='dvis-input'>
         {/**前缀 */ slots.prefix && <div class='input-prefix'>{slots.prefix()}</div>}
         {/**后缀 */ slots.suffix && <div class='input-suffix'>{slots.suffix()}</div>}
-        <input
-          {...others}
-          onInput={handleInput}
-          value={props.modelValue}
-          type={props.type || 'text'}
-          placeholder={props.placeholder}
-        />
+        <input {...others} onInput={handleInput} type={props.type || 'text'} placeholder={props.placeholder} />
       </div>
     )
   },
