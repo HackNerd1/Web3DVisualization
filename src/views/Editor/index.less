@@ -10,42 +10,40 @@
   background-color: rgb(255, 255, 255);
 
   section {
-    background-color: rgb(240, 244, 247);
-
-    // margin-top: @margin-top;
-    height: calc(100% - var(--dvis-editor-header-height));
-    display: flex;
     width: 100%;
+    display: flex;
+    background-color: rgb(240, 244, 247);
+    height: calc(100% - var(--dvis-editor-header-height));
 
     .chart-menu {
-      background-color: rgb(255, 255, 255);
-      border-right: 0.1rem solid #edf1f5;
+      position: relative;
       border-top: 0.1rem solid #edf1f5;
-      // width: var(--dvis-editor-header-height);
-      // width: 9.8rem;
+      border-right: 0.1rem solid #edf1f5;
+      background-color: rgb(255, 255, 255);
     }
 
     .editor-content {
+      overflow: hidden;
       width: 100%;
       height: 100%;
       padding: 38px;
       box-sizing: border-box;
     }
-    .property {
-      background-color: rgb(255, 255, 255);
-      border-left: 0.1rem solid #edf1f5;
-      border-top: 0.1rem solid #edf1f5;
-      width: @property-menu-width;
-      position: absolute;
-      box-sizing: border-box;
-      height: 100%;
-      top: 0;
-      right: -@property-menu-width;
-      transition: transform 0.3s ease-in-out;
+    // .property {
+    //   top: 0;
+    //   height: 100%;
+    //   position: absolute;
+    //   box-sizing: border-box;
+    //   width: @property-menu-width;
+    //   right: -@property-menu-width;
+    //   border-top: 0.1rem solid #edf1f5;
+    //   border-left: 0.1rem solid #edf1f5;
+    //   background-color: rgb(255, 255, 255);
+    //   transition: transform 0.3s ease-in-out;
 
-      &.show-proerty {
-        transform: translateX(-@property-menu-width);
-      }
-    }
+    //   &.show-proerty {
+    //     transform: translateX(-@property-menu-width);
+    //   }
+    // }
   }
 }

@@ -1,34 +1,41 @@
+<!--
+ * @Descripttion: 大屏编辑界面
+ * @version: 0.0.1
+ * @Author: Hansel
+ * @Date: 2022-02-23 11:00:48
+ * @LastEditors: Hansel
+ * @LastEditTime: 2022-03-03 15:27:53
+-->
 <script lang="ts" setup>
-  import HeaderButton from '@/components/Layout/editor/components/HeaderButton.vue'
-  import SideBar from '@/components/Layout/editor/SideBar/index.vue'
-  import EHeader from '@/components/Layout/editor/Header/index.vue'
-  import Proerty from '@/components/Layout/editor/components/Proerty.vue'
+  import SideBar from '@/components/common/editor/SideBar/index.vue'
+  import EHeader from '@/components/common/editor/Header/index.vue'
+  import Screen from '@/components/common/editor/Screen.vue'
   import { ref } from 'vue'
 
   const showProp = ref(false)
   const header = ref(null)
 
-  const MHeader = (() => {
-    const showProerty = () => (showProp.value = !showProp.value)
-
-    return {
-      showProerty,
-    }
-  })()
+  const MHeader = {
+    showProerty: () => (showProp.value = !showProp.value),
+    /**
+     * @description 禁用缩放事件
+     */
+    preventWheel: (e: WheelEvent) => {
+      if (e.ctrlKey || e.metaKey) e.preventDefault()
+    },
+  }
 </script>
 
 <template>
-  <div class="dvis-editor-container">
+  <div class="dvis-editor-container" @wheel="MHeader.preventWheel">
     <EHeader class="header" ref="header" @on-show="MHeader.showProerty" />
     <section>
       <aside class="chart-menu flex">
         <SideBar />
       </aside>
-      <main :class="['editor-content', showProp ? 'show-proerty' : null]"> main </main>
-      <aside :class="['property', showProp ? 'show-proerty' : null]">
-        <HeaderButton icon="icon-menu" message="显示属性" @click="MHeader.showProerty()" />
-        <Proerty />
-      </aside>
+      <!-- <main :class="['editor-content', showProp ? 'show-proerty' : null]"> -->
+      <Screen />
+      <!-- </main> -->
     </section>
   </div>
 </template>

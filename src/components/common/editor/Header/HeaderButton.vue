@@ -3,6 +3,7 @@
   interface IProps {
     icon?: string
     message?: string
+    activated?: boolean
   }
 
   const emit = defineEmits(['click'])
@@ -26,7 +27,7 @@
     :style="{ backgroundColor: '#576574' }"
   >
     <template #trigger>
-      <button @click="handleClick"> <i :class="['iconfont', icon]"></i> </button>
+      <button @click="handleClick" :class="{ activated: activated }"> <i :class="['iconfont', icon]"></i> </button>
     </template>
     <span>{{ message }}</span>
   </n-tooltip>
@@ -52,7 +53,8 @@
     transition: background-color ease-in 0.3s, color ease-in 0.3s;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
-    &:hover {
+    &:hover,
+    &.activated {
       background-color: rgba(232, 67, 147);
       color: white;
     }

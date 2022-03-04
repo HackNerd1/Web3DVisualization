@@ -1,0 +1,133 @@
+<script lang="ts" setup>
+  import { defineProps, defineEmits, inject } from 'vue'
+
+  import { KEventBus } from '@/symbols'
+  import EventBus from '@/utils/eventBus'
+  interface IProps {
+    // icon?: string
+    message?: string
+  }
+
+  const eventBus = inject(KEventBus, new EventBus()) // 提供默认值
+  const emit = defineEmits(['click'])
+
+  /**
+   * Menu module
+   */
+  const MMenu = (() => {
+    const items = [
+      {
+        url: 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/area-stack-gradient.png?_v_=1643452312113',
+        icon: 'icon-shuzhuangtu',
+        prop: 'bar',
+        name: '柱状图',
+      },
+      {
+        url: 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/area-stack-gradient.png?_v_=1643452312113',
+        icon: 'icon-bingtu',
+        prop: 'pie',
+        name: '饼图',
+      },
+    ]
+
+    // 菜单点击
+    const onClick = () => {
+      emit('click')
+    }
+
+    // const dragstart = (e: DragEvent) => {
+    //   console.log('start', e)
+    // }
+
+    const dragenter = () => eventBus.emit('dragenter', {})
+
+    const dragend = (e: DragEvent) => {
+      // console.log('end', e)
+      // console.log(eventBus)
+      // console.log('dragend', e)
+
+      eventBus.emit('dragend', e)
+    }
+
+    return {
+      items,
+      onClick,
+      dragenter,
+      dragend,
+    }
+  })()
+
+  defineProps<IProps>()
+</script>
+
+<template>
+  <div
+    :class="['layer-menu-item']"
+    @click="MMenu.onClick"
+    v-for="({ url, icon, name }, index) in MMenu.items"
+    :style="{
+      backgroundImage: `url(${url})`,
+    }"
+    draggable="true"
+    @dragenter="MMenu.dragenter"
+    @dragend="MMenu.dragend"
+    :key="index"
+  >
+    <div class="effect">
+      <i :class="['iconfont', icon]"></i>
+      {{ name }}
+    </div>
+  </div>
+</template>
+
+<style lang="less" scoped>
+  .layer-menu-item {
+    @layer-item-height: 6rem;
+    @transition-duration: 0.2s;
+    width: 90%;
+    display: flex;
+    cursor: pointer;
+    font-size: 14px;
+    overflow: hidden;
+    position: relative;
+    padding-left: 10px;
+    border-radius: 10px;
+    margin-top: 12px;
+    letter-spacing: 1px;
+    box-sizing: border-box;
+    background-color: #fff;
+    height: @layer-item-height;
+    border: 2px solid transparent;
+    line-height: @layer-item-height;
+    transition: all @transition-duration linear;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    position: relative;
+
+    &:hover {
+      border: 2px solid #e84393;
+      // background-color: rgb(240, 244, 247);
+      .effect {
+        transform: translateY(0%);
+      }
+    }
+
+    .effect {
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      color: #fff;
+      text-align: center;
+      height: @layer-item-height;
+      background-color: rgba(102, 102, 102, 0.3);
+      position: absolute;
+      transform: translateY(100%);
+      transition: transform 0.3s linear;
+    }
+
+    i {
+      margin-right: 5px;
+    }
+  }
+</style>
