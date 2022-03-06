@@ -4,15 +4,17 @@
  * @Author: Hansel
  * @Date: 2021-09-29 16:44:08
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-02 21:33:55
+ * @LastEditTime: 2022-03-06 16:25:24
 -->
 <script lang="ts" setup>
   import HButton from 'src/components/common/editor/Header/HeaderButton.vue'
   import LayerButton from '@/components/common/editor/LayerButton.vue'
   import Proerty from '@/components/common/editor/Proerty/index.vue'
   import PageSetting from '@/components/common/editor/Proerty/PageSetting.vue'
+  import EventBus from '@/utils/eventBus'
+  import { KEventBus } from '@/symbols'
   import { useRouter } from 'vue-router'
-  import { defineEmits, defineProps, ref } from 'vue'
+  import { defineEmits, defineProps, ref, inject } from 'vue'
 
   interface IProps {
     title?: string
@@ -21,6 +23,8 @@
   type IPropertyType = 0 | 1 | 2 // 0:组件属性, 1: 界面设置
 
   const router = useRouter()
+
+  const eventBus = inject(KEventBus, new EventBus()) // 注入Event Bus; 接受组件激活和停用事件 切换设置展示
   const propertyType = ref<IPropertyType | null>(null)
   const showProp = ref(false)
   // const show = ref(false)
@@ -42,12 +46,17 @@
       propertyType.value = null
       showProp.value = false
     }
+    const toggleActive = (type: IPropertyType) => {
+      if (!showProp.value) return
+      propertyType.value = type
+    }
 
     return {
       goBack,
       reflash,
       show,
       close,
+      toggleActive,
     }
   })()
 
@@ -55,12 +64,17 @@
    * 标题事件
    */
   const MTitle = (() => {
-    const onChange = (e: FocusEvent) => emit('onEditTitle', e?.target?.textContent)
+    const onChange = (e: FocusEvent) => {
+      const target = e.target as HTMLElement
+      emit('onEditTitle', target.textContent)
+    }
     return {
       onChange,
     }
   })()
 
+  eventBus.on('deactivated', () => MButton.toggleActive(1))
+  eventBus.on('activated', () => MButton.toggleActive(0))
   defineProps<IProps>()
 </script>
 

@@ -7,19 +7,20 @@
   import { SketchRule } from 'vue3-sketch-ruler'
   import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css'
   import 'vue3-sketch-ruler/lib/style.css'
-  import { log } from 'console'
 
   type TDraggableContainer = InstanceType<typeof DraggableContainer>
+  // type TDragResizable = InstanceType<typeof Vue3DraggableResizable>
+
   interface IResizing {
     w?: number
     h?: number
     x?: number
     y?: number
   }
-  interface IDraging {
-    x: number
-    y: number
-  }
+  // interface IDraging {
+  //   x: number
+  //   y: number
+  // }
   interface IRuler {
     width: number
     height: number
@@ -42,6 +43,7 @@
   const Instance = getCurrentInstance()
   const componentData = ref<EventTarget | null>(null)
   const dragContainer = ref<TDraggableContainer | null>(null)
+  // const dragResizable = ref<TDragResizable | null>(null)
   const screen = ref<Element | null>(null)
   const eventBus = inject(KEventBus, new EventBus()) // 注入Event Bus; Event Bus 有默认值 ; 接受菜单栏发送的拖拽事件
   const wrapper = ref<Element | null>(null)
@@ -146,13 +148,29 @@
     const dragenter = (e: DragEvent) => (componentData.value = e.target)
     const dragleave = () => (componentData.value = null)
     const change = (e: IResizing, index: number) => Object.assign(itemList[index], e)
-    const dragging = ({ x, y }: IDraging, index: number) => {
-      const { scale } = rulerParam
-      console.log(x, y, ':', x / scale, y / scale)
-      Object.assign(itemList[index], { x, y })
-    }
+    // const dragging = ({ x, y }: IDraging, index: number) => {
+    //   const { scale } = rulerParam
+    //   // console.log(x, y, ':', x / scale, y / scale)
+    //   // Object.assign(itemList[index], { x: x / scale, y: y / scale })
+    // }
+    // const toggleActive = (type: 'deactivated' | 'activated') => {
+    //   eventBus.emit(type, null)
+    //   console.log(type)
+    // }
+    // const dragging = () => {}
     const deleteItem = (e: KeyboardEvent, index?: number) => {
       console.log(index, ' run')
+    }
+    /**
+     * 捕获点击事件
+     * 如果点在拖拽项外 将属性面板切换至界面设置
+     * @param { MouseEvent } e
+     */
+    const click = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      const isDragResizable = Array.from(target.classList).includes('dragResizable') // 获取target中的Class name 列表， 判断是否是dragResizable组件
+      if (isDragResizable) eventBus.emit('activated', null)
+      else eventBus.emit('deactivated', null)
     }
     /**
      * 控制缩放
@@ -235,7 +253,9 @@
       scroll,
       initSize,
       onContextMenu,
-      dragging,
+      // dragging,
+      click,
+      // toggleActive,
     }
   })()
 
@@ -265,6 +285,7 @@
         height: `${store.state.pageSetting.height}px`,
         width: `${store.state.pageSetting.width}px`,
       }"
+      :palette="{ lineColor: 'rgba(0, 173, 255, 0.84)' }"
     />
     <div
       class="screen"
@@ -272,6 +293,7 @@
       @wheel="MScreen.wheel"
       @scroll="MScreen.scroll"
       @contextmenu="MScreen.onContextMenu"
+      @click="MScreen.click"
     >
       <DraggableContainer
         ref="dragContainer"
@@ -287,10 +309,15 @@
         }"
       >
         <template v-for="({ content }, index) in itemList" :key="index">
+          <!-- 
+            @deactivated="MScreen.toggleActive('deactivated')"
+            @activated="MScreen.toggleActive('activated')" 
+            @dragging="(e) => MScreen.dragging(e, index)"-->
           <Vue3DraggableResizable
             :parent="true"
             :initW="110"
             :initH="120"
+            class="dragResizable"
             v-model:x="itemList[index].x"
             v-model:y="itemList[index].y"
             v-model:w="itemList[index].w"
@@ -298,11 +325,9 @@
             v-model:active="itemList[index].active"
             :draggable="true"
             :resizable="true"
-            @deactivated="MScreen.print('deactivated')"
             @drag-start="MScreen.print('drag-start')"
             @resize-start="MScreen.print('resize-start')"
             @drag-end="(e) => MScreen.change(e, index)"
-            @dragging="(e) => MScreen.dragging(e, index)"
             @resize-end="(e) => MScreen.change(e, index)"
           >
             {{ content }}
