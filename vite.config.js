@@ -1,7 +1,16 @@
+/*
+ * @Descripttion:
+ * @version: 0.0.1
+ * @Author: Hansel
+ * @Date: 2021-09-27 16:30:00
+ * @LastEditors: Hansel
+ * @LastEditTime: 2022-03-09 14:08:23
+ */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
+// import VueTypeImports from 'vite-plugin-vue-type-imports' // Enables you to import types and use them in your defineProps and defineEmits
 
 // const resolve = (dir) => path.join(__dirname, dir)
 

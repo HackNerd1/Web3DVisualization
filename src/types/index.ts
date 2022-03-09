@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-03-02 20:49:30
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-08 14:25:00
+ * @LastEditTime: 2022-03-09 15:06:17
  */
 export interface IPageSetting {
   height?: number
@@ -19,7 +19,9 @@ export interface IPageSetting {
 
 export interface IStroe {
   pageSetting: IPageSetting
-  dragElement?: any // TODO
+  dragElement?: any | null // TODO
+  elementLists: Array<ICmpSetting> | []
+  currentElement: number
 }
 
 export type IComponentID = string
@@ -47,11 +49,14 @@ export interface ICmpCategory {
   data: Array<ICmpItem>
 }
 
+export interface IOption {}
+
 export interface ICmpSetting {
   x?: number
   y?: number
   h: number
   w: number
   active?: boolean
+  option?: IOption
   // content: string | ComponentPublicInstance
 }

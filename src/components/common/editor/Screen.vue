@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { ref, inject, reactive, onMounted, nextTick, getCurrentInstance, ComponentPublicInstance } from 'vue'
   import Vue3DraggableResizable, { DraggableContainer } from 'vue3-draggable-resizable'
-  import { IDragEnd, ICmpSetting } from '@/types'
+  import { ICmpSetting } from '@/types'
   import { SketchRule } from 'vue3-sketch-ruler'
   import { VTest } from '@/data/cmpSettings'
   import EventBus from '@/utils/eventBus'
@@ -39,28 +39,14 @@
 
   const store = useStore()
   const Instance = getCurrentInstance()
-  const componentData = ref<EventTarget | null>(null)
+  // const componentData = ref<EventTarget | null>(null)
   const dragContainer = ref<TDraggableContainer | null>(null)
   // const dragResizable = ref<TDragResizable | null>(null)
   const screen = ref<Element | null>(null)
   const eventBus = inject(KEventBus, new EventBus()) // 注入Event Bus; Event Bus 有默认值 ; 接受菜单栏发送的拖拽事件
   const wrapper = ref<Element | null>(null)
-  const itemList = ref<Array<ICmpSetting>>([
-    {
-      x: 0,
-      y: 0,
-      h: 450,
-      w: 500,
-      active: false,
-    },
-    {
-      x: 500,
-      y: 500,
-      h: 450,
-      w: 500,
-      active: false,
-    },
-  ])
+  const elementLists = ref<Array<ICmpSetting>>(store.state.elementLists)
+
   const drawElements = ref<Array<ComponentPublicInstance>>([])
 
   const rulerParam = reactive<IRuler>({
@@ -82,42 +68,17 @@
     },
   })
 
-  const MSiderBar = (() => {
-    const dragend = ({ e, item }: IDragEnd) => {
-      // 判断是否拖拽进入画布，添加组件
-      if (dragContainer.value && componentData.value === dragContainer.value.$el) {
-        const { x: domX, y: domY } = dragContainer.value.$el.getClientRects()[0]
-        const { pageX, pageY } = e
-        // TODO 根据id获取图表配置
-
-        itemList.value.push({
-          x: pageX - domX,
-          y: pageY - domY,
-          // h: 300,
-          // w: 300,
-          ...VTest,
-          active: false,
-          // content: `This is a example${item.id}`,
-          // content: instance,
-        })
-      }
-      componentData.value = null
-    }
-    const dragenter = () => (componentData.value = null)
-
-    return {
-      dragend,
-      dragenter,
-    }
-  })()
-
   const MScreen = (() => {
-    const dragenter = (e: DragEvent) => (componentData.value = e.target)
-    const dragleave = () => (componentData.value = null)
-    const dragend = (e: IResizing, index: number) => Object.assign(itemList.value[index], e)
+    const updateEleLists = () => store.dispatch('setEleLists', elementLists.value)
+    // const dragleave = () => (componentData.value = null)
+    const dragend = (e: IResizing, index: number) => {
+      Object.assign(elementLists.value[index], e)
+      updateEleLists()
+    }
     const resizeEnd = (e: IResizing, index: number) => {
-      Object.assign(itemList.value[index], e)
+      Object.assign(elementLists.value[index], e)
       drawElements.value[index].renderChart()
+      updateEleLists()
     }
     // const
     // const dragging = ({ x, y }: IDraging, index: number) => {
@@ -134,28 +95,36 @@
     /**
      * @description 删除被选中的元素
      */
-    const deleteItem = () => (itemList.value = itemList.value.filter((item) => item.active === false))
+    const deleteItem = () => (elementLists.value = elementLists.value.filter((item) => item.active === false))
 
     /**
      * @description 元素多选
      */
     const multiChoose = (index: number) => {
       // TODO 目前还不支持多选
-      itemList.value[index].active = true
+      elementLists.value[index].active = true
     }
 
+    // /**
+    //  * 切换属性面板展示
+    //  * @param { boolean } toggle true: 展示元素属性，false: 展示界面设置
+    //  */
+    // const toggleProperty = (toggle: boolean, index?: number) => {
+    //   if (toggle) eventBus.emit('activated', index)
+    //   else eventBus.emit('deactivated', null)
+    // }
+
     /**
-     * 捕获点击事件
-     * 如果点在拖拽项外 将属性面板切换至界面设置
+     * 鼠标点击在元素外 将属性面板切换至界面设置
      * @param { MouseEvent } e
      */
     const click = (e: MouseEvent) => {
       const target = e.target as HTMLElement
       const isDragResizable = Array.from(target.classList).includes('dragResizable') // 获取target中的Class name 列表， 判断是否是dragResizable组件
       const isCanvas = target.nodeName === 'CANVAS'
-
-      if (isDragResizable || isCanvas) eventBus.emit('activated', null)
-      else eventBus.emit('deactivated', null)
+      if (isDragResizable || isCanvas) return
+      eventBus.emit('deactivated', null)
+      store.dispatch('setCurrentEle', NaN)
     }
 
     /**
@@ -192,6 +161,25 @@
       //   // console.log(wrapperRect, rulerParam.width, rulerParam.height)
       // }
     }
+    const drop = (e: DragEvent) => {
+      if (dragContainer.value) {
+        const dragEle = store.state.dragElement
+        const { x: domX, y: domY } = dragContainer.value.$el.getClientRects()[0]
+        const { pageX, pageY } = e
+        // TODO 根据id获取图表配置
+        console.log(dragEle)
+
+        elementLists.value.push({
+          x: pageX - domX,
+          y: pageY - domY,
+          ...VTest,
+          active: false,
+          // content: `This is a example${item.id}`,
+          // content: instance,
+        })
+      }
+      store.dispatch('setDragEle', {}) // 重置dragElement数据
+    }
 
     const onContextMenu = (e: MouseEvent) => {
       e.preventDefault()
@@ -226,10 +214,13 @@
 
       // console.log(showContextMenu.value)
     }
+    const selectElement = (index: number) => {
+      eventBus.emit('selectElement', index)
+      store.dispatch('setCurrentEle', index)
+      eventBus.emit('activated', null)
+    }
 
     return {
-      dragenter,
-      dragleave,
       deleteItem,
       dragend,
       resizeEnd,
@@ -239,6 +230,8 @@
       onContextMenu,
       click,
       multiChoose,
+      drop,
+      selectElement,
     }
   })()
 
@@ -249,8 +242,10 @@
     MScreen.initSize()
   })
 
-  eventBus.on('dragenter', MSiderBar.dragenter)
-  eventBus.on('dragend', MSiderBar.dragend)
+  // onUnmounted(() => {
+  //   // 清空store数据
+  //   store.dispatch('setDragEle', {})
+  // })
 </script>
 
 <template>
@@ -285,10 +280,11 @@
     >
       <DraggableContainer
         ref="dragContainer"
+        id="dragContainer"
         :referenceLineVisible="true"
-        @dragenter.prevent="MScreen.dragenter"
+        @dragenter.prevent
         @dragover.prevent
-        @dragleave="MScreen.dragleave"
+        @drop="MScreen.drop"
         :style="{
           height: `${store.state.pageSetting.height}px`,
           width: `${store.state.pageSetting.width}px`,
@@ -296,20 +292,23 @@
           transform: `scale(${rulerParam.scale})`,
         }"
       >
-        <template v-for="(items, index) in itemList" :key="index">
+        <template v-for="(items, index) in elementLists" :key="index">
+          <!--
+            @click.exact="MScreen.selectElement(index)" -->
           <Vue3DraggableResizable
             :parent="true"
-            :initW="itemList[index].w"
-            :initH="itemList[index].h"
+            :initW="elementLists[index].w"
+            :initH="elementLists[index].h"
             class="dragResizable"
-            v-model:x="itemList[index].x"
-            v-model:y="itemList[index].y"
-            v-model:w="itemList[index].w"
-            v-model:h="itemList[index].h"
-            v-model:active="itemList[index].active"
+            v-model:x="elementLists[index].x"
+            v-model:y="elementLists[index].y"
+            v-model:w="elementLists[index].w"
+            v-model:h="elementLists[index].h"
+            v-model:active="elementLists[index].active"
             :draggable="true"
             :resizable="true"
             @click.ctrl="MScreen.multiChoose(index)"
+            @drag-start="MScreen.selectElement(index)"
             @drag-end="(e) => MScreen.dragend(e, index)"
             @resize-end="(e) => MScreen.resizeEnd(e, index)"
           >

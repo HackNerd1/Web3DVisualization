@@ -9,8 +9,8 @@
 <script lang="ts" setup>
   import HButton from 'src/components/common/editor/Header/HeaderButton.vue'
   import LayerButton from '@/components/common/editor/LayerButton.vue'
-  import Proerty from '@/components/common/editor/Proerty/index.vue'
-  import PageSetting from '@/components/common/editor/Proerty/PageSetting.vue'
+  import Proerty from 'src/components/common/editor/Proerty/elementSetting.vue'
+  import PageSetting from 'src/components/common/editor/Proerty/pageSetting.vue'
   import EventBus from '@/utils/eventBus'
   import { KEventBus } from '@/symbols'
   import { useRouter } from 'vue-router'

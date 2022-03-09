@@ -1,14 +1,17 @@
 <script lang="ts" setup>
-  import { defineProps, defineEmits, inject } from 'vue'
-  import { KEventBus } from '@/symbols'
-  import EventBus from '@/utils/eventBus'
-  import { IDragEnd, ICmpItem } from '@/types'
+  import { defineProps, defineEmits } from 'vue'
+  // import { KEventBus } from '@/symbols'
+  // import EventBus from '@/utils/eventBus'
+  import { useStore } from '@/store'
+  import { ICmpItem } from '@/types'
   interface IProps {
     // icon?: string
     items: Array<ICmpItem>
   }
 
-  const eventBus = inject(KEventBus, new EventBus()) // 提供默认值
+  const store = useStore()
+
+  // const eventBus = inject(KEventBus, new EventBus()) // 提供默认值
   const emit = defineEmits(['click'])
 
   /**
@@ -19,21 +22,23 @@
     const onClick = () => {
       emit('click')
     }
+    const dragstart = (item: ICmpItem) => store.dispatch('setDragEle', item)
 
     // const dragstart = (e: DragEvent) => {
     //   console.log('start', e)
     // }
 
-    const dragenter = () => eventBus.emit('dragenter', {})
-    const dragend = (e: DragEvent, item: ICmpItem) => {
-      const param: IDragEnd = { e, item }
-      eventBus.emit('dragend', param)
-    }
+    // const dragenter = () => eventBus.emit('dragenter', {})
+    // const dragend = (e: DragEvent, item: ICmpItem) => {
+    //   const param: IDragEnd = { e, item }
+    //   eventBus.emit('dragend', param)
+    // }
 
     return {
       onClick,
-      dragenter,
-      dragend,
+      dragstart,
+      // dragenter,
+      // dragend,
     }
   })()
 
@@ -41,16 +46,18 @@
 </script>
 
 <template>
+  <!-- 
+    @dragenter="MMenu.dragenter"
+    @dragend="(e) => MMenu.dragend(e, item)" -->
   <div
     :class="['editor-menu-item']"
     @click="MMenu.onClick"
+    @dragstart="MMenu.dragstart(item)"
     v-for="(item, index) in items"
     :style="{
       backgroundImage: `url(${item.url})`,
     }"
     draggable="true"
-    @dragenter="MMenu.dragenter"
-    @dragend="(e) => MMenu.dragend(e, item)"
     :key="index"
   >
     <div class="effect">
