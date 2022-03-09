@@ -1,26 +1,23 @@
 <script lang="ts" setup>
+  import { ref, inject, reactive, onMounted, nextTick, getCurrentInstance, ComponentPublicInstance } from 'vue'
   import Vue3DraggableResizable, { DraggableContainer } from 'vue3-draggable-resizable'
-  import { ref, inject, reactive, onMounted, nextTick, getCurrentInstance } from 'vue'
-  import { useStore } from '@/store'
+  import { IDragEnd, ICmpSetting } from '@/types'
+  import { SketchRule } from 'vue3-sketch-ruler'
+  import { VTest } from '@/data/cmpSettings'
   import EventBus from '@/utils/eventBus'
   import { KEventBus } from '@/symbols'
-  import { SketchRule } from 'vue3-sketch-ruler'
+  import { useStore } from '@/store'
   import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css'
+  import Draw from 'src/components/common/charts/chart1/index.tsx'
   import 'vue3-sketch-ruler/lib/style.css'
 
   type TDraggableContainer = InstanceType<typeof DraggableContainer>
-  // type TDragResizable = InstanceType<typeof Vue3DraggableResizable>
-
   interface IResizing {
     w?: number
     h?: number
     x?: number
     y?: number
   }
-  // interface IDraging {
-  //   x: number
-  //   y: number
-  // }
   interface IRuler {
     width: number
     height: number
@@ -39,6 +36,7 @@
       h: number[]
     }
   }
+
   const store = useStore()
   const Instance = getCurrentInstance()
   const componentData = ref<EventTarget | null>(null)
@@ -47,53 +45,28 @@
   const screen = ref<Element | null>(null)
   const eventBus = inject(KEventBus, new EventBus()) // 注入Event Bus; Event Bus 有默认值 ; 接受菜单栏发送的拖拽事件
   const wrapper = ref<Element | null>(null)
-  const itemList = reactive([
+  const itemList = ref<Array<ICmpSetting>>([
     {
-      x: 100,
-      y: 100,
-      h: 100,
-      w: 100,
+      x: 0,
+      y: 0,
+      h: 450,
+      w: 500,
       active: false,
-      content: 'This is a test example1',
     },
     {
-      x: 200,
-      y: 200,
-      h: 200,
-      w: 200,
+      x: 500,
+      y: 500,
+      h: 450,
+      w: 500,
       active: false,
-      content: 'This is a test example2',
     },
   ])
-
-  // const contextMenuOption = reactive({
-  //   items: [
-  //     {
-  //       label: 'Copy',
-  //       onClick: () => {
-  //         console.log('copy')
-  //       },
-  //     },
-  //     { label: 'Paste', disabled: true },
-  //     {
-  //       label: 'Print',
-  //       icon: 'icon-print',
-  //       onClick: () => {
-  //         console.log('print')
-  //       },
-  //     },
-  //   ],
-  //   iconFontClass: 'iconfont',
-  //   customClass: 'class-a',
-  //   minWidth: 230,
-  //   x: 0,
-  //   y: 0,
-  // })
+  const drawElements = ref<Array<ComponentPublicInstance>>([])
 
   const rulerParam = reactive<IRuler>({
     width: 1920,
     height: 1080,
-    scale: 1,
+    scale: 0.8,
     thick: 20,
     startX: 0,
     startY: 0,
@@ -109,22 +82,23 @@
     },
   })
 
-  // const activatedItem = ref<number[]>([])
-
   const MSiderBar = (() => {
-    const dragend = (data: DragEvent) => {
+    const dragend = ({ e, item }: IDragEnd) => {
       // 判断是否拖拽进入画布，添加组件
       if (dragContainer.value && componentData.value === dragContainer.value.$el) {
         const { x: domX, y: domY } = dragContainer.value.$el.getClientRects()[0]
-        const { pageX, pageY } = data
+        const { pageX, pageY } = e
+        // TODO 根据id获取图表配置
 
-        itemList.push({
+        itemList.value.push({
           x: pageX - domX,
           y: pageY - domY,
-          h: 300,
-          w: 300,
+          // h: 300,
+          // w: 300,
+          ...VTest,
           active: false,
-          content: 'This is a test example3',
+          // content: `This is a example${item.id}`,
+          // content: instance,
         })
       }
       componentData.value = null
@@ -137,17 +111,15 @@
     }
   })()
 
-  // const test = (e) => {
-  //   console.log(e)
-  // }
-
-  // const MProerty = (() => {})()
-
   const MScreen = (() => {
-    const print = (message: string) => console.log(message)
     const dragenter = (e: DragEvent) => (componentData.value = e.target)
     const dragleave = () => (componentData.value = null)
-    const change = (e: IResizing, index: number) => Object.assign(itemList[index], e)
+    const dragend = (e: IResizing, index: number) => Object.assign(itemList.value[index], e)
+    const resizeEnd = (e: IResizing, index: number) => {
+      Object.assign(itemList.value[index], e)
+      drawElements.value[index].renderChart()
+    }
+    // const
     // const dragging = ({ x, y }: IDraging, index: number) => {
     //   const { scale } = rulerParam
     //   // console.log(x, y, ':', x / scale, y / scale)
@@ -158,9 +130,20 @@
     //   console.log(type)
     // }
     // const dragging = () => {}
-    const deleteItem = (e: KeyboardEvent, index?: number) => {
-      console.log(index, ' run')
+
+    /**
+     * @description 删除被选中的元素
+     */
+    const deleteItem = () => (itemList.value = itemList.value.filter((item) => item.active === false))
+
+    /**
+     * @description 元素多选
+     */
+    const multiChoose = (index: number) => {
+      // TODO 目前还不支持多选
+      itemList.value[index].active = true
     }
+
     /**
      * 捕获点击事件
      * 如果点在拖拽项外 将属性面板切换至界面设置
@@ -169,9 +152,12 @@
     const click = (e: MouseEvent) => {
       const target = e.target as HTMLElement
       const isDragResizable = Array.from(target.classList).includes('dragResizable') // 获取target中的Class name 列表， 判断是否是dragResizable组件
-      if (isDragResizable) eventBus.emit('activated', null)
+      const isCanvas = target.nodeName === 'CANVAS'
+
+      if (isDragResizable || isCanvas) eventBus.emit('activated', null)
       else eventBus.emit('deactivated', null)
     }
+
     /**
      * 控制缩放
      * @param { WheelEvent } e
@@ -179,10 +165,8 @@
     const wheel = (e: WheelEvent) => {
       if (e.ctrlKey || e.metaKey) {
         e.preventDefault()
-        // const { pageSetting } = store.state
         const scale = parseFloat(Math.max(0.2, rulerParam.scale - e.deltaY / 500).toFixed(2))
         rulerParam.scale = scale
-        // store.dispatch('setPageSetting', { ...pageSetting, scale })
       }
       nextTick(() => scroll())
     }
@@ -244,18 +228,17 @@
     }
 
     return {
-      print,
       dragenter,
       dragleave,
       deleteItem,
-      change,
+      dragend,
+      resizeEnd,
       wheel,
       scroll,
       initSize,
       onContextMenu,
-      // dragging,
       click,
-      // toggleActive,
+      multiChoose,
     }
   })()
 
@@ -287,13 +270,18 @@
       }"
       :palette="{ lineColor: 'rgba(0, 173, 255, 0.84)' }"
     />
+    <!-- 
+      tabindex="0" 是 让div实现键盘事件的关键
+     -->
     <div
-      class="screen"
       ref="screen"
+      class="screen"
+      @click.exact="MScreen.click"
       @wheel="MScreen.wheel"
       @scroll="MScreen.scroll"
+      @keydown.delete="MScreen.deleteItem"
       @contextmenu="MScreen.onContextMenu"
-      @click="MScreen.click"
+      tabindex="0"
     >
       <DraggableContainer
         ref="dragContainer"
@@ -308,15 +296,11 @@
           transform: `scale(${rulerParam.scale})`,
         }"
       >
-        <template v-for="({ content }, index) in itemList" :key="index">
-          <!-- 
-            @deactivated="MScreen.toggleActive('deactivated')"
-            @activated="MScreen.toggleActive('activated')" 
-            @dragging="(e) => MScreen.dragging(e, index)"-->
+        <template v-for="(items, index) in itemList" :key="index">
           <Vue3DraggableResizable
             :parent="true"
-            :initW="110"
-            :initH="120"
+            :initW="itemList[index].w"
+            :initH="itemList[index].h"
             class="dragResizable"
             v-model:x="itemList[index].x"
             v-model:y="itemList[index].y"
@@ -325,12 +309,11 @@
             v-model:active="itemList[index].active"
             :draggable="true"
             :resizable="true"
-            @drag-start="MScreen.print('drag-start')"
-            @resize-start="MScreen.print('resize-start')"
-            @drag-end="(e) => MScreen.change(e, index)"
-            @resize-end="(e) => MScreen.change(e, index)"
+            @click.ctrl="MScreen.multiChoose(index)"
+            @drag-end="(e) => MScreen.dragend(e, index)"
+            @resize-end="(e) => MScreen.resizeEnd(e, index)"
           >
-            {{ content }}
+            <Draw :ref="(el: any) => (drawElements[index] = el)" />
           </Vue3DraggableResizable>
         </template>
       </DraggableContainer>
@@ -347,6 +330,11 @@
       width: 100%;
       height: 100%;
       overflow: auto;
+
+      &:focus-visible {
+        // 按下键盘按键会触发focus-visible；隐藏focus-visible时的边框
+        outline: none;
+      }
     }
   }
 </style>

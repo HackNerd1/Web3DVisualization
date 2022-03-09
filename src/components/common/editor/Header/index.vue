@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2021-09-29 16:44:08
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-06 16:25:24
+ * @LastEditTime: 2022-03-07 09:46:50
 -->
 <script lang="ts" setup>
   import HButton from 'src/components/common/editor/Header/HeaderButton.vue'
@@ -87,6 +87,7 @@
     </aside>
     <main>
       <cite contenteditable="true" @blur="MTitle.onChange">
+        <!-- <template v-if="title "></template> -->
         {{ title || 'Untitled' }}
       </cite>
     </main>

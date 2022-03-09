@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2021-09-27 16:30:00
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-04 16:12:44
+ * @LastEditTime: 2022-03-08 14:49:22
  */
 import MyComponents from '/packages/index.ts'
 import EventBus from './utils/eventBus'
@@ -13,7 +13,7 @@ import App from './App.vue'
 import store from '@/store'
 import ContextMenu from '@imengyu/vue3-context-menu'
 import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
-
+// import echart from 'packages/Echarts'
 // import { IPageSetting } from '@/types'
 import { createApp } from 'vue'
 import { KEventBus, KStore } from '@/symbols'
@@ -61,6 +61,11 @@ app.use(Router)
 app.use(nvcomponents)
 app.use(MyComponents)
 app.use(store, KStore)
+// app.directive('focus', {
+//   mounted(el) {
+//     el.focus()
+//   },
+// })
 app.provide(KEventBus, $bus)
 // app.provide('contextmenu', ContextMenu)
 // console.log(ContextMenu)

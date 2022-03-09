@@ -1,11 +1,11 @@
 <script lang="ts" setup>
   import { defineProps, defineEmits, inject } from 'vue'
-
   import { KEventBus } from '@/symbols'
   import EventBus from '@/utils/eventBus'
+  import { IDragEnd, ICmpItem } from '@/types'
   interface IProps {
     // icon?: string
-    message?: string
+    items: Array<ICmpItem>
   }
 
   const eventBus = inject(KEventBus, new EventBus()) // 提供默认值
@@ -15,21 +15,6 @@
    * Menu module
    */
   const MMenu = (() => {
-    const items = [
-      {
-        url: 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/area-stack-gradient.png?_v_=1643452312113',
-        icon: 'icon-shuzhuangtu',
-        prop: 'bar',
-        name: '柱状图',
-      },
-      {
-        url: 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/area-stack-gradient.png?_v_=1643452312113',
-        icon: 'icon-bingtu',
-        prop: 'pie',
-        name: '饼图',
-      },
-    ]
-
     // 菜单点击
     const onClick = () => {
       emit('click')
@@ -40,17 +25,12 @@
     // }
 
     const dragenter = () => eventBus.emit('dragenter', {})
-
-    const dragend = (e: DragEvent) => {
-      // console.log('end', e)
-      // console.log(eventBus)
-      // console.log('dragend', e)
-
-      eventBus.emit('dragend', e)
+    const dragend = (e: DragEvent, item: ICmpItem) => {
+      const param: IDragEnd = { e, item }
+      eventBus.emit('dragend', param)
     }
 
     return {
-      items,
       onClick,
       dragenter,
       dragend,
@@ -62,26 +42,26 @@
 
 <template>
   <div
-    :class="['layer-menu-item']"
+    :class="['editor-menu-item']"
     @click="MMenu.onClick"
-    v-for="({ url, icon, name }, index) in MMenu.items"
+    v-for="(item, index) in items"
     :style="{
-      backgroundImage: `url(${url})`,
+      backgroundImage: `url(${item.url})`,
     }"
     draggable="true"
     @dragenter="MMenu.dragenter"
-    @dragend="MMenu.dragend"
+    @dragend="(e) => MMenu.dragend(e, item)"
     :key="index"
   >
     <div class="effect">
-      <i :class="['iconfont', icon]"></i>
-      {{ name }}
+      <i :class="['iconfont', item.icon]"></i>
+      <!-- {{ name }} -->
     </div>
   </div>
 </template>
 
 <style lang="less" scoped>
-  .layer-menu-item {
+  .editor-menu-item {
     @layer-item-height: 6rem;
     @transition-duration: 0.2s;
     width: 90%;

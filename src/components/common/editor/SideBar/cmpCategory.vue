@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-  import { defineProps, defineEmits, ref } from 'vue'
-  import ComponItem from 'src/components/common/editor/SideBar/ComponItem.vue'
+  import { defineEmits, ref } from 'vue'
+  import ComponItem from 'src/components/common/editor/SideBar/cmpItems.vue'
   import LayerButton from 'src/components/common/editor/LayerButton.vue'
-  interface IProps {
-    // icon?: string
-    message?: string
-  }
+  import { bar, pie } from 'src/data/compoentsCategory'
+
+  // interface IProps {
+  //   // icon?: string
+  //   message?: string
+  // }
 
   const emit = defineEmits(['click'])
   /**
@@ -13,7 +15,10 @@
    */
   const showComponent = ref(false)
   const MComponent = (() => {
-    const toggleShowCompen = (toggle: boolean) => (showComponent.value = toggle)
+    const toggleShowCompen = (toggle: boolean) => {
+      // TODO 屏幕右移
+      showComponent.value = toggle
+    }
     return {
       toggleShowCompen,
     }
@@ -24,21 +29,10 @@
    */
   const activedMenuIndex = ref(-1)
   const MMenu = (() => {
-    const items = [
-      {
-        icon: 'icon-shuzhuangtu',
-        prop: 'bar',
-        name: '柱状图',
-      },
-      {
-        icon: 'icon-bingtu',
-        prop: 'pie',
-        name: '饼图',
-      },
-    ]
+    const items = [bar, pie]
 
     // 菜单点击
-    const onClick = (prop: string, index: number) => {
+    const onClick = (type: string, index: number) => {
       activedMenuIndex.value = index
       emit('click')
       MComponent.toggleShowCompen(true)
@@ -50,31 +44,31 @@
     }
   })()
 
-  defineProps<IProps>()
+  // defineProps<IProps>()
 </script>
 
 <template>
   <div
-    :class="['layer-menu-item', activedMenuIndex === index ? 'actived' : null]"
-    @click="MMenu.onClick(prop, index)"
-    v-for="({ prop, icon, name }, index) in MMenu.items"
+    :class="['editor-menu-item', activedMenuIndex === index ? 'actived' : null]"
+    @click="MMenu.onClick(type, index)"
+    v-for="({ type, icon, name }, index) in MMenu.items"
     :key="index"
   >
     <i :class="['iconfont', icon]"></i>
     {{ name }}
     <div class="effect"></div>
   </div>
-  <div class="layer-component" v-if="showComponent">
+  <div class="component-list" v-if="showComponent">
     <div class="component-method">
       组件列表
       <LayerButton icon="icon-xiangzuo" @click="MComponent.toggleShowCompen(false)" />
     </div>
-    <ComponItem />
+    <ComponItem :items="MMenu.items[activedMenuIndex].data" />
   </div>
 </template>
 
 <style lang="less" scoped>
-  .layer-menu-item {
+  .editor-menu-item {
     @layer-item-height: 2.5rem;
     @transition-duration: 0.3s;
     width: 100%;
@@ -105,7 +99,7 @@
     }
   }
 
-  .layer-component {
+  .component-list {
     top: 0;
     right: 0;
     width: 15rem;
@@ -119,6 +113,8 @@
     flex-direction: column;
     background-color: #fff;
     transform: translate(100%);
+    transform: translate(100%, -2px);
+    border-top: 0.1rem solid #edf1f5;
     border-left: 0.1rem solid #edf1f5;
 
     .component-method {

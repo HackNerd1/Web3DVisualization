@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import LayerButton from 'src/components/common/editor/LayerButton.vue'
-  import LayerMenu from 'src/components/common/editor/SideBar/LayerMenu.vue'
+  import LayerMenu from 'src/components/common/editor/SideBar/cmpCategory.vue'
 </script>
 <template>
   <div class="dvis-editor-sidebar">
