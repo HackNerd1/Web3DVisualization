@@ -1,3 +1,11 @@
+<!--
+ * @Author: Hansel
+ * @Date: 2022-03-10 17:14:49
+ * @LastEditors: Hansel
+ * @LastEditTime: 2022-03-11 15:26:58
+ * @FilePath: \Web3DVisualization\src\components\Layout\common\SideBar\index.vue
+ * @Description: 
+-->
 <script lang="tsx" setup>
   import { computed } from '@vue/reactivity'
   import { RouterLink } from 'vue-router'
@@ -31,7 +39,7 @@
       {{ renderLogo }}
       {{ title }}
     </section>
-    <section class="menu">
+    <section class="menu dvis-scroll-bar">
       <template v-for="({ children, group }, index) in menu" :key="index">
         <div class="group">{{ group }}</div>
         <template v-for="({ icon, link, name }, idx) in children" :key="idx">

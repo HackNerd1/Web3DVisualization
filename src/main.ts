@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2021-09-27 16:30:00
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-08 14:49:22
+ * @LastEditTime: 2022-03-11 14:21:43
  */
 import MyComponents from '/packages/index.ts'
 import EventBus from './utils/eventBus'
@@ -34,6 +34,7 @@ import {
 } from 'naive-ui'
 import 'vfonts/FiraCode.css' // 等宽字体
 import 'vfonts/Lato.css' // 通用字体
+import '@/assets/styles/index.less'
 
 const nvcomponents = create({
   components: [
@@ -54,22 +55,11 @@ const nvcomponents = create({
 
 const app = createApp(App)
 const $bus = new EventBus()
-// const pageSetting: IPageSetting = {}
-// app.config.globalProperties.$contextmenu = ContextMenu.showContextMenu
 
 app.use(Router)
 app.use(nvcomponents)
 app.use(MyComponents)
 app.use(store, KStore)
-// app.directive('focus', {
-//   mounted(el) {
-//     el.focus()
-//   },
-// })
 app.provide(KEventBus, $bus)
-// app.provide('contextmenu', ContextMenu)
-// console.log(ContextMenu)
-
 app.use(ContextMenu)
-// app.provide(KPageSetting, pageSetting)
 app.mount('#app')
