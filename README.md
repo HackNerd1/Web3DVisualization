@@ -49,7 +49,7 @@
     │          ├─Header
     │          └─SideBar
     ├─config                  # 配置项，包括页面title、baseUrl
-    ├─data                    # （TODO）抽离图标点，城镇等图标一些数据
+    ├─data                    # （TODO）抽离地图标点，城镇等一些数据
     │  └─map
     │
     ├─pages                   # 基础页面
