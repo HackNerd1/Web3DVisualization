@@ -12,42 +12,59 @@
 ## 目录结构
 
 ```shell
-├─packages                       # 组件库
+├─other_modules            # data-v 修改包（参考） 需要手动解压替换 node_modules @jiaminghi文件夹
+│
+├─packages                 # 组件库
 │  ├─Avatar
 │  ├─Badge
 │  ├─Button
 │  ├─Card
 │  ├─CollapseButton
+│  ├─Echarts
 │  ├─Form
 │  ├─Icon
 │  └─Input
+│
 ├─public
 └─src
     ├─api
     ├─assets
-    │  ├─avatar
+    │  ├─avatar               # (temp) 用户头像
+    │  ├─DVisualize           # (北京图片) 用户头像
     │  └─styles
-    ├─components                  # 业务组件
+    │      ├─color            # (TODO) 全局color抽离
+    │      └─var              # (TODO) 全局style变量抽离
+    │
+    ├─components              # 业务组件
     │  ├─common
+    │  │  ├─charts
+    │  │  └─editor
+    │  │      ├─Header
+    │  │      ├─Proerty
+    │  │      └─SideBar
+    │  │
     │  └─Layout
-    │      ├─board
-    │      │  ├─Header
-    │      │  └─SideBar
     │      └─common
     │          ├─Author
     │          ├─Header
     │          └─SideBar
-    ├─config                      # 配置项，包括页面title、baseUrl
-    ├─pages                       # 基础页面
-    │  ├─error
-    │  └─login
+    ├─config                  # 配置项，包括页面title、baseUrl
+    ├─data                    # （TODO）抽离图标点，城镇等图标一些数据
+    │  └─map
+    │
+    ├─pages                   # 基础页面
     ├─router
-    ├─utils                       # 工具类
-    └─views                       # 业务界面
+    ├─store                   # vuex store
+    ├─symbols
+    ├─types                   # vuex store，大屏元素等类型的声明
+    ├─utils                   # 工具类
+    └─views                   # 业务界面
         ├─Boardlist
         ├─Dashboard
+        ├─Editor
         ├─MyAssets
         └─test
+
 ```
 
 ## Quick Start
@@ -60,6 +77,10 @@
 ```
 
 This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+
+## 后端仓库地址
+
+[Web3DVisualization](https://github.com/He123987/Web3DVisualization-BackEnd)
 
 ## Recommended IDE Setup
 
