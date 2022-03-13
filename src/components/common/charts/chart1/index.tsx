@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-03-07 13:51:16
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-08 14:08:04
+ * @LastEditTime: 2022-03-13 16:56:06
  */
 import { defineComponent, reactive, onMounted, ref, nextTick } from 'vue'
 import { debounce } from 'lodash'
@@ -177,9 +177,9 @@ export default defineComponent({
     }
 
     /**
-     * @description Echarts 重渲染函数, 防抖 300ms
+     * @description Echarts 重渲染函数, 防抖 100ms
      */
-    const renderChart = debounce(() => chartRef.value.initChart(options), 300)
+    const renderChart = debounce(() => chartRef.value.initChart(options), 100)
 
     // 生命周期
     onMounted(() => {
@@ -190,11 +190,10 @@ export default defineComponent({
     expose({ renderChart })
 
     return () => {
-      const height = '450px'
-      const width = '100%'
       return (
-        <div>
-          <echart ref={chartRef} height={height} width={width} />
+        <div style={{ height: '100%' }}>
+          {/* height={'100%'} width={'100%'}  */}
+          <echart ref={chartRef} />
         </div>
       )
     }

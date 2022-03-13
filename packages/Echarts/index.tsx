@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-03-07 16:41:56
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-08 14:24:27
+ * @LastEditTime: 2022-03-13 16:55:13
  */
 import { defineComponent, onMounted, ref, watch, onBeforeUnmount, DefineComponent } from 'vue'
 // import '@/data/map/fujian.js'
@@ -22,15 +22,15 @@ const PropsType = {
     default: 'chart',
   },
   // 图表宽度
-  width: {
-    type: String,
-    require: true,
-  },
-  // 图表高度
-  height: {
-    type: String,
-    require: true,
-  },
+  // width: {
+  //   type: String,
+  //   require: true,
+  // },
+  // // 图表高度
+  // height: {
+  //   type: String,
+  //   require: true,
+  // },
   // 图表数据项
   options: {
     type: Object,
@@ -91,15 +91,16 @@ const Echarts = defineComponent({
     })
 
     return () => {
-      const { id, className, height, width } = props
+      // const { id, className, height, width } = props
+      const { id, className } = props
       return (
         <div
           ref={chartRef}
           id={id as string}
           class={className as string}
           style={{
-            height: height as string,
-            width: width as string,
+            height: '100%',
+            width: '100%',
           }}
         />
       )

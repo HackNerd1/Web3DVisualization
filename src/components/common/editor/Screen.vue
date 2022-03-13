@@ -1,13 +1,13 @@
 <script lang="ts" setup>
   import { ref, inject, reactive, onMounted, nextTick, getCurrentInstance, ComponentPublicInstance } from 'vue'
-  import Vue3DraggableResizable, { DraggableContainer } from 'vue3-draggable-resizable'
+  import { DraggableContainer } from '/packages/Vue3DraggableResizable/index.ts'
   import { ICmpSetting } from '@/types'
   import { SketchRule } from 'vue3-sketch-ruler'
   import { VTest } from '@/data/cmpSettings'
   import EventBus from '@/utils/eventBus'
   import { KEventBus } from '@/symbols'
   import { useStore } from '@/store'
-  import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css'
+  // import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css'
   import Draw from 'src/components/common/charts/chart1/index.tsx'
   import 'vue3-sketch-ruler/lib/style.css'
 
@@ -321,8 +321,12 @@
       @keydown.delete="MScreen.deleteItem"
       @contextmenu="(e) => MConetxtMenu.open(e)"
       tabindex="0"
+      :style="{
+        height: `calc(${store.state.pageSetting.height}px + 100px)`,
+        width: `calc(${store.state.pageSetting.width}px + 100px)`,
+      }"
     >
-      <DraggableContainer
+      <draggable-container
         ref="dragContainer"
         id="dragContainer"
         :referenceLineVisible="true"
@@ -339,7 +343,7 @@
         <template v-for="(items, index) in elementLists" :key="index">
           <!--
             @click.exact="MScreen.selectElement(index)" -->
-          <Vue3DraggableResizable
+          <vue3-draggable-resizable
             :parent="true"
             :initW="elementLists[index].w"
             :initH="elementLists[index].h"
@@ -351,15 +355,16 @@
             v-model:active="elementLists[index].active"
             :draggable="true"
             :resizable="true"
+            :scale="rulerParam.scale"
             @click.ctrl="MScreen.multiChoose(index)"
             @drag-start="MScreen.selectElement(index)"
-            @drag-end="(e) => MScreen.dragend(e, index)"
-            @resize-end="(e) => MScreen.resizeEnd(e, index)"
+            @drag-end="(e:IResizing) => MScreen.dragend(e, index)"
+            @resize-end="(e: IResizing) => MScreen.resizeEnd(e, index)"
           >
             <Draw :ref="(el: any) => (drawElements[index] = el)" />
-          </Vue3DraggableResizable>
+          </vue3-draggable-resizable>
         </template>
-      </DraggableContainer>
+      </draggable-container>
     </div>
   </div>
 </template>
