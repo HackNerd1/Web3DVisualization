@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-02-27 15:52:20
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-09 15:22:32
+ * @LastEditTime: 2022-03-14 17:24:50
  */
 import { createStore, useStore as vuexUseStore, Store } from 'vuex'
 import { IStroe } from '@/types'
@@ -40,6 +40,8 @@ export default createStore<IStroe>({
       },
     ],
     currentElement: NaN,
+    showProp: false,
+    propertyType: NaN,
   },
   mutations: {
     // UPD,
@@ -47,18 +49,23 @@ export default createStore<IStroe>({
     SET_PAGE_SETTING: (state, payload) => (state.pageSetting = payload),
     SET_ELE_LISTS: (state, payload) => (state.elementLists = payload),
     SET_CURRENT_ELE: (state, payload) => (state.currentElement = payload),
+    SET_SHOW_PROP: (state, payload) => (state.showProp = payload),
+    SET_PROP_TYPE: (state, payload) => (state.propertyType = payload),
   },
   actions: {
     setDragEle: (context, payload) => context.commit('SET_DRAG_ELE', payload),
     setPageSetting: (context, payload) => context.commit('SET_PAGE_SETTING', payload),
     setEleLists: (context, payload) => context.commit('SET_ELE_LISTS', payload),
     setCurrentEle: (context, payload) => context.commit('SET_CURRENT_ELE', payload),
+    setShowProp: (context, payload) => context.commit('SET_SHOW_PROP', payload),
+    setPropertyType: (context, payload) => context.commit('SET_PROP_TYPE', payload),
   },
   getters: {
-    getDragEle: (state) => state.dragElement,
-    getPageSetting: (state) => state.pageSetting,
-    getEleLists: (state) => state.elementLists,
-    getCurrentEle: (state) => state.currentElement,
+    dragEle: (state) => state.dragElement,
+    pageSetting: (state) => state.pageSetting,
+    eleLists: (state) => state.elementLists,
+    showProp: (state) => state.showProp,
+    propertyType: (state) => state.propertyType,
   },
   modules: {},
 })

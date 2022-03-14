@@ -1,3 +1,11 @@
+/*
+ * @Author: Hansel
+ * @Date: 2022-03-10 17:14:49
+ * @LastEditors: Hansel
+ * @LastEditTime: 2022-03-14 11:20:17
+ * @FilePath: \Web3DVisualization\packages\Icon\index.tsx
+ * @Description: 
+ */
 import { defineComponent, App } from 'vue'
 import './index.less'
 const IProps = {
@@ -31,7 +39,7 @@ const Icon = defineComponent({
   props: IProps,
   setup(props, { slots }) {
     return () => (
-      <i style={{ fontSize: props.size, color: props.color }} class={['dvis-icon', 'iconfont', props.icon]}>
+      <i style={{ fontSize: props.size, color: props.color, height: '100%', width: '100%' }} class={['dvis-icon', 'iconfont', props.icon]}>
         {slots.default && slots.default()}
       </i>
     )

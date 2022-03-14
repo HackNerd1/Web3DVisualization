@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-03-02 20:49:30
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-09 15:06:17
+ * @LastEditTime: 2022-03-14 16:40:02
  */
 export interface IPageSetting {
   height?: number
@@ -17,11 +17,15 @@ export interface IPageSetting {
   // startY: number
 }
 
+export type IPropertyType = 0 | 1 | 2 | number
+
 export interface IStroe {
   pageSetting: IPageSetting
   dragElement?: any | null // TODO
   elementLists: Array<ICmpSetting> | []
   currentElement: number
+  showProp: boolean
+  propertyType: IPropertyType // 0:组件属性, 1: 界面设置
 }
 
 export type IComponentID = string

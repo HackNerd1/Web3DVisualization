@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2021-09-27 16:30:00
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-11 14:21:43
+ * @LastEditTime: 2022-03-14 14:00:16
  */
 import MyComponents from '/packages/index.ts'
 import EventBus from './utils/eventBus'
@@ -31,6 +31,11 @@ import {
   NInputNumber,
   NColorPicker,
   NUpload,
+  NTabs,
+  NTabPane,
+  NAlert,
+  NRadio,
+  NSelect,
 } from 'naive-ui'
 import 'vfonts/FiraCode.css' // 等宽字体
 import 'vfonts/Lato.css' // 通用字体
@@ -50,6 +55,11 @@ const nvcomponents = create({
     NInputNumber,
     NColorPicker,
     NUpload,
+    NTabs,
+    NTabPane,
+    NAlert,
+    NRadio,
+    NSelect,
   ],
 })
 

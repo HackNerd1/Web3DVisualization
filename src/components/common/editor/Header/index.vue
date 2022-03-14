@@ -4,30 +4,26 @@
  * @Author: Hansel
  * @Date: 2021-09-29 16:44:08
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-11 13:53:34
+ * @LastEditTime: 2022-03-14 16:58:33
 -->
 <script lang="ts" setup>
   import HButton from 'src/components/common/editor/Header/HeaderButton.vue'
-  import LayerButton from '@/components/common/editor/LayerButton.vue'
-  import Proerty from 'src/components/common/editor/Proerty/elementSetting.vue'
-  import PageSetting from 'src/components/common/editor/Proerty/pageSetting.vue'
+  import { IPropertyType } from '@/types'
   import EventBus from '@/utils/eventBus'
   import { KEventBus } from '@/symbols'
   import { useRouter } from 'vue-router'
-  import { defineEmits, defineProps, ref, inject } from 'vue'
+  import { useStore } from '@/store'
+  import { defineEmits, defineProps, inject, onUnmounted, computed } from 'vue'
 
   interface IProps {
     title?: string
   }
 
-  type IPropertyType = 0 | 1 | 2 // 0:组件属性, 1: 界面设置
-
   const router = useRouter()
-
+  const store = useStore()
   const eventBus = inject(KEventBus, new EventBus()) // 注入Event Bus; 接受组件激活和停用事件 切换设置展示
-  const propertyType = ref<IPropertyType | null>(null)
-  const showProp = ref(false)
-  // const show = ref(false)
+  const propertyType = computed(() => store.getters['propertyType'])
+  const showProp = computed(() => store.getters['showProp'])
   const emit = defineEmits(['onEditTitle'])
 
   /**
@@ -35,28 +31,32 @@
    */
   const MButton = (function () {
     const goBack = () => router.go(-1) // 返回键
-    const reflash = () => console.log('reflash')
-    // const show = () => emit('onShow')
     const show = (type: IPropertyType) => {
       if (propertyType.value === type) return close()
-      propertyType.value = type
-      if (!showProp.value) showProp.value = true
+      store.dispatch('setPropertyType', type)
+      if (!showProp.value) {
+        // const { wwidth } = store.state.pageSetting
+        store.dispatch('setShowProp', true)
+      }
     }
     const close = () => {
-      propertyType.value = null
-      showProp.value = false
+      store.dispatch('setPropertyType', NaN)
+      store.dispatch('setShowProp', false)
     }
     const toggleActive = (type: IPropertyType) => {
       if (!showProp.value) return
-      propertyType.value = type
+      store.dispatch('setPropertyType', type)
     }
+    const active = () => toggleActive(0)
+    const deactive = () => toggleActive(1)
 
     return {
       goBack,
-      reflash,
       show,
       close,
       toggleActive,
+      active,
+      deactive,
     }
   })()
 
@@ -73,17 +73,23 @@
     }
   })()
 
-  eventBus.on('deactivated', () => MButton.toggleActive(1))
-  eventBus.on('activated', () => MButton.toggleActive(0))
+  eventBus.on('deactivated', MButton.active)
+  eventBus.on('activated', MButton.deactive)
+
   defineProps<IProps>()
+
+  onUnmounted(() => {
+    eventBus.off('deactivated', MButton.active)
+    eventBus.off('deactivated', MButton.deactive)
+  })
 </script>
 
 <template>
   <div class="dvis-editor-header">
     <aside class="button-group">
       <HButton icon="icon-zhedie" @click="MButton.goBack()" />
-      <HButton icon="icon-shangyibu" message="撤销 Ctrl + Y" @click="MButton.reflash()" />
-      <HButton icon="icon-xiayibu1" message="还原 Ctrl + Z" @click="MButton.reflash()" />
+      <HButton icon="icon-shangyibu" message="撤销 Ctrl + Y" @click="MButton.goBack()" />
+      <HButton icon="icon-xiayibu1" message="还原 Ctrl + Z" @click="MButton.goBack()" />
     </aside>
     <main>
       <cite contenteditable="true" @blur="MTitle.onChange">
@@ -96,17 +102,10 @@
       <HButton icon="icon-shezhi" message="界面设置" @click="MButton.show(1)" :activated="propertyType === 1" />
     </aside>
 
-    <aside :class="['property', showProp ? 'show-proerty' : null]">
-      <div class="layer-buttons flex space-around">
-        <LayerButton icon="icon-shezhi" message="界面设置" />
-        <LayerButton icon="icon-xiayi" message="下移" />
-        <LayerButton icon="icon-zhiding" message="置顶" />
-        <LayerButton icon="icon-zhidi" message="置底" />
-        <LayerButton icon="icon-guanbi1" message="关闭" @click="MButton.close" />
-      </div>
+    <!-- <aside :class="['property', showProp ? 'show-proerty' : null]">
       <Proerty v-if="propertyType === 0" />
       <PageSetting v-if="propertyType === 1" />
-    </aside>
+    </aside> -->
   </div>
 </template>
 

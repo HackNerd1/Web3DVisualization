@@ -1,5 +1,15 @@
 <script lang="ts" setup>
-  import { ref, inject, reactive, onMounted, nextTick, getCurrentInstance, ComponentPublicInstance } from 'vue'
+  import {
+    ref,
+    inject,
+    reactive,
+    onMounted,
+    nextTick,
+    computed,
+    getCurrentInstance,
+    watch,
+    ComponentPublicInstance,
+  } from 'vue'
   import { DraggableContainer } from '/packages/Vue3DraggableResizable/index.ts'
   import { ICmpSetting } from '@/types'
   import { SketchRule } from 'vue3-sketch-ruler'
@@ -39,12 +49,11 @@
 
   const store = useStore()
   const Instance = getCurrentInstance()
-  // const componentData = ref<EventTarget | null>(null)
   const dragContainer = ref<TDraggableContainer | null>(null)
-  // const dragResizable = ref<TDragResizable | null>(null)
   const screen = ref<Element | null>(null)
   const eventBus = inject(KEventBus, new EventBus()) // 注入Event Bus; Event Bus 有默认值 ; 接受菜单栏发送的拖拽事件
   const wrapper = ref<Element | null>(null)
+  const showProp = computed(() => store.getters['showProp'])
   const elementLists = ref<Array<ICmpSetting>>(store.state.elementLists)
   const cacheElements = ref<Array<ICmpSetting>>([])
   const drawElements = ref<Array<ComponentPublicInstance>>([])
@@ -67,7 +76,6 @@
       height: store.state.pageSetting.height,
     },
   })
-
   /**
    * @description 获取激活/未激活的元素
    * @param toggle
@@ -284,15 +292,15 @@
       dragContainer.value?.$el.getBoundingClientRect().width / 2 - screen.value.getBoundingClientRect().width / 2
     MScreen.initSize()
   })
-
-  // onUnmounted(() => {
-  //   // 清空store数据
-  //   store.dispatch('setDragEle', {})
-  // })
 </script>
 
 <template>
-  <div class="screen-wrapper dvis-scroll-bar" ref="wrapper" @wheel="MScreen.wheel" @scroll="MScreen.scroll">
+  <div
+    :class="['screen-wrapper', 'dvis-scroll-bar', showProp ? 'show-proerty' : null]"
+    ref="wrapper"
+    @wheel="MScreen.wheel"
+    @scroll="MScreen.scroll"
+  >
     <SketchRule
       :thick="rulerParam.thick"
       :scale="rulerParam.scale"
@@ -369,16 +377,20 @@
   </div>
 </template>
 <style lang="less" scoped>
+  @import '@/assets/styles/var';
   .screen-wrapper {
     width: 100%;
     height: 100%;
     user-select: none;
     overflow: auto;
 
+    &.show-property {
+      width: calc(100% + @property-menu-width);
+    }
+
     .screen {
       width: 100%;
       height: 100%;
-      // overflow: auto;
 
       &:focus-visible {
         // 按下键盘按键会触发focus-visible；隐藏focus-visible时的边框

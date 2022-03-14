@@ -1,4 +1,5 @@
 node_modules
+other_modules/@jiaminghi
 .DS_Store
 dist
 dist-ssr

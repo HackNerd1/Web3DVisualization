@@ -1,7 +1,7 @@
+@import '@/assets/styles/var';
 .dvis-editor-container {
   @margin-top: 1.2rem;
 
-  @property-menu-width: 10rem;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -29,21 +29,22 @@
       padding: 38px;
       box-sizing: border-box;
     }
-    // .property {
-    //   top: 0;
-    //   height: 100%;
-    //   position: absolute;
-    //   box-sizing: border-box;
-    //   width: @property-menu-width;
-    //   right: -@property-menu-width;
-    //   border-top: 0.1rem solid #edf1f5;
-    //   border-left: 0.1rem solid #edf1f5;
-    //   background-color: rgb(255, 255, 255);
-    //   transition: transform 0.3s ease-in-out;
 
-    //   &.show-proerty {
-    //     transform: translateX(-@property-menu-width);
-    //   }
-    // }
+    .property {
+      height: 100%;
+      display: block;
+      z-index: 10;
+      box-sizing: border-box;
+      width: @property-menu-width;
+      border-top: 0.1rem solid #edf1f5;
+      border-left: 0.1rem solid #edf1f5;
+      background-color: rgb(255, 255, 255);
+      display: none;
+      transition: transform 0.3s ease-in-out;
+
+      &.show-proerty {
+        display: block;
+      }
+    }
   }
 }
