@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-03-07 16:41:56
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-13 16:55:13
+ * @LastEditTime: 2022-03-19 16:30:41
  */
 import { defineComponent, onMounted, ref, watch, onBeforeUnmount, DefineComponent } from 'vue'
 // import '@/data/map/fujian.js'
@@ -60,6 +60,16 @@ const Echarts = defineComponent({
       }
     }
 
+    /**
+     * updateData
+     * 更新数据
+     * @param data
+     * @param clearCaching
+     */
+    const updateData = (data?: any, clearCaching = false) => {
+      charts.chart?.setOption(data || props.options, clearCaching)
+    }
+
     // 生命周期
     onMounted(() => {
       // 定义实例
@@ -88,6 +98,7 @@ const Echarts = defineComponent({
     expose({
       chartRef,
       initChart,
+      updateData,
     })
 
     return () => {

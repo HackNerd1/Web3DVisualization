@@ -4,10 +4,10 @@
  * @Author: Hansel
  * @Date: 2022-02-24 16:22:22
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-14 15:32:30
+ * @LastEditTime: 2022-03-19 14:48:47
 -->
 <script lang="ts" setup>
-  import { IOption, ICmpSetting } from '@/types'
+  import { ICmpSetting } from '@/types'
   import { ref, reactive, inject, onUnmounted } from 'vue'
   import { useStore } from '@/store'
   import EventBus from '@/utils/eventBus'
@@ -43,7 +43,7 @@
     dataSetting.dataType = Number((e.target as HTMLInputElement).value)
   }
   // const props = defineProps<IProps>()
-  const cmpOption = ref<IOption>({})
+  // const cmpOption = ref<IOption>({})
   eventBus.on('selectElement', selectElement)
   onUnmounted(() => {
     eventBus.off('selectElement', selectElement)
@@ -108,6 +108,8 @@
     padding: 0.5rem 1rem 1rem 1rem;
 
     .element-setting-info {
+      display: flex;
+      flex-direction: column;
       text-align: center;
       transform: translateY(50%);
     }

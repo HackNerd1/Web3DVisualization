@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-03-07 14:22:11
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-07 15:11:47
+ * @LastEditTime: 2022-03-21 23:11:40
  */
 
 import { ICmpCategory } from '@/types'
@@ -32,9 +32,9 @@ export const bar: ICmpCategory = {
       url: 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/area-stack-gradient.png?_v_=1643452312113',
       icon: 'icon-shuzhuangtu',
       id: '1',
-      name: 'VBasicPie',
-      alias: '基本饼图',
-      cmp: () => import('@/components/Layout/common/index.vue'),
+      name: 'chart',
+      alias: '测试图形',
+      // componentPath: '@/',
       // img: `${process.env.VUE_APP_QINIU_FILE}/com/basic-pie.png`,
       used: true,
     },
@@ -42,8 +42,8 @@ export const bar: ICmpCategory = {
       url: 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/area-stack-gradient.png?_v_=1643452312113',
       icon: 'icon-shuzhuangtu',
       id: '2',
-      name: 'VPieOneValue',
-      alias: '指标占比图',
+      name: 'chart1',
+      alias: '测试图形1',
       // img: `${process.env.VUE_APP_QINIU_FILE}/com/pie-one-value.png`,
       used: true,
     },

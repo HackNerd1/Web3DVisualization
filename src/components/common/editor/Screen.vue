@@ -7,8 +7,9 @@
     nextTick,
     computed,
     getCurrentInstance,
-    watch,
     ComponentPublicInstance,
+    defineAsyncComponent,
+    shallowRef,
   } from 'vue'
   import { DraggableContainer } from '/packages/Vue3DraggableResizable/index.ts'
   import { ICmpSetting } from '@/types'
@@ -18,7 +19,8 @@
   import { KEventBus } from '@/symbols'
   import { useStore } from '@/store'
   // import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css'
-  import Draw from 'src/components/common/charts/chart1/index.tsx'
+  // import Draw1 from '@/components/common/charts/chart1/index.tsx'
+  // import Draw from '@/components/common/charts/chart/index'
   import 'vue3-sketch-ruler/lib/style.css'
 
   type TDraggableContainer = InstanceType<typeof DraggableContainer>
@@ -178,19 +180,18 @@
     }
     const drop = (e: DragEvent) => {
       if (dragContainer.value) {
-        const dragEle = store.state.dragElement
+        const { name } = store.state.dragElement
         const { x: domX, y: domY } = dragContainer.value.$el.getClientRects()[0]
         const { pageX, pageY } = e
+
         // TODO 根据id获取图表配置
-        // console.log(dragEle)
 
         elementLists.value.push({
           x: pageX - domX,
           y: pageY - domY,
           ...VTest,
           active: false,
-          // content: `This is a example${item.id}`,
-          // content: instance,
+          cmp: shallowRef(defineAsyncComponent(() => import(`/src/components/common/charts/${name}/index.tsx`))),
         })
       }
       store.dispatch('setDragEle', {}) // 重置dragElement数据
@@ -248,28 +249,28 @@
             label: '上移',
             icon: 'icon-shangyi',
             onClick: () => {
-              console.log('copy')
+              // console.log('copy')
             },
           },
           {
             label: '下移',
             icon: 'icon-xiayi',
             onClick: () => {
-              console.log('copy')
+              // console.log('copy')
             },
           },
           {
             label: '置顶',
             icon: 'icon-zhiding',
             onClick: () => {
-              console.log('copy')
+              // console.log('copy')
             },
           },
           {
             label: '置底',
             icon: 'icon-zhidi',
             onClick: () => {
-              console.log('copy')
+              // console.log('copy')
             },
           },
         ],
@@ -351,7 +352,7 @@
         <template v-for="(items, index) in elementLists" :key="index">
           <!--
             @click.exact="MScreen.selectElement(index)" -->
-          <vue3-draggable-resizable
+          <!-- <vue3-draggable-resizable
             :parent="true"
             :initW="elementLists[index].w"
             :initH="elementLists[index].h"
@@ -370,6 +371,27 @@
             @resize-end="(e: IResizing) => MScreen.resizeEnd(e, index)"
           >
             <Draw :ref="(el: any) => (drawElements[index] = el)" />
+          </vue3-draggable-resizable> -->
+          <vue3-draggable-resizable
+            :parent="true"
+            :initW="items.w"
+            :initH="items.h"
+            class="dragResizable"
+            v-model:x="items.x"
+            v-model:y="items.y"
+            v-model:w="items.w"
+            v-model:h="items.h"
+            v-model:active="items.active"
+            :draggable="true"
+            :resizable="true"
+            :scale="rulerParam.scale"
+            @click.ctrl="MScreen.multiChoose(index)"
+            @drag-start="MScreen.selectElement(index)"
+            @drag-end="(e:IResizing) => MScreen.dragend(e, index)"
+            @resize-end="(e: IResizing) => MScreen.resizeEnd(e, index)"
+          >
+            <!-- <Draw :ref="(el: any) => (drawElements[index] = el)" /> -->
+            <component :is="items.cmp" />
           </vue3-draggable-resizable>
         </template>
       </draggable-container>

@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-03-02 20:49:30
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-14 16:40:02
+ * @LastEditTime: 2022-03-21 22:47:54
  */
 export interface IPageSetting {
   height?: number
@@ -42,7 +42,7 @@ export interface ICmpItem {
   alias?: string
   url: string
   icon: string
-  cmp?: any
+  componentPath?: string
 }
 
 export interface ICmpCategory {
@@ -62,5 +62,6 @@ export interface ICmpSetting {
   w: number
   active?: boolean
   option?: IOption
+  cmp?: any // 异步组件
   // content: string | ComponentPublicInstance
 }

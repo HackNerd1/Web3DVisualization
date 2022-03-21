@@ -61,7 +61,7 @@
     :key="index"
   >
     <div class="effect">
-      <i :class="['iconfont', item.icon]"></i>
+      <i :class="['iconfont', item.icon]">{{ item.alias }}</i>
       <!-- {{ name }} -->
     </div>
   </div>
