@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-02-27 15:52:20
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-21 22:59:43
+ * @LastEditTime: 2022-03-24 21:07:11
  */
 import { createStore, useStore as vuexUseStore, Store } from 'vuex'
 import { IStroe } from '@/types'
@@ -18,6 +18,7 @@ export default createStore<IStroe>({
       width: 1920,
       height: 1080,
       backgroundColor: 'rgba(255, 255, 255, 1)',
+      // backgroundImage: '/src/assets/backgroundImg/bg.jpg',
       // scale: 1,
       // thick: 16,
       // startX: 0,

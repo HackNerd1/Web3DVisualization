@@ -4,8 +4,9 @@
  * @Author: Hansel
  * @Date: 2022-03-02 20:49:30
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-21 22:47:54
+ * @LastEditTime: 2022-03-23 22:19:37
  */
+
 export interface IPageSetting {
   height?: number
   width?: number

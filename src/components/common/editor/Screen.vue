@@ -191,7 +191,8 @@
           y: pageY - domY,
           ...VTest,
           active: false,
-          cmp: shallowRef(defineAsyncComponent(() => import(`/src/components/common/charts/${name}/index.tsx`))),
+          // cmp: shallowRef(defineAsyncComponent(() => import(`/src/components/common/charts/${name}/index.tsx`))),
+          cmp: shallowRef(defineAsyncComponent(() => import(`/src/components/common/3D/map/index.tsx`))),
         })
       }
       store.dispatch('setDragEle', {}) // 重置dragElement数据
@@ -347,31 +348,10 @@
           width: `${store.state.pageSetting.width}px`,
           backgroundColor: store.state.pageSetting.backgroundColor,
           transform: `scale(${rulerParam.scale})`,
+          backgroundImage: `url(${store.state.pageSetting.backgroundImage})`,
         }"
       >
         <template v-for="(items, index) in elementLists" :key="index">
-          <!--
-            @click.exact="MScreen.selectElement(index)" -->
-          <!-- <vue3-draggable-resizable
-            :parent="true"
-            :initW="elementLists[index].w"
-            :initH="elementLists[index].h"
-            class="dragResizable"
-            v-model:x="elementLists[index].x"
-            v-model:y="elementLists[index].y"
-            v-model:w="elementLists[index].w"
-            v-model:h="elementLists[index].h"
-            v-model:active="elementLists[index].active"
-            :draggable="true"
-            :resizable="true"
-            :scale="rulerParam.scale"
-            @click.ctrl="MScreen.multiChoose(index)"
-            @drag-start="MScreen.selectElement(index)"
-            @drag-end="(e:IResizing) => MScreen.dragend(e, index)"
-            @resize-end="(e: IResizing) => MScreen.resizeEnd(e, index)"
-          >
-            <Draw :ref="(el: any) => (drawElements[index] = el)" />
-          </vue3-draggable-resizable> -->
           <vue3-draggable-resizable
             :parent="true"
             :initW="items.w"
@@ -391,7 +371,7 @@
             @resize-end="(e: IResizing) => MScreen.resizeEnd(e, index)"
           >
             <!-- <Draw :ref="(el: any) => (drawElements[index] = el)" /> -->
-            <component :is="items.cmp" />
+            <component :is="items.cmp" :ref="(el: any) => (drawElements[index] = el)" />
           </vue3-draggable-resizable>
         </template>
       </draggable-container>

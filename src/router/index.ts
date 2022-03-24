@@ -49,6 +49,11 @@ const routes = [
     meta: { title: 'My Project' },
   },
   {
+    path: '/test',
+    component: () => import('@/components/common/3D/map/index'),
+    meta: { title: 'My Project' },
+  },
+  {
     path: '/login',
     component: () => import('@/pages/login/index.vue'),
     meta: { title: 'Login' },
@@ -93,7 +98,8 @@ router.beforeEach((to, from, next) => {
 
   if (!routeWhiteList.includes(to.path)) {
     // TODO 做JWT校验
-    const isAuth = sessionStorage.getItem('auth')
+    // const isAuth = sessionStorage.getItem('auth')
+    const isAuth = 'true'
 
     if (!isAuth || isAuth !== 'true') {
       next('login')
