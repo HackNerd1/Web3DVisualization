@@ -54,7 +54,7 @@
     v-for="({ type, icon, name }, index) in MMenu.items"
     :key="index"
   >
-    <i :class="['iconfont', icon]"></i>
+    <i :class="['iconfont', 'icon', icon]"></i>
     {{ name }}
     <div class="effect"></div>
   </div>
@@ -68,9 +68,11 @@
 </template>
 
 <style lang="less" scoped>
+  @import '@/assets/styles/var/index.less';
   .editor-menu-item {
-    @layer-item-height: 2.5rem;
+    @layer-item-height: 32px;
     @transition-duration: 0.3s;
+    margin: 16px 0;
     width: 100%;
     display: flex;
     cursor: pointer;
@@ -85,23 +87,62 @@
     line-height: @layer-item-height;
     transition: all @transition-duration linear;
 
-    &:hover {
-      background-color: rgb(240, 244, 247);
+    &.actived {
+      color: #324168;
     }
 
-    &.actived {
+    &.actived .icon {
       color: #fff;
       background-color: #e84393;
     }
 
-    i {
-      margin-right: 5px;
+    .icon {
+      width: @layer-item-height;
+      margin-right: 8px;
+      font-size: 14px;
+      text-align: center;
+      border-radius: 10px;
+      display: inline-block;
+      box-sizing: border-box;
+      transition: background-color @transition-duration linear, color @transition-duration linear;
+      background-color: rgba(79, 134, 255, 0.08);
+    }
+
+    .effect {
+      top: 0;
+      right: 0;
+      opacity: 0;
+      content: '';
+      width: 32px;
+      height: 32px;
+      display: flex;
+      position: absolute;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(50%) rotate(45deg);
+      background-color: rgba(246, 249, 255);
+      transition: opacity @transition-duration linear;
+
+      &::after {
+        width: 6px;
+        height: 6px;
+        content: '';
+        border-radius: 50%;
+        background-color: #e84393;
+        transform: translate(-3px, 3px);
+      }
+    }
+
+    &.actived .effect {
+      opacity: 1;
     }
   }
 
   .component-list {
     top: 0;
-    right: 0;
+    left: 0;
+    /* right: 0; */
     width: 15rem;
     height: 100%;
     display: flex;
@@ -112,13 +153,11 @@
     align-items: center;
     flex-direction: column;
     background-color: #fff;
-    transform: translate(100%);
-    transform: translate(100%, -2px);
+    transform: translate(@component-menu-width, @dvis-header-height);
     border-top: 0.1rem solid #edf1f5;
     border-left: 0.1rem solid #edf1f5;
 
     .component-method {
-      /* padding: 10px; */
       width: 100%;
       display: flex;
       height: 2.1rem;

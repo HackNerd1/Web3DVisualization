@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-02-23 11:00:48
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-14 17:14:38
+ * @LastEditTime: 2022-03-27 00:50:50
 -->
 <script lang="ts" setup>
   import SideBar from '@/components/common/editor/SideBar/index.vue'
@@ -13,8 +13,6 @@
   import Proerty from 'src/components/common/editor/Proerty/elementSetting/index.vue'
   import PageSetting from 'src/components/common/editor/Proerty/pageSetting.vue'
   import { useStore } from '@/store'
-  // import EventBus from '@/utils/eventBus'
-  // import { KEventBus } from '@/symbols'
   import { ref, computed } from 'vue'
 
   // type IPropertyType = 0 | 1 | 2 // 0:组件属性, 1: 界面设置
@@ -32,30 +30,21 @@
       if (e.ctrlKey || e.metaKey) e.preventDefault()
     },
   }
-
-  // eventBus.on('showProperty', MHeader.showProerty)
-
-  // onUnmounted(() => {
-  //   eventBus.off('showProperty', MHeader.showProerty)
-  // })
 </script>
 
 <template>
-  <div class="dvis-editor-container" @wheel="MHeader.preventWheel">
-    <EHeader class="header" ref="header" />
-    <section>
-      <aside class="chart-menu flex">
-        <SideBar />
-      </aside>
-      <!-- <main :class="['editor-content', showProp ? 'show-proerty' : null]"> -->
-      <Screen />
-
-      <aside :class="['property', showProp ? 'show-proerty' : null]">
-        <Proerty v-if="propertyType === 0" />
-        <PageSetting v-if="propertyType === 1" />
-      </aside>
-      <!-- </main> -->
-    </section>
+  <div class="dvis-editor-container flex" @wheel="MHeader.preventWheel">
+    <SideBar />
+    <main>
+      <EHeader class="header" ref="header" />
+      <section class="content flex">
+        <Screen />
+        <aside :class="['property', showProp ? 'show-proerty' : null]">
+          <Proerty v-if="propertyType === 0" />
+          <PageSetting v-if="propertyType === 1" />
+        </aside>
+      </section>
+    </main>
   </div>
 </template>
 

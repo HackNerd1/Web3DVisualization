@@ -382,7 +382,8 @@
   @import '@/assets/styles/var';
   .screen-wrapper {
     width: 100%;
-    height: 100%;
+    position: relative;
+    height: calc(100% - @dvis-header-height);
     user-select: none;
     overflow: auto;
 

@@ -1,3 +1,4 @@
+@import '@/assets/styles/var';
 .dvis-side-bar {
   @padding-top: 64px;
   @padding-right: 0px;
@@ -7,9 +8,8 @@
   @transition-duration: 0.3s;
 
   height: 100%;
-  // text-align: left;
   box-sizing: border-box;
-  width: var(--dvis-side-bar-width);
+  width: @dvis-side-bar-width;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: @padding-top @padding-right @padding-left @padding-bottom;
 
@@ -18,17 +18,13 @@
     font-weight: bold;
     margin-bottom: 32px;
     text-transform: uppercase;
-    // color: rgba(0, 95, 254, 1);
     color: #e84393;
-    // background-image: #005ffe;
-    // background-clip: text;
     letter-spacing: 0.1rem;
   }
 
   .log-out .icon,
   .menu .router-link .icon {
     width: 32px;
-    // height: 32px;
     font-size: 14px;
     text-align: center;
     border-radius: 10px;
@@ -93,7 +89,6 @@
 
       &.active .icon {
         color: #fff;
-        // background-color: rgba(79, 134, 255, 1);
         background-color: #e84393;
       }
 

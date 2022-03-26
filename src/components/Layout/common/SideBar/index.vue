@@ -2,7 +2,7 @@
  * @Author: Hansel
  * @Date: 2022-03-10 17:14:49
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-11 15:26:58
+ * @LastEditTime: 2022-03-26 23:32:08
  * @FilePath: \Web3DVisualization\src\components\Layout\common\SideBar\index.vue
  * @Description: 
 -->
@@ -56,7 +56,6 @@
       <i :class="['iconfont', 'icon', 'icon-tubiaozhizuomoban-']"></i>
       Log Out
     </section>
-    <!-- <collapse-button icon="icon-indent" /> -->
   </div>
 </template>
 

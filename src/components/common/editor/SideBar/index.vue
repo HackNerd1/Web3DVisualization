@@ -1,16 +1,24 @@
+<!--
+ * @Descripttion: 
+ * @version: 0.0.1
+ * @Author: Hansel
+ * @Date: 2021-09-29 16:44:15
+ * @LastEditors: Hansel
+ * @LastEditTime: 2022-03-27 00:42:30
+-->
 <script lang="ts" setup>
-  import LayerButton from 'src/components/common/editor/LayerButton.vue'
-  import LayerMenu from 'src/components/common/editor/SideBar/cmpCategory.vue'
+  import cmpCategory from 'src/components/common/editor/SideBar/cmpCategory.vue'
+  const title = 'DVIS'
 </script>
 <template>
-  <div class="dvis-editor-sidebar">
-    <div class="layer-buttons flex space-around">
-      <LayerButton icon="icon-shangyi" message="上移" />
-      <LayerButton icon="icon-xiayi" message="下移" />
-      <LayerButton icon="icon-zhiding" message="置顶" />
-      <LayerButton icon="icon-zhidi" message="置底" />
+  <div class="dvis-side-bar">
+    <section class="title">
+      {{ title }}
+    </section>
+    <div class="menu dvis-scroll-bar">
+      <div class="group">menu</div>
+      <cmpCategory />
     </div>
-    <LayerMenu />
   </div>
 </template>
 <style lang="less" scoped>
