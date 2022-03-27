@@ -4,14 +4,14 @@
  * @Author: Hansel
  * @Date: 2022-02-23 11:00:48
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-27 00:50:50
+ * @LastEditTime: 2022-03-27 13:55:11
 -->
 <script lang="ts" setup>
-  import SideBar from '@/components/common/editor/SideBar/index.vue'
-  import EHeader from '@/components/common/editor/Header/index.vue'
-  import Screen from '@/components/common/editor/Screen.vue'
-  import Proerty from 'src/components/common/editor/Proerty/elementSetting/index.vue'
-  import PageSetting from 'src/components/common/editor/Proerty/pageSetting.vue'
+  import SideBar from '@/components/Layout/editor/SideBar/index.vue'
+  import EHeader from '@/components/Layout/editor/Header/index.vue'
+  import Screen from '@/components/Layout/editor/Screen.vue'
+  import Proerty from 'src/components/Layout/editor/Proerty/elementSetting/index.vue'
+  import PageSetting from 'src/components/Layout/editor/Proerty/pageSetting.vue'
   import { useStore } from '@/store'
   import { ref, computed } from 'vue'
 

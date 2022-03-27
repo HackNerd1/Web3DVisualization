@@ -4,10 +4,10 @@
  * @Author: Hansel
  * @Date: 2021-09-29 16:44:08
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-14 16:58:33
+ * @LastEditTime: 2022-03-27 13:56:16
 -->
 <script lang="ts" setup>
-  import HButton from 'src/components/common/editor/Header/HeaderButton.vue'
+  import HButton from 'src/components/Layout/editor/Header/HeaderButton.vue'
   import { IPropertyType } from '@/types'
   import EventBus from '@/utils/eventBus'
   import { KEventBus } from '@/symbols'

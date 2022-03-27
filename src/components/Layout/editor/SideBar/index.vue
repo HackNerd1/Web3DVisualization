@@ -7,7 +7,7 @@
  * @LastEditTime: 2022-03-27 00:42:30
 -->
 <script lang="ts" setup>
-  import cmpCategory from 'src/components/common/editor/SideBar/cmpCategory.vue'
+  import cmpCategory from 'src/components/Layout/editor/SideBar/cmpCategory.vue'
   const title = 'DVIS'
 </script>
 <template>

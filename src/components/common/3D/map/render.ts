@@ -13,7 +13,7 @@ import pz from './textures/cube/pz.png'
 import nx from './textures/cube/nx.png'
 import ny from './textures/cube/ny.png'
 import nz from './textures/cube/nz.png'
-import jsonData from './json/china.json'
+import jsonData from '@/data/map/china.json'
 import tag from './textures/tag.png'
 
 // 墨卡托投影转换
@@ -54,9 +54,13 @@ export class AppMap {
   selectedObject: any
   renderer: any
   scene: any
+  controller: any
   lightProbe: any
   camera: any
   csm: any
+  activeInstersect: any
+  raycaster: any
+  eventOffset: any
   csmHelper: any
   font: any
   map: any
@@ -114,7 +118,7 @@ export class AppMap {
     this.csm = new CSM({
       maxFar: params.far,
       cascades: 4,
-      mode: params.mode,
+      // mode: params.mode,
       parent: this.scene,
       shadowMapSize: 1024,
       lightDirection: new THREE.Vector3(params.lightX, params.lightY, params.lightZ).normalize(),
@@ -141,34 +145,39 @@ export class AppMap {
 
     this.loadMapData()
 
-    this.setResize() // 绑定浏览器缩放事件
+    // this.setResize() // 绑定浏览器缩放事件
   }
 
-  setResize() {
-    window.addEventListener('resize', this.resizeEventHandle.bind(this))
-  }
+  // setResize() {
+  //   window.addEventListener('resize', this.resizeEventHandle.bind(this))
+  // }
 
-  resizeEventHandle() {
+  resize() {
     this.width = this.container.offsetWidth
     this.height = this.container.offsetHeight
     this.renderer.setSize(this.width, this.height)
   }
+
+  public reRender() {
+    this.resize()
+  }
+
   loadMapData() {
-    const _this = this
+    // const _this = this
 
     // const jsonData = require('./json/china.json')
 
-    _this.initMap(jsonData)
+    this.initMap(jsonData)
   }
 
   loadFont() {
     //加载中文字体
-    const loader = new THREE.FontLoader()
-    const _this = this
-    loader.load('fonts/chinese.json', function (response: any) {
-      _this.font = response
-      _this.loadMapData()
-    })
+    // const loader = new THREE.FontLoader()
+    // const _this = this
+    // loader.load('fonts/chinese.json', function (response: any) {
+    //   _this.font = response
+    //   _this.loadMapData()
+    // })
   }
 
   createText(text: any, position: any) {
@@ -232,13 +241,13 @@ export class AppMap {
               const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings)
 
               const material = new THREE.MeshStandardMaterial({
-                clearcoat: 3.0,
+                // clearcoat: 3.0,
                 metalness: 1,
                 color: color,
               })
 
               const material1 = new THREE.MeshStandardMaterial({
-                clearcoat: 3.0,
+                // clearcoat: 3.0,
                 metalness: 1,
                 roughness: 1,
                 color: color,
@@ -338,7 +347,7 @@ export class AppMap {
       this.raycaster.setFromCamera(this.mouse, this.camera)
     }
     this.renderer.render(this.scene, this.camera)
-    console.log('render info', this.renderer.info)
+    // console.log('render info', this.renderer.info)
     // TWEEN.update()
   }
 
@@ -348,7 +357,7 @@ export class AppMap {
     this.eventOffset = {}
     const _this = this
 
-    function onMouseMove(event) {
+    function onMouseMove(event: MouseEvent) {
       // 父级并非满屏，所以需要减去父级的left 和 top
       const { top, left, width, height } = _this.container.getBoundingClientRect()
       const clientX = event.clientX - left
@@ -390,7 +399,7 @@ export class AppMap {
     function onClick() {
       if (_this.selectedObject) {
         // 输出标注信息
-        console.log(_this.selectedObject._data)
+        // console.log(_this.selectedObject._data)
         _this.tagClick(_this.selectedObject._data)
       }
     }
@@ -487,7 +496,7 @@ export class AppMap {
       const intersects = this.raycaster.intersectObjects(this.scene.children, true)
       if (this.activeInstersect && this.activeInstersect.length > 0) {
         // 将上一次选中的恢复颜色
-        this.activeInstersect.forEach((element) => {
+        this.activeInstersect.forEach((element: any) => {
           const { object } = element
           const { _color, material } = object
           material[0].color.set(_color)
@@ -540,6 +549,6 @@ export class AppMap {
       this.renderer.domElement = null
       this.renderer = null
     }
-    window.removeEventListener('resize', this.resizeEventHandle)
+    // window.removeEventListener('resize', this.resizeEventHandle)
   }
 }

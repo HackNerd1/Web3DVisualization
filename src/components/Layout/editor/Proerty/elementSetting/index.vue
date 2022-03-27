@@ -4,30 +4,31 @@
  * @Author: Hansel
  * @Date: 2022-02-24 16:22:22
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-19 14:48:47
+ * @LastEditTime: 2022-03-27 20:41:01
 -->
 <script lang="ts" setup>
-  import { ICmpSetting } from '@/types'
-  import { ref, reactive, inject, onUnmounted } from 'vue'
+  // import { APPICmpSetting } from '@/types'
+  import { ref, reactive, computed } from 'vue'
   import { useStore } from '@/store'
-  import EventBus from '@/utils/eventBus'
-  import { KEventBus } from '@/symbols'
-  const eventBus = inject(KEventBus, new EventBus())
+  // import EventBus from '@/utils/eventBus'
+  // import { KEventBus } from '@/symbols'
+  // const eventBus = inject(KEventBus, new EventBus())
   const store = useStore()
   // interface IProps {
   //   option: IOption
-  //   setting: ICmpSetting
+  //   setting: APPICmpSetting
   // }
   /**
    * @description 数据设置
    * dataType: 0 静态数据 1 动态数据 2 sql数据
    */
   const dataSetting = reactive({ dataType: 0, api: '', method: undefined })
-  const cmpSetting = ref<ICmpSetting>(store.state.elementLists[store.state.currentElement])
+  // const cmpSetting = ref<APPICmpSetting>(store.state.elementLists[store.state.currentElement])
+  const cmpSetting = computed(() => store.state.elementLists[store.state.currentElement])
   // console.log(store.state.elementLists[store.state.currentElement])
-  const selectElement = (index: number) => {
-    cmpSetting.value = store.state.elementLists[index]
-  }
+  // const selectElement = (index: number) => {
+  //   cmpSetting.value = store.state.elementLists[index]
+  // }
   const methodsOption = [
     {
       label: 'GET',
@@ -42,12 +43,10 @@
   const handleChange = (e: Event) => {
     dataSetting.dataType = Number((e.target as HTMLInputElement).value)
   }
-  // const props = defineProps<IProps>()
-  // const cmpOption = ref<IOption>({})
-  eventBus.on('selectElement', selectElement)
-  onUnmounted(() => {
-    eventBus.off('selectElement', selectElement)
-  })
+  // eventBus.on('selectElement', selectElement)
+  // onUnmounted(() => {
+  //   eventBus.off('selectElement', selectElement)
+  // })
   // import LayerButton from '@/components/common/editor/LayerButton.vue'
 </script>
 <template>

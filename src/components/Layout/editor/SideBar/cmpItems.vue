@@ -84,33 +84,35 @@
     box-sizing: border-box;
     background-color: #fff;
     height: @layer-item-height;
-    border: 2px solid transparent;
+    // border: 2px solid transparent;
     line-height: @layer-item-height;
-    transition: all @transition-duration linear;
+    transition: border @transition-duration linear;
     background-repeat: no-repeat;
     background-size: cover;
 
     position: relative;
 
     &:hover {
-      border: 2px solid #e84393;
+      // border: 2px solid #e84393;
       // background-color: rgb(240, 244, 247);
       .effect {
-        transform: translateY(0%);
+        opacity: 1;
+        // transform: translateY(0%);
       }
     }
 
     .effect {
       left: 0;
       bottom: 0;
+      opacity: 0;
       width: 100%;
       color: #fff;
       text-align: center;
       height: @layer-item-height;
       background-color: rgba(102, 102, 102, 0.3);
       position: absolute;
-      transform: translateY(100%);
-      transition: transform 0.3s linear;
+      // transform: translateY(100%);
+      transition: opacity 0.3s linear;
     }
 
     i {

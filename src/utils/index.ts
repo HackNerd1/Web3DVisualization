@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-02-21 12:05:11
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-07 15:30:01
+ * @LastEditTime: 2022-03-27 14:28:25
  */
 
 // import second from 'v'
@@ -56,3 +56,14 @@ export const getCookie = (name: string) => {
 //   }
 //   return false
 // }
+
+/**
+ * staticAssetsUrl
+ * @description
+ * 动态引入资源
+ * @param url
+ * @returns
+ */
+export const staticAssetsUrl = (url: string | URL) => {
+  return new URL(`../../${url}`, import.meta.url).href
+}

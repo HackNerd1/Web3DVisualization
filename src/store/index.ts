@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-02-27 15:52:20
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-24 21:07:11
+ * @LastEditTime: 2022-03-27 15:26:03
  */
 import { createStore, useStore as vuexUseStore, Store } from 'vuex'
 import { IStroe } from '@/types'
@@ -24,23 +24,7 @@ export default createStore<IStroe>({
       // startX: 0,
       // startY: 0,
     },
-    elementLists: [
-      // {
-      //   x: 0,
-      //   y: 0,
-      //   h: 450,
-      //   w: 500,
-      //   active: false,
-      //   cmp:
-      // },
-      // {
-      //   x: 500,
-      //   y: 500,
-      //   h: 450,
-      //   w: 500,
-      //   active: false,
-      // },
-    ],
+    elementLists: [],
     currentElement: NaN,
     showProp: false,
     propertyType: NaN,

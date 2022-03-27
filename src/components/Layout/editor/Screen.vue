@@ -7,14 +7,12 @@
     nextTick,
     computed,
     getCurrentInstance,
-    ComponentPublicInstance,
     defineAsyncComponent,
     shallowRef,
   } from 'vue'
   import { DraggableContainer } from '/packages/Vue3DraggableResizable/index.ts'
-  import { ICmpSetting } from '@/types'
+  import { APPICmpSetting, APPIGeneralComponent } from '@/types'
   import { SketchRule } from 'vue3-sketch-ruler'
-  import { VTest } from '@/data/cmpSettings'
   import EventBus from '@/utils/eventBus'
   import { KEventBus } from '@/symbols'
   import { useStore } from '@/store'
@@ -56,9 +54,10 @@
   const eventBus = inject(KEventBus, new EventBus()) // 注入Event Bus; Event Bus 有默认值 ; 接受菜单栏发送的拖拽事件
   const wrapper = ref<Element | null>(null)
   const showProp = computed(() => store.getters['showProp'])
-  const elementLists = ref<Array<ICmpSetting>>(store.state.elementLists)
-  const cacheElements = ref<Array<ICmpSetting>>([])
-  const drawElements = ref<Array<ComponentPublicInstance>>([])
+  const elementLists = ref<Array<APPICmpSetting>>(store.state.elementLists)
+  const cacheElements = ref<Array<APPICmpSetting>>([])
+  const drawElements = ref<Array<APPIGeneralComponent>>([])
+  const pageSetting = computed(() => store.state.pageSetting)
 
   const rulerParam = reactive<IRuler>({
     width: 1920,
@@ -74,8 +73,8 @@
     shadow: {
       x: 0,
       y: 0,
-      width: store.state.pageSetting.width,
-      height: store.state.pageSetting.height,
+      width: pageSetting.value.width,
+      height: pageSetting.value.height,
     },
   })
   /**
@@ -178,28 +177,29 @@
       //   // console.log(wrapperRect, rulerParam.width, rulerParam.height)
       // }
     }
-    const drop = (e: DragEvent) => {
+    const drop = async (e: DragEvent) => {
       if (dragContainer.value) {
-        const { name } = store.state.dragElement
+        const { name, category } = store.state.dragElement
+        if (!name || !category) return
         const { x: domX, y: domY } = dragContainer.value.$el.getClientRects()[0]
         const { pageX, pageY } = e
-
-        // TODO 根据id获取图表配置
+        const config = (await import(`/src/components/common/${category}/${name}/config.ts`)).default
 
         elementLists.value.push({
-          x: pageX - domX,
-          y: pageY - domY,
-          ...VTest,
-          active: false,
-          // cmp: shallowRef(defineAsyncComponent(() => import(`/src/components/common/charts/${name}/index.tsx`))),
-          cmp: shallowRef(defineAsyncComponent(() => import(`/src/components/common/3D/map/index.tsx`))),
+          ...new config(pageX - domX, pageY - domY),
+          // x: pageX - domX,
+          // y: pageY - domY,
+          // ...VTest,
+          // active: false,
+          cmp: shallowRef(defineAsyncComponent(() => import(`/src/components/common/${category}/${name}/index.tsx`))),
+          // cmp: shallowRef(defineAsyncComponent(() => import(`/src/components/common/3D/map/index.tsx`))),
         })
       }
       store.dispatch('setDragEle', {}) // 重置dragElement数据
     }
 
     const selectElement = (index: number) => {
-      eventBus.emit('selectElement', index)
+      // eventBus.emit('selectElement', index)
       store.dispatch('setCurrentEle', index)
       eventBus.emit('activated', null)
     }
@@ -313,8 +313,8 @@
       :lines="rulerParam.lines"
       :shadow="rulerParam.shadow"
       :style="{
-        height: `${store.state.pageSetting.height}px`,
-        width: `${store.state.pageSetting.width}px`,
+        height: `${pageSetting.height}px`,
+        width: `${pageSetting.width}px`,
       }"
       :palette="{ lineColor: 'rgba(0, 173, 255, 0.84)' }"
     />
@@ -332,8 +332,8 @@
       @contextmenu="(e) => MConetxtMenu.open(e)"
       tabindex="0"
       :style="{
-        height: `calc(${store.state.pageSetting.height}px + 100px)`,
-        width: `calc(${store.state.pageSetting.width}px + 100px)`,
+        height: `calc(${pageSetting.height}px + 100px)`,
+        width: `calc(${pageSetting.width}px + 100px)`,
       }"
     >
       <draggable-container
@@ -344,11 +344,11 @@
         @dragover.prevent
         @drop="MScreen.drop"
         :style="{
-          height: `${store.state.pageSetting.height}px`,
-          width: `${store.state.pageSetting.width}px`,
-          backgroundColor: store.state.pageSetting.backgroundColor,
+          height: `${pageSetting.height}px`,
+          width: `${pageSetting.width}px`,
+          backgroundColor: pageSetting.backgroundColor,
           transform: `scale(${rulerParam.scale})`,
-          backgroundImage: `url(${store.state.pageSetting.backgroundImage})`,
+          backgroundImage: `url(${pageSetting.backgroundImage})`,
         }"
       >
         <template v-for="(items, index) in elementLists" :key="index">
@@ -361,6 +361,8 @@
             v-model:y="items.y"
             v-model:w="items.w"
             v-model:h="items.h"
+            :minW="0"
+            :minH="0"
             v-model:active="items.active"
             :draggable="true"
             :resizable="true"

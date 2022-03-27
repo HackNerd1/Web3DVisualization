@@ -2,7 +2,7 @@
  * @Author: Hansel
  * @Date: 2022-03-10 17:14:49
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-19 14:46:23
+ * @LastEditTime: 2022-03-27 20:17:56
  * @FilePath: \Web3DVisualization\packages\Icon\index.tsx
  * @Description:
  */
@@ -40,7 +40,7 @@ const Icon = defineComponent({
   setup(props, { slots }) {
     return () => (
       <i
-        style={{ fontSize: props.size, color: props.color, height: '100%' }}
+        style={{ fontSize: props.size, color: props.color, height: '100%', lineHeight: props.size }}
         class={['dvis-icon', 'iconfont', props.icon]}
       >
         {slots.default && slots.default()}

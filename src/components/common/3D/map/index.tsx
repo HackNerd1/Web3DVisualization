@@ -4,11 +4,12 @@
  * @Author: Hansel
  * @Date: 2022-03-24 22:19:21
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-24 22:26:52
+ * @LastEditTime: 2022-03-27 17:15:52
  */
 import { defineComponent, nextTick, onMounted, ref, watch } from 'vue'
 import { AppMap } from './render'
 import './index.less'
+import { debounce } from 'lodash'
 
 const Map = defineComponent({
   name: 'Map',
@@ -28,7 +29,9 @@ const Map = defineComponent({
         mapObj.setTag(props.tagData)
       })
     }
-    const renderChart = () => {}
+    const renderChart = debounce(() => {
+      mapObj && mapObj.reRender()
+    }, 100)
 
     watch(
       () => props.tagData,

@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2022-03-02 14:59:57
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-03 09:55:03
+ * @LastEditTime: 2022-03-27 20:11:47
 -->
 
 <script lang="ts" setup>
@@ -20,7 +20,7 @@
   const MSetting = (() => {
     const save = () => {
       Store.dispatch('setPageSetting', form.value)
-      console.log(Store.state.pageSetting)
+      // console.log(Store.state.pageSetting)
 
       // TODO 发送请求
     }

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
   import { defineEmits, ref } from 'vue'
-  import ComponItem from 'src/components/common/editor/SideBar/cmpItems.vue'
-  import LayerButton from 'src/components/common/editor/LayerButton.vue'
-  import { bar, pie } from 'src/data/compoentsCategory'
+  import ComponItem from 'src/components/Layout/editor/SideBar/cmpItems.vue'
+  import LayerButton from 'src/components/Layout/editor/LayerButton.vue'
+  import { Category3D, pie } from 'src/data/compoentsCategory'
 
   // interface IProps {
   //   // icon?: string
@@ -29,10 +29,10 @@
    */
   const activedMenuIndex = ref(-1)
   const MMenu = (() => {
-    const items = [bar, pie]
+    const items = [Category3D, pie]
 
     // 菜单点击
-    const onClick = (type: string, index: number) => {
+    const onClick = (index: number) => {
       activedMenuIndex.value = index
       emit('click')
       MComponent.toggleShowCompen(true)
@@ -50,8 +50,8 @@
 <template>
   <div
     :class="['editor-menu-item', activedMenuIndex === index ? 'actived' : null]"
-    @click="MMenu.onClick(type, index)"
-    v-for="({ type, icon, name }, index) in MMenu.items"
+    @click="MMenu.onClick(index)"
+    v-for="({ icon, name }, index) in MMenu.items"
     :key="index"
   >
     <i :class="['iconfont', 'icon', icon]"></i>
