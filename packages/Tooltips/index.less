@@ -1,0 +1,62 @@
+.dvis-tooltips {
+  @background-color: #99b2c6;
+  color: #ffffff;
+  font-weight: 300;
+  position: relative;
+
+  /* 初始化 */
+  &:hover::after,
+  &:hover::before {
+    opacity: 1;
+  }
+
+  &::before,
+  &::after {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.3s ease 0.05s;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+  }
+
+  &::after {
+    padding: 12px;
+    box-sizing: border-box;
+    content: attr(data-content);
+    position: absolute;
+    background: #f7f5f1;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 12px;
+    padding: 6px 12px;
+    white-space: nowrap;
+    border-radius: 10px;
+    background-color: @background-color;
+  }
+
+  /* 位置 */
+  &.top::before {
+  }
+  &.bottom {
+    &::before,
+    &::after {
+      left: 50%;
+      bottom: 0;
+    }
+
+    &::before {
+      transform: translate(-50%, 10%);
+      border-bottom-color: @background-color;
+    }
+
+    &::after {
+      transform: translate(-50%, 100%);
+    }
+  }
+}

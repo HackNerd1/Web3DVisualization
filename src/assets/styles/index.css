@@ -1,4 +1,3 @@
-
 /* TODO 迁移到index.less */
 body {
   /** 
@@ -76,7 +75,7 @@ body {
 /* .dvis-scroll-bar::-webkit-scrollbar-corner,
 .dvis-scroll-bar::-webkit-scrollbar-track {
   /* 滚动条轨道 */
-  /* background-color: rgba(180, 160, 120, 0.1);
+/* background-color: rgba(180, 160, 120, 0.1);
   box-shadow: inset 0 0 1px rgba(180, 160, 120, 0.5);
 }
 /* .dvis-scroll-bar::-webkit-scrollbar-thumb {

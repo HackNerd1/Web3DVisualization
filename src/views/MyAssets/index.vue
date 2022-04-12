@@ -1,51 +1,46 @@
 <script lang="ts" setup>
-  // import Card from '@/components/common/card'
   import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
-  import { test, fetchGroup } from '@/api/assets'
-  import { useMessage } from 'naive-ui'
+  import { fetchGroup } from '@/api/assets'
+  import { APPIAssetsList } from 'src/types/data'
+  import { AssetsCard } from '@/components/common/assetsCard/index.tsx'
 
   /**
    * 色板
    */
   const color = ['#FFB931', '#FF036D', 'rgba(164, 48, 255, 1)', 'rgba(0, 206, 144, 1)']
-  const message = useMessage()
   /**
    * 资源分组
    */
   // TODO 待对接口
-  const projects = [
+  const projects: APPIAssetsList[] = [
     {
-      title: 'Buy',
-      icon: 'icon-Buy',
+      title: 'China Map',
+      background: 'src/assets/backgroundImg/map.png',
+      description: 'An example of 3D projects',
+      status: 'Published',
+      uid: '1',
     },
     {
-      title: 'Sell',
-      icon: 'icon-tagfill',
+      title: 'Fantasy Book',
+      background: 'src/assets/backgroundImg/FantasyBook.png',
+      description: 'An example of 3D projects',
+      status: 'Draft',
+      uid: '2',
     },
     {
-      title: 'Send',
-      icon: 'icon-bx-mail-send',
+      title: 'Treasure!',
+      background: 'src/assets/backgroundImg/FantasyBook.png',
+      description: 'An example of 3D projects',
+      status: 'Draft',
+      uid: '2',
     },
     {
-      title: 'Request',
-      icon: 'icon-downloadfill',
-    },
-    {
-      title: 'Send',
-      icon: 'icon-bx-mail-send',
-    },
-    {
-      title: 'Request',
-      icon: 'icon-downloadfill',
-    },
-    {
-      title: 'Send',
-      icon: 'icon-bx-mail-send',
-    },
-    {
-      title: 'Request',
-      icon: 'icon-downloadfill',
+      title: 'Crypt Location',
+      background: 'src/assets/backgroundImg/CryptLocation.png',
+      description: 'An example of 3D projects',
+      status: 'Draft',
+      uid: '2',
     },
   ]
 
@@ -72,15 +67,12 @@
     router.push({ path: '/project', query: { id: '' } })
   }
 
-  const handleTest = () => {
-    test().then((data) => {})
-  }
+  const handleAddAssets = () => {}
 </script>
 
 <template>
+  <!-- <dialog></dialog> -->
   <div class="dvis-common-container">
-    <n-button @click="handleTest">Test</n-button>
-    <n-button @click="handleTest">新增分组</n-button>
     <section>
       <h1>Group</h1>
       <div class="flex group">
@@ -100,6 +92,18 @@
          -->
         <div class="carousel">
           <dvis-card
+            class="flex justify-center align-center"
+            :style="{
+              transform: `translateX(${transform}px)`,
+              width: '88px',
+              height: '64px',
+            }"
+          >
+            <template #content>
+              <dvis-icon icon="icon-add" size="24px" color="rgb(191, 191, 191)" />
+            </template>
+          </dvis-card>
+          <dvis-card
             :style="{ transform: `translateX(${transform}px)` }"
             v-for="({ name, icon }, index) in assetsGroup"
             :title="name"
@@ -108,7 +112,18 @@
             background
             rectangle
             :key="index"
-          />
+          >
+            <template #content>
+              <span class="effect flex justify-evenly align-center">
+                <dvis-tooltips description="Edit">
+                  <dvis-icon icon="icon-edit1" color="#333333" size="16px" />
+                </dvis-tooltips>
+                <dvis-tooltips description="Delete">
+                  <dvis-icon icon="icon-delete2" color="#333333" size="16px" />
+                </dvis-tooltips>
+              </span>
+            </template>
+          </dvis-card>
         </div>
         <!-- 
           向左按钮
@@ -137,32 +152,15 @@
         </dvis-input></div
       >
     </section>
-
     <section>
-      <h1>My Portfolio Value</h1>
+      <h1>Assets List</h1>
       <div class="my-assets">
-        <dvis-card
-          @on-click="handleClick"
-          v-for="(props, index) in projects"
-          v-bind="props"
-          :iconBGColor="color[index]"
-          background
-          :key="index"
-        >
+        <dvis-card @on-click="handleAddAssets" class="flex justify-center align-center">
           <template #content>
-            <n-skeleton :style="{ marginTop: '10px' }" height="130px" width="100%" :sharp="false" />
-            <!-- <div class="d-visiual" :style="{ backgroundImage: 'url(src/assets/DVisualize/bg1.jpg)' }"></div> -->
+            <dvis-icon icon="icon-add" size="40px" color="rgb(191, 191, 191)" />
           </template>
         </dvis-card>
-      </div>
-      <!-- <n-skeleton height="330px" width="100%" :sharp="false" /> -->
-    </section>
-    <section>
-      <h1>Following</h1>
-      <div class="flex space-between">
-        <n-skeleton height="205px" width="205px" :sharp="false" />
-        <n-skeleton height="205px" width="205px" :sharp="false" />
-        <n-skeleton height="205px" width="205px" :sharp="false" />
+        <AssetsCard @on-click="handleClick" v-for="(props, index) in projects" v-bind="props" :key="index" />
       </div>
     </section>
   </div>

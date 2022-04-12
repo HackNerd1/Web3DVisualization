@@ -87,14 +87,7 @@ export function initState(props: any, emit: any, scale: Ref<number>) {
     setResizingMinHeight,
     setWidth: (val: number) => setWidth(Math.floor(val)),
     setHeight: (val: number) => setHeight(Math.floor(val)),
-    setTop: (val: number) => {
-      // console.log(setTop(Math.floor(val)));
-      // console.log(setTop(Math.floor(val / scale.value)))
-      // console.log(val / scale.value)
-      // console.log('initstate', val)
-
-      return setTop(Math.floor(val))
-    },
+    setTop: (val: number) => setTop(Math.floor(val)),
     setLeft: (val: number) => setLeft(Math.floor(val)),
   }
 }

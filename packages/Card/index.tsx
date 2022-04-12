@@ -5,7 +5,7 @@ import './index.less'
 const IProps = {
   /**
    * 标签传入 clickable 代表可点击
-   * attrs 传入 'default' 'large' 'rectangle' 来调用大小
+   * attrs 传入 'default' 'large' 'rectangle'，'square' 来调用大小
    */
   ...Icon.props,
   title: {

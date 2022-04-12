@@ -1,0 +1,29 @@
+.dvis-tags {
+  /* size */
+  // height: 20px;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 12px;
+  text-align: center;
+  display: inline-block;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  /* type */
+  &.success {
+    color: #00b071;
+    background-color: #e4fff5;
+  }
+
+  &.error {
+    color: #ff35a2;
+    background-color: #fff0f8;
+  }
+
+  /* attrs */
+  &[round] {
+    border-radius: 4px;
+  }
+}

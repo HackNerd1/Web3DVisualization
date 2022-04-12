@@ -4,7 +4,7 @@
  * @Author: Hansel
  * @Date: 2021-11-26 14:43:28
  * @LastEditors: Hansel
- * @LastEditTime: 2022-03-13 09:50:34
+ * @LastEditTime: 2022-04-10 22:02:12
  */
 import { App } from 'vue'
 import Icon from './Icon'
@@ -16,9 +16,24 @@ import Card from './Card'
 import CollapseButton from './CollapseButton'
 import Form from './Form'
 import Echarts from './Echarts'
+import Tags from './Tags'
+import Tooltips from './Tooltips'
 import Vue3DraggableResizable from './Vue3DraggableResizable'
 
-const components = { Input, Button, CollapseButton, Form, Echarts, Icon, Badge, Avatar, Card, Vue3DraggableResizable }
+const components = {
+  Input,
+  Button,
+  CollapseButton,
+  Form,
+  Echarts,
+  Icon,
+  Badge,
+  Avatar,
+  Card,
+  Vue3DraggableResizable,
+  Tags,
+  Tooltips,
+}
 
 const install = (app: App) => {
   Object.values(components).forEach((component) => app.use(component))
@@ -32,4 +47,4 @@ const MyComponents = {
 }
 
 export default MyComponents
-export { Input, Button, CollapseButton, Form, Icon, Badge, Avatar, Card }
+export { Input, Button, CollapseButton, Form, Icon, Badge, Avatar, Card, Tags, Tooltips }
