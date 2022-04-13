@@ -2,7 +2,7 @@
  * @author: Hansel
  * @email: hsh01365238@gongdao.com
  * @create: 2022-04-12 10:50:07
- * @modify: 2022-04-13 17:06:04
+ * @modify: 2022-04-13 17:11:44
  * @desc: 
 -->
 <script lang="ts" setup>
@@ -70,7 +70,7 @@
       rules: [
         {
           required: true,
-          triggle: '',
+          triggle: 'blur',
         },
       ],
     },
