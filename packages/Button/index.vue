@@ -1,17 +1,19 @@
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { ref, useAttrs } from 'vue'
 
   interface IProps {
     width?: string
     height?: string
     className?: string
-    type?: 'primary' | 'default' | 'planet'
+    type?: 'primary' | 'default' | 'planet' | 'gradient'
     loading?: boolean
     disabled?: boolean
     // backgroundColor?: string
     color?: string
+    size: 'large' | 'default' | 'small' | 'mini'
   }
 
+  const attrs = useAttrs()
   const emit = defineEmits(['click'])
   const button = ref<Document>()
 
@@ -39,14 +41,15 @@
     }, 1000)
   }
 
-  withDefaults(defineProps<IProps>(), { loading: false, color: '#fff' })
+  withDefaults(defineProps<IProps>(), { loading: false, type: 'default' })
 </script>
 <template>
   <button
+    v-bind="attrs"
     ref="button"
     :style="{ width, height, color }"
     @click.prevent="handleClick"
-    :class="['dvis-button', className, type ? type : 'default', loading ? 'loading' : null]"
+    :class="['dvis-button', className, type, size, loading ? 'loading' : null]"
     :disabled="loading || disabled"
   >
     <svg

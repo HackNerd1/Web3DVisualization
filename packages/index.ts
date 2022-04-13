@@ -1,3 +1,10 @@
+/**
+ * @author Hansel
+ * @email hsh01365238@gongdao.com
+ * @create 2022-04-13 10:00:18
+ * @modify 2022-04-13 11:25:16
+ * @desc 
+ */
 /*
  * @Descripttion:
  * @version: 0.0.1
@@ -18,6 +25,7 @@ import Form from './Form'
 import Echarts from './Echarts'
 import Tags from './Tags'
 import Tooltips from './Tooltips'
+import Modal from './Modal';
 import Vue3DraggableResizable from './Vue3DraggableResizable'
 
 const components = {
@@ -33,6 +41,7 @@ const components = {
   Vue3DraggableResizable,
   Tags,
   Tooltips,
+  Modal,
 }
 
 const install = (app: App) => {
@@ -47,4 +56,4 @@ const MyComponents = {
 }
 
 export default MyComponents
-export { Input, Button, CollapseButton, Form, Icon, Badge, Avatar, Card, Tags, Tooltips }
+export { Input, Button, CollapseButton, Form, Icon, Badge, Avatar, Card, Tags, Tooltips, Modal }

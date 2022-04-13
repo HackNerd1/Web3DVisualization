@@ -20,7 +20,12 @@ export interface IColumns {
   prefix?: string
   placeholder?: string
   isPassword?: boolean
-  rules?: array // TODO 属性待定
+  rules?: IRules[] // TODO 属性待定
+}
+
+export interface IRules {
+  required: boolean
+  triggle: 'blur' | 'change' | 'focous'
 }
 
 export interface IOption {

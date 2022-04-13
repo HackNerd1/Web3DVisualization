@@ -4,6 +4,7 @@
   import { fetchGroup } from '@/api/assets'
   import { APPIAssetsList } from 'src/types/data'
   import { AssetsCard } from '@/components/common/assetsCard/index.tsx'
+  import { IColumns } from 'packages/Form/index.d'
 
   /**
    * 色板
@@ -43,7 +44,7 @@
       uid: '2',
     },
   ]
-
+  const modalVisable = ref<boolean>(true)
   const assetsGroup = ref([])
   const router = useRouter()
   const transform = ref(0)
@@ -58,6 +59,34 @@
     transform.value += 154 * toggle
   }
 
+  const columns: IColumns[] = [
+    {
+      type: 'input',
+      label: 'Name',
+      prop: 'name',
+      // prefix: 'icon-user',
+      placeholder: 'Please input group name',
+      rules: [
+        {
+          required: true,
+          triggle: '',
+        },
+      ],
+    },
+    {
+      type: 'input',
+      label: 'Icon',
+      prop: 'icon',
+      // prefix: 'Select Icon',
+      placeholder: 'Please select icon',
+      // isPassword: true,
+    },
+  ]
+
+  const handleAdd = () => {
+    modalVisable.value = true
+  }
+
   const handleSearch = () => {
     // console.log('search')
   }
@@ -67,11 +96,12 @@
     router.push({ path: '/project', query: { id: '' } })
   }
 
-  const handleAddAssets = () => {}
+  const handleAddAssets = () => {
+    modalVisable.value = true
+  }
 </script>
 
 <template>
-  <!-- <dialog></dialog> -->
   <div class="dvis-common-container">
     <section>
       <h1>Group</h1>
@@ -93,6 +123,7 @@
         <div class="carousel">
           <dvis-card
             class="flex justify-center align-center"
+            @click="handleAdd"
             :style="{
               transform: `translateX(${transform}px)`,
               width: '88px',
@@ -164,6 +195,10 @@
       </div>
     </section>
   </div>
+  <dvis-modal v-model:visable="modalVisable">
+    <template #header>Add</template>
+    <dvis-form :columns="columns" />
+  </dvis-modal>
 </template>
 
 <style lang="less">

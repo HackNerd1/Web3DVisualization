@@ -1,3 +1,10 @@
+<!--
+ * @author: Hansel
+ * @email: hsh01365238@gongdao.com
+ * @create: 2022-04-12 10:50:07
+ * @modify: 2022-04-13 17:06:04
+ * @desc: 
+-->
 <script lang="ts" setup>
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
@@ -49,7 +56,7 @@
       rules: [
         {
           required: true,
-          triggle: '',
+          triggle: 'blur',
         },
       ],
     },
@@ -60,6 +67,12 @@
       prefix: 'icon-password-fill',
       placeholder: 'Please Input Your Password',
       isPassword: true,
+      rules: [
+        {
+          required: true,
+          triggle: '',
+        },
+      ],
     },
   ]
 </script>
@@ -69,8 +82,8 @@
     <div>
       <form>
         <h1>Login</h1>
-        <my-form :columns="columns" v-model="form" />
-        <dvis-button type="default" @click="handleLogin" color="#fff" :loading="loading">Login</dvis-button>
+        <dvis-form :columns="columns" v-model="form" />
+        <dvis-button type="gradient" @click="handleLogin" :loading="loading">Login</dvis-button>
       </form>
     </div></div
   >

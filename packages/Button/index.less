@@ -7,13 +7,12 @@
   border: transparent;
   border-radius: 1rem;
   align-items: center;
-  display: inline-flex;
+  letter-spacing: 1px;
   padding: 0.8rem 1rem;
-  letter-spacing: 0.2rem;
+  display: inline-flex;
+  font-family: 'Poppins';
   justify-content: center;
   transition: opacity ease-in 0.15s;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
   svg {
     margin-right: 10px;
   }
@@ -23,20 +22,45 @@
     cursor: not-allowed;
   }
 
+  /* size */
+  &.large {
+    height: 52px;
+    font-size: 1.2rem;
+    padding: 20px 32px;
+  }
+
   // loading
 
   &.loading {
     cursor: wait;
   }
 
-  // 预设颜色
-
-  &.default {
+  /* type */
+  &.gradient {
+    color: #fff;
+    letter-spacing: 0.2rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background: linear-gradient(90deg, rgba(117, 91, 234, 1), rgba(255, 114, 192, 1));
   }
 
+  &.default {
+    background: #5f2eea;
+    color: #fff;
+  }
+
+  &.plain {
+    color: #5f2eea;
+    background: #fff;
+    border: 2px solid #d9dbe9;
+  }
+
+  /* round right-angle */
+  &[round] {
+    border-radius: 28px;
+  }
+
   &:hover:not([disabled]) {
-    opacity: 0.9;
+    opacity: 0.8;
   }
 
   > span {

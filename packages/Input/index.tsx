@@ -1,7 +1,14 @@
-import { ref, defineComponent, PropType, App } from 'vue'
+/*
+ * @author: Hansel
+ * @email: hsh01365238@gongdao.com
+ * @create: 2022-04-12 10:50:07
+ * @modify: 2022-04-13 17:05:16
+ * @desc:
+ */
+import { defineComponent, PropType, App } from 'vue'
 import './index.less'
 
-type IType = 'text' | 'textarea' | 'password'
+type IType = 'text' | 'textarea' | 'password' | 'number'
 
 const IProps = {
   /**

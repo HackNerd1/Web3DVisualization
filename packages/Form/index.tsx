@@ -1,4 +1,5 @@
 import { IValue, IRules, IColumns, IOption } from './index.d'
+import { isRequired } from './hooks'
 import { defineComponent, App, PropType, VNode, SetupContext, ref } from 'vue'
 import { Input, Icon } from '/packages/index.ts'
 import Wrapper from './wrapper.vue'
@@ -46,7 +47,7 @@ const wrapTags = (node: VNode, rest: IColumns & { required: boolean }) => {
 }
 
 const Form = defineComponent({
-  name: 'MyForm',
+  name: 'DvisForm',
   props: IProps,
   setup(props, ctx: SetupContext) {
     const { modelValue, columns } = props
@@ -80,16 +81,17 @@ const Form = defineComponent({
 
       switch (type) {
         case 'input':
-          const { isPassword, prefix, ...rest } = others
+          const { isPassword, prefix, rules, ...rest } = others
           const slots = {
             prefix: () => <Icon icon={prefix} size='18px' color='rgba(164, 182, 225, 1)'></Icon>,
           }
           return (
             // <Wrapper required={true} label={label} onValid={handleValid} isValid={valid.value}>
-            <Wrapper required={true} label={label}>
+            <Wrapper required={isRequired(rules)} label={label}>
               <Input
                 round
                 {...rest}
+                rules={rules}
                 v-slots={slots}
                 type={isPassword ? 'password' : 'text'}
                 onUpdate:modelValue={handleChange}
