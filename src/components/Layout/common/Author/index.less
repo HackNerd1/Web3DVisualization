@@ -1,5 +1,5 @@
 .dvis-author-bar {
-  padding: 66px 10px 10px 10px;
+  padding: 50px 24px 12px 24px;
 
   .avatar {
     display: flex;
@@ -12,5 +12,48 @@
     i {
       margin-right: 12px;
     }
+  }
+
+  .dvis-recent-activity {
+    margin: 72px 0 42px 0;
+
+    > header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    > header {
+      a,
+      h1 {
+        height: 20px;
+        line-height: 20px;
+      }
+
+      h1 {
+        // display: inline-block;
+        height: 20px;
+        font-size: 20px;
+        line-height: 20px;
+        font-weight: bold;
+        margin-bottom: 24px;
+        letter-spacing: 0.8px;
+        color: rgba(50, 65, 104, 1);
+      }
+
+      a {
+        font-weight: 400;
+        font-size: 14px;
+        color: #8795b4;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .dvis-work-statistics {
+    display: grid;
+    grid-row-gap: 24px;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 50% 50%;
   }
 }

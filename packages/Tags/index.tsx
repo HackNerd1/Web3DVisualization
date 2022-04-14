@@ -3,15 +3,15 @@
  * @version: 0.0.1
  * @Author: Hansel
  * @Date: 2022-04-10 15:31:50
- * @LastEditors: Hansel
- * @LastEditTime: 2022-04-10 21:09:24
+ * @LastEditors: Please set LastEditors
+ * @modify: 2022-04-14 14:39:31
  */
-import { defineComponent, App, PropType } from 'vue'
+import { defineComponent, App } from 'vue'
 import './index.less'
 const IProps = {
   type: {
     description: 'tag类型',
-    default: () => 'default', // 'default' | 'primary' | 'info' | 'success' | 'warning' | 'error'
+    default: () => 'default', // 'default' | 'primary' | 'info' | 'success' | 'warning' | 'error' | ''
     required: false,
     type: String,
   },

@@ -1,0 +1,64 @@
+.dvis-activity-card {
+  @icon-size: 45px;
+  width: 100%;
+  margin-bottom: 18px;
+
+  .dvis-icon {
+    line-height: 45px;
+    color: #4f86ff;
+    height: @icon-size;
+    width: @icon-size;
+    border: 1px solid #c5ddf5;
+    border-radius: 50%;
+  }
+
+  main {
+    @margin-left: 12px;
+    width: calc(100% - @icon-size - @margin-left);
+    margin-left: 12px;
+    text-transform: capitalize;
+
+    .dvis-activity-content {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #324168;
+    }
+
+    p {
+      position: relative;
+      font-size: 14px;
+      color: #a6b2cd;
+
+      &::before {
+        left: 0;
+        top: 50%;
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        position: absolute;
+        visibility: hidden;
+        transform: translate(-@margin-left, -50%);
+      }
+      /* status */
+
+      &.success,
+      &.faild {
+        margin-left: @margin-left;
+      }
+      &.success::before {
+        visibility: visible;
+        background-color: #05e285;
+      }
+      &.faild::before {
+        visibility: visible;
+        background-color: #05e285;
+      }
+    }
+  }
+}

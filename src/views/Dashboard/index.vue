@@ -7,7 +7,7 @@
     </section>
     <section>
       <h1>Dashboard</h1>
-      <div class="flex space-between">
+      <div class="flex justify-between">
         <n-skeleton height="40px" width="142px" round />
         <n-skeleton height="40px" width="142px" round />
         <n-skeleton height="40px" width="142px" round />
@@ -20,7 +20,7 @@
     </section>
     <section>
       <h1>Following</h1>
-      <div class="flex space-between">
+      <div class="flex justify-between">
         <n-skeleton height="205px" width="205px" :sharp="false" />
         <n-skeleton height="205px" width="205px" :sharp="false" />
         <n-skeleton height="205px" width="205px" :sharp="false" />

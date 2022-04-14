@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, reactive } from 'vue'
   import { useRouter } from 'vue-router'
   import { fetchGroup } from '@/api/assets'
   import { APPIAssetsList } from 'src/types/data'
@@ -44,7 +44,8 @@
       uid: '2',
     },
   ]
-  const modalVisable = ref<boolean>(true)
+  const form = reactive({})
+  const modalVisable = ref<boolean>(false)
   const assetsGroup = ref([])
   const router = useRouter()
   const transform = ref(0)
@@ -69,7 +70,7 @@
       rules: [
         {
           required: true,
-          triggle: '',
+          triggle: 'blur',
         },
       ],
     },
@@ -197,7 +198,7 @@
   </div>
   <dvis-modal v-model:visable="modalVisable">
     <template #header>Add</template>
-    <dvis-form :columns="columns" />
+    <dvis-form :columns="columns" v-model="form" />
   </dvis-modal>
 </template>
 

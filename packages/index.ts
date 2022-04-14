@@ -2,7 +2,7 @@
  * @author Hansel
  * @email hsh01365238@gongdao.com
  * @create 2022-04-13 10:00:18
- * @modify 2022-04-13 11:25:16
+ * @modify 2022-04-13 18:23:27
  * @desc 
  */
 /*
@@ -10,7 +10,7 @@
  * @version: 0.0.1
  * @Author: Hansel
  * @Date: 2021-11-26 14:43:28
- * @LastEditors: Hansel
+ * @LastEditors Please set LastEditors
  * @LastEditTime: 2022-04-10 22:02:12
  */
 import { App } from 'vue'
@@ -50,7 +50,7 @@ const install = (app: App) => {
 
 const MyComponents = {
   version: '0.0.1',
-  name: 'my-components',
+  name: 'dvis-components',
   install,
   ...components,
 }

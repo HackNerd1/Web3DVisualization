@@ -33,24 +33,6 @@ body {
   display: flex;
 }
 
-.space-between {
-  justify-content: space-between;
-}
-
-.space-evenly {
-  justify-content: space-evenly;
-}
-
-.space-around {
-  justify-content: space-around;
-}
-
-/**
-  * content menu 样式
-  */
-/* .mx-context-menu-item {
-  cursor: pointer;
-} */
 
 /** 
   * nprogress 背景样式
