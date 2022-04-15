@@ -2,7 +2,7 @@
  * @author: Hansel
  * @email: hsh01365238@gongdao.com
  * @create: 2022-04-13 10:43:57
- * @modify: 2022-04-13 16:41:24
+ * @modify: 2022-04-15 16:34:28
  * @desc:
  */
 import { defineComponent, App, ref, watchEffect } from 'vue'
@@ -33,6 +33,7 @@ const IProps = {
 const Modal = defineComponent({
   props: IProps,
   name: 'DvisModal',
+  emits: ['update:visable', 'save'],
   setup(props, { emit, expose, slots }) {
     const isVisable = ref<boolean>(props.visable)
     const maskRef = ref<HTMLElement | null>(null)
@@ -46,6 +47,9 @@ const Modal = defineComponent({
       if (e.target === maskRef.value) cancel()
       return
     }
+    const save = () => {
+      emit('save')
+    }
 
     watchEffect(() => {
       isVisable.value = props.visable
@@ -53,7 +57,7 @@ const Modal = defineComponent({
 
     const defaultFooter = () => (
       <>
-        <Button size={'large'} round>
+        <Button size={'large'} round onClick={save}>
           Save
         </Button>
         <Button type={'plain'} size={'large'} round onClick={cancel}>

@@ -1,11 +1,31 @@
 <script lang="ts" setup>
-  import { ref, onMounted, reactive } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { ref, onMounted } from 'vue'
   import { fetchGroup } from '@/api/assets'
   import { APPIAssetsList } from 'src/types/data'
   import { AssetsCard } from '@/components/common/assetsCard/index.tsx'
-  import { IColumns } from 'packages/Form/index.d'
+  import { groupColumns, assetsColumns } from 'src/views/MyAssets/data.ts'
+  import { useAssets, useGroup } from '@/views/MyAssets/hooks'
 
+  const {
+    form: assetsForm,
+    modalVisable: assetsModal,
+    onAdd: addAssets,
+    onSave: saveAssets,
+    onDelete: deleteAssets,
+    onEdit: editAssets,
+    onPreview,
+  } = useAssets()
+
+  const {
+    form: groupForm,
+    title: modalTitle,
+    groupData: assetsGroup,
+    modalVisable,
+    onEdit: editGroup,
+    onSave: saveGroup,
+    onDelete: deleteGroup,
+    onAdd: addGroup,
+  } = useGroup()
   /**
    * 色板
    */
@@ -44,61 +64,23 @@
       uid: '2',
     },
   ]
-  const form = reactive({})
-  const modalVisable = ref<boolean>(false)
-  const assetsGroup = ref([])
-  const router = useRouter()
+
   const transform = ref(0)
 
+  /** 生命周期 */
   onMounted(() => {
     fetchGroup({ page: 1, size: 20 }).then(({ data }) => {
       // assetsGroup.value = data
       assetsGroup.value = data.data.groups || []
     })
   })
+  /** 方法 */
   const handleTransform = (toggle: number) => {
     transform.value += 154 * toggle
   }
 
-  const columns: IColumns[] = [
-    {
-      type: 'input',
-      label: 'Name',
-      prop: 'name',
-      // prefix: 'icon-user',
-      placeholder: 'Please input group name',
-      rules: [
-        {
-          required: true,
-          triggle: 'blur',
-        },
-      ],
-    },
-    {
-      type: 'input',
-      label: 'Icon',
-      prop: 'icon',
-      // prefix: 'Select Icon',
-      placeholder: 'Please select icon',
-      // isPassword: true,
-    },
-  ]
-
-  const handleAdd = () => {
-    modalVisable.value = true
-  }
-
   const handleSearch = () => {
     // console.log('search')
-  }
-
-  const handleClick = () => {
-    // TODO 待传递界面ID
-    router.push({ path: '/project', query: { id: '' } })
-  }
-
-  const handleAddAssets = () => {
-    modalVisable.value = true
   }
 </script>
 
@@ -124,7 +106,7 @@
         <div class="carousel">
           <dvis-card
             class="flex justify-center align-center"
-            @click="handleAdd"
+            @click="addGroup"
             :style="{
               transform: `translateX(${transform}px)`,
               width: '88px',
@@ -148,10 +130,10 @@
             <template #content>
               <span class="effect flex justify-evenly align-center">
                 <dvis-tooltips description="Edit">
-                  <dvis-icon icon="icon-edit1" color="#333333" size="16px" />
+                  <dvis-icon @click="editGroup" icon="icon-edit1" color="#333333" size="16px" />
                 </dvis-tooltips>
                 <dvis-tooltips description="Delete">
-                  <dvis-icon icon="icon-delete2" color="#333333" size="16px" />
+                  <dvis-icon @click="deleteGroup" icon="icon-delete2" color="#333333" size="16px" />
                 </dvis-tooltips>
               </span>
             </template>
@@ -187,18 +169,29 @@
     <section>
       <h1>Assets List</h1>
       <div class="my-assets">
-        <dvis-card @on-click="handleAddAssets" class="flex justify-center align-center">
+        <dvis-card @on-click="addAssets" class="flex justify-center align-center">
           <template #content>
             <dvis-icon icon="icon-add" size="40px" color="rgb(191, 191, 191)" />
           </template>
         </dvis-card>
-        <AssetsCard @on-click="handleClick" v-for="(props, index) in projects" v-bind="props" :key="index" />
+        <AssetsCard
+          @on-edit="editAssets"
+          @on-delete="deleteAssets"
+          @on-preview="onPreview"
+          v-for="(props, index) in projects"
+          v-bind="props"
+          :key="index"
+        />
       </div>
     </section>
   </div>
-  <dvis-modal v-model:visable="modalVisable">
-    <template #header>Add</template>
-    <dvis-form :columns="columns" v-model="form" />
+  <dvis-modal v-model:visable="modalVisable" @save="saveGroup">
+    <template #header>{{ modalTitle }}</template>
+    <dvis-form :columns="groupColumns" v-model="groupForm" />
+  </dvis-modal>
+  <dvis-modal v-model:visable="assetsModal" @save="saveAssets">
+    <template #header>{{ modalTitle }}</template>
+    <dvis-form :columns="assetsColumns" v-model="assetsForm" />
   </dvis-modal>
 </template>
 

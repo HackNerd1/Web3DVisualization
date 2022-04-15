@@ -2,7 +2,7 @@
  * @author: Hansel
  * @email: hsh01365238@gongdao.com
  * @create: 2022-04-12 10:50:07
- * @modify: 2022-04-13 17:05:16
+ * @modify: 2022-04-15 15:56:30
  * @desc:
  */
 import { defineComponent, PropType, App } from 'vue'
@@ -30,11 +30,23 @@ const IProps = {
     required: false,
     default: () => '',
   },
+  mode: {
+    description: '输入框类型',
+    type: String, // default | 'primary' | ''
+    required: false,
+    default: () => 'default',
+  },
   placeholder: {
     description: '文本输入的占位符。',
     default: () => '',
     type: [String],
     required: false,
+  },
+  size: {
+    description: '大小',
+    type: String, //  'mini' | 'small' | 'default' | 'large'
+    required: false,
+    default: () => 'default',
   },
   // readonly: {
   //   description: '是否只读',
@@ -61,7 +73,10 @@ const Input = defineComponent({
     const { class: _, onKeyup, ...others } = attrs
 
     return () => (
-      <div class='dvis-input'>
+      <div
+        class={['dvis-input', slots.prefix ? 'prefix' : null, slots.suffix ? 'suffix' : null, props.mode]}
+        data-size={props.size}
+      >
         {/**前缀 */ slots.prefix && <div class='input-prefix'>{slots.prefix()}</div>}
         {/**后缀 */ slots.suffix && <div class='input-suffix'>{slots.suffix()}</div>}
         <input {...others} onInput={handleInput} type={props.type || 'text'} placeholder={props.placeholder} />

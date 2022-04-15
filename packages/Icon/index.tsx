@@ -1,8 +1,8 @@
 /*
  * @Author: Hansel
  * @Date: 2022-03-10 17:14:49
- * @LastEditors: Hansel
- * @LastEditTime: 2022-04-10 15:13:01
+ * @LastEditors: Please set LastEditors
+ * @modify: 2022-04-15 16:47:20
  * @FilePath: \Web3DVisualization\packages\Icon\index.tsx
  * @Description:
  */
@@ -37,7 +37,7 @@ const IProps = {
 const Icon = defineComponent({
   name: 'DvisIcon',
   props: IProps,
-  setup(props, { slots }) {
+  setup(props, { slots, emit }) {
     return () => (
       <i style={{ fontSize: props.size, color: props.color }} class={['dvis-icon', 'iconfont', props.icon]}>
         {slots.default && slots.default()}

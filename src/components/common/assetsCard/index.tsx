@@ -3,8 +3,8 @@
  * @version: 0.0.1
  * @Author: Hansel
  * @Date: 2022-04-10 15:51:43
- * @LastEditors: Hansel
- * @LastEditTime: 2022-04-10 22:05:17
+ * @LastEditors: Please set LastEditors
+ * @modify: 2022-04-15 16:48:15
  */
 import { defineComponent } from 'vue'
 import './index.less'
@@ -39,6 +39,7 @@ const IProps = {
 export const AssetsCard = defineComponent({
   name: 'AssetsCard',
   props: IProps,
+  emits: ['on-edit', 'on-preview', 'on-delete'],
   setup(props, { emit }) {
     const { title, description, background, status } = props
     const mapStatus = (status: string): string => {
@@ -56,13 +57,13 @@ export const AssetsCard = defineComponent({
       <div class={'dvis-card dvis-assets-card'}>
         <span class={'effect flex justify-evenly align-center'}>
           <dvis-tooltips description='Preview'>
-            <dvis-icon icon='icon-preview' color='#333333' size='16px'></dvis-icon>
+            <dvis-icon onClick={() => emit('on-preview')} icon='icon-preview' color='#333333' size='16px'></dvis-icon>
           </dvis-tooltips>
           <dvis-tooltips description='Edit'>
-            <dvis-icon icon='icon-edit1' color='#333333' size='16px'></dvis-icon>
+            <dvis-icon onClick={() => emit('on-edit')} icon='icon-edit1' color='#333333' size='16px'></dvis-icon>
           </dvis-tooltips>
           <dvis-tooltips description='Detete'>
-            <dvis-icon icon='icon-delete2' color='#333333' size='16px'></dvis-icon>
+            <dvis-icon onClick={() => emit('on-delete')} icon='icon-delete2' color='#333333' size='16px'></dvis-icon>
           </dvis-tooltips>
         </span>
         <div class={'backgournd'} style={{ backgroundImage: `url(${background})` }}>

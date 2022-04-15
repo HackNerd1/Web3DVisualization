@@ -1,6 +1,13 @@
 .dvis-input {
   position: relative;
 
+  /* prefix suffix*/
+  &.prefix input {
+    padding-left: 0.8rem;
+  }
+  &.suffix input {
+    padding-right: 1rem;
+  }
   .input-prefix,
   .input-suffix {
     top: 0;
@@ -24,33 +31,50 @@
     transform: translate(-20px, 0px);
   }
 
+  /* size */
+  &[data-size='large'] {
+    input {
+      font-size: 16px;
+      padding: 14px 24px;
+    }
+  }
+  &[data-size='default'] {
+    input {
+      font-size: 14px;
+      padding: 0.8rem 0.8rem;
+    }
+  }
+
   input {
+    @placeholder-color: #a0a3bd;
+
+    color: #a0a3bd;
+    font-family: 'Poppins';
     width: 100%;
-    font-size: 14px;
-    padding: 0.8rem 1rem;
     letter-spacing: 0.8px;
     box-sizing: border-box;
     transition: border ease-in 0.3s;
-    border: 0.15rem solid #cad2d9;
+    background: #eff0f7;
+    border: 0.15rem solid transparent;
 
     &::-webkit-input-placeholder {
-      color: rgba(164, 182, 225, 1);
+      color: @placeholder-color;
     }
     &::-moz-placeholder {
       /* Mozilla Firefox 19+ */
-      color: rgba(164, 182, 225, 1);
+      color: @placeholder-color;
     }
     &:-moz-placeholder {
       /* Mozilla Firefox 4 to 18 */
-      color: rgba(164, 182, 225, 1);
+      color: @placeholder-color;
     }
     &:-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: rgba(164, 182, 225, 1);
+      color: @placeholder-color;
     }
 
     &[round] {
-      border-radius: 0.3rem;
+      border-radius: 16px;
     }
 
     &:focus-visible {

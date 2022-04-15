@@ -2,7 +2,7 @@ import { IValue, IRules, IColumns, IOption } from './index.d'
 import { isRequired } from './hooks'
 import { defineComponent, App, PropType, VNode, SetupContext, ref } from 'vue'
 import { Input, Icon } from '/packages/index.ts'
-import Wrapper from './wrapper.vue'
+import Wrapper from './wrapper/wrapper.vue'
 import './index.less'
 
 const IProps = {
@@ -30,27 +30,27 @@ const IProps = {
   },
 }
 
-const wrapTags = (node: VNode, rest: IColumns & { required: boolean }) => {
-  const { label, span, prop, required } = rest
-  return () => (
-    <div class={['dvis-form-item']}>
-      {label ? (
-        <label for={prop} class={{ required: required }}>
-          {label}
-        </label>
-      ) : (
-        <></>
-      )}
-      {node}
-    </div>
-  )
-}
+// const wrapTags = (node: VNode, rest: IColumns & { required: boolean }) => {
+//   const { label, span, prop, required } = rest
+//   return () => (
+//     <div class={['dvis-form-item']}>
+//       {label ? (
+//         <label for={prop} class={{ required: required }}>
+//           {label}
+//         </label>
+//       ) : (
+//         <></>
+//       )}
+//       {node}
+//     </div>
+//   )
+// }
 
 const Form = defineComponent({
   name: 'DvisForm',
   props: IProps,
   setup(props, ctx: SetupContext) {
-    const { modelValue, columns } = props
+    const { modelValue, columns, option } = props
     const { slots, emit } = ctx
 
     const onReset = () => {
@@ -65,7 +65,7 @@ const Form = defineComponent({
     // const valid = ref(true)
 
     const renderColumns = (columns: IColumns) => {
-      const { type, label, span, prop, ...others } = columns
+      const { type, label, span, prop, labelPosition, ...others } = columns
 
       const handleChange = (content: string) => {
         Object.assign(form.value, { [prop || '']: content })
@@ -83,15 +83,15 @@ const Form = defineComponent({
         case 'input':
           const { isPassword, prefix, rules, ...rest } = others
           const slots = {
-            prefix: () => <Icon icon={prefix} size='18px' color='rgba(164, 182, 225, 1)'></Icon>,
+            prefix: prefix ? () => <Icon icon={prefix} size='18px' color='rgba(164, 182, 225, 1)'></Icon> : null,
           }
           return (
+            // TODO rules={rules}
             // <Wrapper required={true} label={label} onValid={handleValid} isValid={valid.value}>
-            <Wrapper required={isRequired(rules)} label={label}>
+            <Wrapper required={isRequired(rules)} label={label} labelPosition={labelPosition}>
               <Input
                 round
                 {...rest}
-                rules={rules}
                 v-slots={slots}
                 type={isPassword ? 'password' : 'text'}
                 onUpdate:modelValue={handleChange}

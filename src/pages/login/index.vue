@@ -2,7 +2,7 @@
  * @author: Hansel
  * @email: hsh01365238@gongdao.com
  * @create: 2022-04-12 10:50:07
- * @modify: 2022-04-13 17:11:44
+ * @modify: 2022-04-15 17:07:35
  * @desc: 
 -->
 <script lang="ts" setup>
@@ -25,10 +25,6 @@
     password: '',
   })
   const loading = ref(false)
-
-  // const handleInputUsername = (value: string) => (form.username = value)
-  // const handleInputPassword = (value: string) => (form.password = value)
-
   const handleLogin = () => {
     loading.value = !loading.value
     login(qs.stringify(form.value))
@@ -52,6 +48,8 @@
       label: 'Username',
       prop: 'username',
       prefix: 'icon-user',
+      labelPosition: 'top',
+      size: 'large',
       placeholder: 'Please Input Your Username',
       rules: [
         {
@@ -64,6 +62,8 @@
       type: 'input',
       label: 'Password',
       prop: 'password',
+      labelPosition: 'top',
+      size: 'large',
       prefix: 'icon-password-fill',
       placeholder: 'Please Input Your Password',
       isPassword: true,
