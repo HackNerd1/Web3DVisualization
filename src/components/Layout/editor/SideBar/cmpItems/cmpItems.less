@@ -1,0 +1,46 @@
+.editor-menu-item {
+  @layer-item-height: 6rem;
+  @transition-duration: 0.2s;
+  width: 90%;
+  display: flex;
+  cursor: pointer;
+  font-size: 14px;
+  overflow: hidden;
+  position: relative;
+  padding-left: 10px;
+  border-radius: 16px;
+  margin-top: 12px;
+  letter-spacing: 1px;
+  box-sizing: border-box;
+  background-color: #fff;
+  height: @layer-item-height;
+  line-height: @layer-item-height;
+  transition: border @transition-duration linear;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  position: relative;
+
+  &:hover {
+    .effect {
+      opacity: 1;
+    }
+  }
+
+  .effect {
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    width: 100%;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: #7384ac;
+    text-align: center;
+    height: @layer-item-height;
+    background: rgba(255, 255, 255, 0.45);
+
+    backdrop-filter: blur(45px);
+    position: absolute;
+    transition: opacity 0.3s linear;
+  }
+}

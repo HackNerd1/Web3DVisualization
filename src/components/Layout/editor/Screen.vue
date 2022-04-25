@@ -16,9 +16,6 @@
   import EventBus from '@/utils/eventBus'
   import { KEventBus } from '@/symbols'
   import { useStore } from '@/store'
-  // import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css'
-  // import Draw1 from '@/components/common/charts/chart1/index.tsx'
-  // import Draw from '@/components/common/charts/chart/index'
   import 'vue3-sketch-ruler/lib/style.css'
 
   type TDraggableContainer = InstanceType<typeof DraggableContainer>
@@ -396,6 +393,7 @@
     .screen {
       width: 100%;
       height: 100%;
+      background-color: #f6f9ff;
 
       &:focus-visible {
         // 按下键盘按键会触发focus-visible；隐藏focus-visible时的边框

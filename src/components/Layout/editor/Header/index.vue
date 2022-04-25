@@ -3,16 +3,16 @@
  * @version: 0.0.1
  * @Author: Hansel
  * @Date: 2021-09-29 16:44:08
- * @LastEditors: Hansel
- * @LastEditTime: 2022-03-27 13:56:16
+ * @LastEditors: Please set LastEditors
+ * @modify: 2022-04-25 16:16:01
 -->
 <script lang="ts" setup>
-  import HButton from 'src/components/Layout/editor/Header/HeaderButton.vue'
   import { IPropertyType } from '@/types'
   import EventBus from '@/utils/eventBus'
   import { KEventBus } from '@/symbols'
   import { useRouter } from 'vue-router'
   import { useStore } from '@/store'
+  import { EditorButton } from 'src/components/common/editorButton/editorButton'
   import { defineEmits, defineProps, inject, onUnmounted, computed } from 'vue'
 
   interface IProps {
@@ -87,9 +87,8 @@
 <template>
   <div class="dvis-editor-header">
     <aside class="button-group">
-      <HButton icon="icon-zhedie" @click="MButton.goBack()" />
-      <HButton icon="icon-shangyibu" message="撤销 Ctrl + Y" @click="MButton.goBack()" />
-      <HButton icon="icon-xiayibu1" message="还原 Ctrl + Z" @click="MButton.goBack()" />
+      <EditorButton icon="icon-shangyibu1" @on-click="MButton.goBack()" description="undo, ctrl + z" />
+      <EditorButton icon="icon-xiayibu3" description="restore, ctrl + y" />
     </aside>
     <main>
       <cite contenteditable="true" @blur="MTitle.onChange">
@@ -98,14 +97,17 @@
       </cite>
     </main>
     <aside class="button-group-right">
-      <HButton icon="icon-menu" @click="MButton.show(0)" :activated="propertyType === 0" />
-      <HButton icon="icon-shezhi" message="界面设置" @click="MButton.show(1)" :activated="propertyType === 1" />
+      <EditorButton icon="icon-save" size="18px" />
+      <EditorButton icon="icon-publish1" size="18px" />
+      <EditorButton icon="icon-menu" size="18px" @on-click="MButton.show(0)" description="menu" />
+      <EditorButton
+        size="18px"
+        icon="icon-shezhi"
+        description="界面设置"
+        @on-click="MButton.show(1)"
+        :activated="propertyType === 1"
+      />
     </aside>
-
-    <!-- <aside :class="['property', showProp ? 'show-proerty' : null]">
-      <Proerty v-if="propertyType === 0" />
-      <PageSetting v-if="propertyType === 1" />
-    </aside> -->
   </div>
 </template>
 
