@@ -3,6 +3,7 @@
   @layer-item-height: 32px;
   @transition-duration: 0.3s;
   margin-bottom: 32px;
+  user-select: none;
   width: 100%;
   display: flex;
   cursor: pointer;
@@ -72,8 +73,7 @@
 .component-list {
   top: 0;
   left: 0;
-  /* right: 0; */
-  width: 15rem;
+  width: 0;
   height: 100%;
   display: flex;
   overflow: auto;
@@ -83,9 +83,12 @@
   align-items: center;
   flex-direction: column;
   background-color: #fff;
+  transition: all 0.3s ease-in-out;
   transform: translate(@component-menu-width, @dvis-header-height);
-  // border-top: 0.1rem solid #edf1f5;
-  // border-left: 0.1rem solid #edf1f5;
+
+  &.show-component {
+    width: 240px;
+  }
 
   .component-method {
     width: 100%;

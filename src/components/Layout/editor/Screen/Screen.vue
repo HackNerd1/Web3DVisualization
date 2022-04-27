@@ -379,26 +379,5 @@
 </template>
 <style lang="less" scoped>
   @import '@/assets/styles/var';
-  .screen-wrapper {
-    width: 100%;
-    position: relative;
-    height: calc(100% - @dvis-header-height);
-    user-select: none;
-    overflow: auto;
-
-    &.show-property {
-      width: calc(100% + @property-menu-width);
-    }
-
-    .screen {
-      width: 100%;
-      height: 100%;
-      background-color: #f6f9ff;
-
-      &:focus-visible {
-        // 按下键盘按键会触发focus-visible；隐藏focus-visible时的边框
-        outline: none;
-      }
-    }
-  }
+  @import './screen.less';
 </style>

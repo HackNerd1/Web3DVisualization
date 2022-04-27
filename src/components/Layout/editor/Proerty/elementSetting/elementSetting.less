@@ -1,0 +1,22 @@
+.dvis-proerty {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem 1rem 1rem 1rem;
+
+  .element-setting-info {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transform: translateY(50%);
+  }
+
+  section {
+    label {
+      &::after {
+        margin-left: 0.1rem;
+        content: ':';
+      }
+    }
+  }
+}

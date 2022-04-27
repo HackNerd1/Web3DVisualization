@@ -3,15 +3,15 @@
  * @version: 0.0.1
  * @Author: Hansel
  * @Date: 2022-02-23 11:00:48
- * @LastEditors: Hansel
- * @LastEditTime: 2022-03-27 13:55:11
+ * @LastEditors: Please set LastEditors
+ * @modify: 2022-04-27 15:53:25
 -->
 <script lang="ts" setup>
   import SideBar from '@/components/Layout/editor/SideBar/index.vue'
   import EHeader from '@/components/Layout/editor/Header/index.vue'
-  import Screen from '@/components/Layout/editor/Screen.vue'
+  import Screen from '@/components/Layout/editor/Screen/Screen.vue'
   import Proerty from 'src/components/Layout/editor/Proerty/elementSetting/index.vue'
-  import PageSetting from 'src/components/Layout/editor/Proerty/pageSetting.vue'
+  import PageSetting from 'src/components/Layout/editor/Proerty/pageSetting/pageSetting.vue'
   import { useStore } from '@/store'
   import { ref, computed } from 'vue'
 

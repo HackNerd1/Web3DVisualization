@@ -2,7 +2,7 @@
  * @author: Hansel
  * @email: hsh01365238@gongdao.com
  * @create: 2022-04-12 10:53:45
- * @modify: 2022-04-25 16:13:57
+ * @modify: 2022-04-27 14:30:39
  * @desc: 
 -->
 <script lang="ts" setup>
@@ -70,8 +70,8 @@
     {{ name }}
     <div class="effect"></div>
   </div>
-  <div class="component-list" v-if="showComponent">
-    <ComponItem :items="MMenu.items[activedMenuIndex].data" />
+  <div :class="['component-list', showComponent ? 'show-component' : '']">
+    <ComponItem :items="MMenu.items[activedMenuIndex] ? MMenu.items[activedMenuIndex].data : []" />
   </div>
 </template>
 

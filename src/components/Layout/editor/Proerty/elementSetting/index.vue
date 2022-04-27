@@ -3,12 +3,12 @@
  * @version: 0.0.1
  * @Author: Hansel
  * @Date: 2022-02-24 16:22:22
- * @LastEditors: Hansel
- * @LastEditTime: 2022-03-27 20:41:01
+ * @LastEditors: Please set LastEditors
+ * @modify: 2022-04-27 15:57:41
 -->
 <script lang="ts" setup>
   // import { APPICmpSetting } from '@/types'
-  import { ref, reactive, computed } from 'vue'
+  import { reactive, computed } from 'vue'
   import { useStore } from '@/store'
   // import EventBus from '@/utils/eventBus'
   // import { KEventBus } from '@/symbols'
@@ -25,7 +25,6 @@
   const dataSetting = reactive({ dataType: 0, api: '', method: undefined })
   // const cmpSetting = ref<APPICmpSetting>(store.state.elementLists[store.state.currentElement])
   const cmpSetting = computed(() => store.state.elementLists[store.state.currentElement])
-  // console.log(store.state.elementLists[store.state.currentElement])
   // const selectElement = (index: number) => {
   //   cmpSetting.value = store.state.elementLists[index]
   // }
@@ -100,28 +99,5 @@
   </div>
 </template>
 <style lang="less" scoped>
-  .dvis-proerty {
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 0.5rem 1rem 1rem 1rem;
-
-    .element-setting-info {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      transform: translateY(50%);
-    }
-
-    section {
-      // display: flex;
-      // overflow: auto;
-      label {
-        &::after {
-          margin-left: 0.1rem;
-          content: ':';
-        }
-      }
-    }
-  }
+  @import './elementSetting.less';
 </style>

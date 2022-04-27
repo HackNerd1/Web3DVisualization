@@ -3,8 +3,8 @@
  * @version: 0.0.1
  * @Author: Hansel
  * @Date: 2022-03-02 14:59:57
- * @LastEditors: Hansel
- * @LastEditTime: 2022-03-27 20:11:47
+ * @LastEditors: Please set LastEditors
+ * @modify: 2022-04-27 15:55:37
 -->
 
 <script lang="ts" setup>
@@ -15,12 +15,9 @@
   const Store = useStore()
   const form = ref<IPageSetting>(Store.state.pageSetting)
 
-  // console.log(getPageSetting)
-
   const MSetting = (() => {
     const save = () => {
       Store.dispatch('setPageSetting', form.value)
-      // console.log(Store.state.pageSetting)
 
       // TODO 发送请求
     }
@@ -31,7 +28,7 @@
 <template>
   <div class="dvis-page-setting">
     <section>
-      <title>界面尺寸</title>
+      <title>page setting</title>
       <label>宽</label>
       <n-input-number v-model:value="form.width" :show-button="false" placeholder="请输入">
         <template #suffix> px </template>
@@ -53,21 +50,5 @@
 </template>
 
 <style lang="less" scoped>
-  .dvis-page-setting {
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 0.5rem 1rem 1rem 1rem;
-
-    section {
-      // display: flex;
-      // overflow: auto;
-      label {
-        &::after {
-          margin-left: 0.1rem;
-          content: ':';
-        }
-      }
-    }
-  }
+  @import './pageSetting.less';
 </style>
